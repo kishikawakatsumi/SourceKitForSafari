@@ -1,0 +1,21 @@
+{
+  "name": "@kishikawakattsumi/sourcekit-for-safari-helpers",
+  "version": "0.1.0",
+  "description": "SourceKit for Safari helper library",
+  "repository": "https://github.com/kishikawakattsumi/sourcekit-for-safari-helpers",
+  "license": "MIT",
+  "main": "./index.js",
+  "scripts": {
+    "build": "browserify index.js -o bundle.js"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.1.0",
+    "git-url-parse": "^11.1.2",
+    "highlight.js": "^9.18.1",
+    "marked": "^0.8.0",
+    "tippy.js": "^6.0.3"
+  },
+  "devDependencies": {
+    "browserify": "^16.5.0"
+  }
+}

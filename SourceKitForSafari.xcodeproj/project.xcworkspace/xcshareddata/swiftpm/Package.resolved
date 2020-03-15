@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "IndexStoreDB",
+        "repositoryURL": "https://github.com/apple/indexstore-db.git",
+        "state": {
+          "branch": "master",
+          "revision": "b99f773fa83640174c41e580e6ddda2abc617367",
+          "version": null
+        }
+      },
+      {
+        "package": "SourceKitLSP",
+        "repositoryURL": "git@github.com:apple/sourcekit-lsp.git",
+        "state": {
+          "branch": "master",
+          "revision": "81e2688c5d61e7864b525c59b9628ec79af9d16b",
+          "version": null
+        }
+      },
+      {
+        "package": "llbuild",
+        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
+        "state": {
+          "branch": "master",
+          "revision": "693067d6e0af13016f84682ebefc3a4869ddda93",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftPM",
+        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
+        "state": {
+          "branch": "master",
+          "revision": "afc7bd9efb0f0a0e53b060d30e47a876a888cc86",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-tools-support-core",
+        "repositoryURL": "https://github.com/apple/swift-tools-support-core.git",
+        "state": {
+          "branch": "master",
+          "revision": "d08234c4cf8046786a3552143532222a56273720",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
