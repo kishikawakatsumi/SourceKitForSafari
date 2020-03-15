@@ -9,6 +9,26 @@ SourceKit for Safari is a Safari extension for GitHub, that enables IDE features
 This is really proof of concept code--functional proof of concept, but proof of concept nonetheless--and has not been thoroughly tested. Use at your own risk.
 
 
+## Features
+
+- Show Document Items
+
+Bring up a list of document items, then select your desired document item to jump to the respective source code location.
+
+<img src="https://user-images.githubusercontent.com/40610/76712085-b7ffd080-6758-11ea-8506-8863d496e5b5.png" width="400" />
+
+- Quick Help popup
+
+Hovering the mouse cursor over a symbol shows documentation.
+
+<img src="https://user-images.githubusercontent.com/40610/76712323-f1d1d680-675a-11ea-8271-986f5aae3f63.png" width="400" />
+
+- Jumps to Definition
+
+If the text at the mouse cursor is a symbol defined in another file, turn it into a link navigating to the file.
+
+<img src="https://user-images.githubusercontent.com/40610/76712193-aa971600-6759-11ea-9aa1-424ee7f30ab3.png" width="400" />
+
 ## Installation
 
 * Download the latest `SourceKit for Safari.app` from [GitHub Releases](https://github.com/kishikawakatsumi/SourceKitForSafari/releases), run it once to install the extension.
