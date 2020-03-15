@@ -11,19 +11,19 @@ This is really proof of concept code--functional proof of concept, but proof of 
 
 ## Features
 
-- Show Document Items
+### Show Document Items
 
 Bring up a list of document items, then select your desired document item to jump to the respective source code location.
 
 <img src="https://user-images.githubusercontent.com/40610/76712085-b7ffd080-6758-11ea-8506-8863d496e5b5.png" width="400" />
 
-- Quick Help popup
+### Quick Help popup
 
 Hovering the mouse cursor over a symbol shows documentation.
 
 <img src="https://user-images.githubusercontent.com/40610/76712323-f1d1d680-675a-11ea-8271-986f5aae3f63.png" width="400" />
 
-- Jumps to Definition
+### Jumps to Definition
 
 If the text at the mouse cursor is a symbol defined in another file, turn it into a link navigating to the file.
 
