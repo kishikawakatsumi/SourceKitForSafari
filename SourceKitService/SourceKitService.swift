@@ -314,6 +314,10 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     private func encodeResponse(_ locations: [Location]) -> [[String: Any]] {
         var response = [[String: Any]]()
         for location in locations {
+            guard location.uri.stringValue.contains(Workspace.root.absoluteString) else {
+                continue
+            }
+
             let start = location.range.lowerBound
             let end = location.range.upperBound
             response.append(
