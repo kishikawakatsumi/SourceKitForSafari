@@ -20,7 +20,6 @@
 		145E9A20241405F6006DD651 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A1F241405F6006DD651 /* main.m */; };
 		145E9A2624140626006DD651 /* SourceKitService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKitService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		145E9A292414068B006DD651 /* SourceKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A282414068B006DD651 /* SourceKitService.swift */; };
-		145E9A3024142DC7006DD651 /* LSPBindings in Frameworks */ = {isa = PBXBuildFile; productRef = 145E9A2F24142DC7006DD651 /* LSPBindings */; };
 		145E9A3724146BA5006DD651 /* tippy.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3224146BA4006DD651 /* tippy.css */; };
 		145E9A3924146BA5006DD651 /* light-border.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3424146BA4006DD651 /* light-border.css */; };
 		145E9A3A24146BA5006DD651 /* light.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3524146BA5006DD651 /* light.css */; };
@@ -33,6 +32,8 @@
 		1493110D241C310B00CF87D3 /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493110C241C310B00CF87D3 /* Workspace.swift */; };
 		1493110F241CF44200CF87D3 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1493110E241CF44200CF87D3 /* style.css */; };
 		14931111241D4EC400CF87D3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14931110241D4EC400CF87D3 /* Settings.swift */; };
+		14DB8099241F06E600728A29 /* LSPBindings in Frameworks */ = {isa = PBXBuildFile; productRef = 14DB8098241F06E600728A29 /* LSPBindings */; };
+		14DB80B7241F096A00728A29 /* LSPBindings in Frameworks */ = {isa = PBXBuildFile; productRef = 14DB80B6241F096A00728A29 /* LSPBindings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14DB8099241F06E600728A29 /* LSPBindings in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				145E9A3024142DC7006DD651 /* LSPBindings in Frameworks */,
+				14DB80B7241F096A00728A29 /* LSPBindings in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +267,9 @@
 				14046109240BEE94004FE328 /* PBXTargetDependency */,
 			);
 			name = SourceKitForSafari;
+			packageProductDependencies = (
+				14DB8098241F06E600728A29 /* LSPBindings */,
+			);
 			productName = SourceKitForSafari;
 			productReference = 140460DF240BEE79004FE328 /* SourceKit for Safari.app */;
 			productType = "com.apple.product-type.application";
@@ -301,7 +306,7 @@
 			);
 			name = SourceKitService;
 			packageProductDependencies = (
-				145E9A2F24142DC7006DD651 /* LSPBindings */,
+				14DB80B6241F096A00728A29 /* LSPBindings */,
 			);
 			productName = SourceKitService;
 			productReference = 145E9A19241405F6006DD651 /* SourceKitService.xpc */;
@@ -340,7 +345,7 @@
 			);
 			mainGroup = 140460D6240BEE79004FE328;
 			packageReferences = (
-				145E9A2E24142DC7006DD651 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */,
+				14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */,
 			);
 			productRefGroup = 140460E0240BEE79004FE328 /* Products */;
 			projectDirPath = "";
@@ -744,9 +749,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		145E9A2E24142DC7006DD651 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */ = {
+		14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:apple/sourcekit-lsp.git";
+			repositoryURL = "https://github.com/apple/sourcekit-lsp.git";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -755,9 +760,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		145E9A2F24142DC7006DD651 /* LSPBindings */ = {
+		14DB8098241F06E600728A29 /* LSPBindings */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 145E9A2E24142DC7006DD651 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */;
+			package = 14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */;
+			productName = LSPBindings;
+		};
+		14DB80B6241F096A00728A29 /* LSPBindings */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */;
 			productName = LSPBindings;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "140460F5240BEE94004FE328"
-               BuildableName = "SafariExtension.appex"
+               BuildableName = "SourceKit for Safari.appex"
                BlueprintName = "SafariExtension"
                ReferencedContainer = "container:SourceKitForSafari.xcodeproj">
             </BuildableReference>

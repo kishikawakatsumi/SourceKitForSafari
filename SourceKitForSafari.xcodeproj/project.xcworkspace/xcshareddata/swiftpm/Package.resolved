@@ -12,7 +12,7 @@
       },
       {
         "package": "SourceKitLSP",
-        "repositoryURL": "git@github.com:apple/sourcekit-lsp.git",
+        "repositoryURL": "https://github.com/apple/sourcekit-lsp.git",
         "state": {
           "branch": "master",
           "revision": "81e2688c5d61e7864b525c59b9628ec79af9d16b",
