@@ -171,7 +171,11 @@ const activate = () => {
               const img = imageData
                 ? `<img src="${imageData}" width="16" height="16" align="center" />`
                 : symbolLetter.toUpperCase();
-              navigationItem.innerHTML = `<a href="${parsedUrl.href}#L${documentSymbol.start.line}">${img} ${documentSymbol.name}</a>`;
+              navigationItem.innerHTML = `<a href="${
+                parsedUrl.href
+              }#L${documentSymbol.start.line + 1}">${img} ${
+                documentSymbol.name
+              }</a>`;
               symbolNavigation.appendChild(navigationItem);
             });
 
