@@ -113,21 +113,24 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
             service.sendDefinitionRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
                 if successfully {
                     if let value = response["value"] as? [[String: Any]] {
-                        let locations = value.compactMap { (location) -> String? in
+                        let locations = value.compactMap { (location) -> [String: Any]? in
                             guard let uri = location["uri"] as? String, let start = location["start"] as? [String: Any], let line = start["line"] as? Int else { return nil }
-                            return uri
+
+                            let ref = uri
                                 .replacingOccurrences(of: resource, with: "")
                                 .replacingOccurrences(of: slug, with: "")
                                 .split(separator: "/")
                                 .joined(separator: "/")
                                 .appending("#L\(line + 1)")
+
+                            return ["uri": ref, "content": location["content"] ?? ""]
                         }
 
                         guard !locations.isEmpty else { return }
 
                         page.dispatchMessageToScript(
                             withName: "response",
-                            userInfo: ["request": "definition", "result": "success", "value": ["uri": locations[0]], "line": line, "character": character, "text": text]
+                            userInfo: ["request": "definition", "result": "success", "value": ["locations": locations], "line": line, "character": character, "text": text]
                         )
                     }
                 } else {
