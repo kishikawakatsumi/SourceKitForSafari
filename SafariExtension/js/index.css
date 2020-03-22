@@ -295,13 +295,3 @@ pre > code {
 .--sourcekit-for-safari_documentation > h3 {
   font-size: 14px;
 }
-
-.--sourcekit-for-safari_symbol-navigation {
-  max-width: 400px;
-  max-height: 800px;
-  padding: 0 10px;
-}
-
-.--sourcekit-for-safari_symbol-navigation-list {
-  padding: 0 10px;
-}

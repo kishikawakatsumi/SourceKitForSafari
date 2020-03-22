@@ -7,11 +7,14 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
     private let service = SourceKitServiceProxy.shared
 
     override init() {
+        super.init()
+        sendLogMessage(.debug, ".init()")
         os_log(.debug, log: log, "[SafariExtension] SafariExtensionHandler.init()")
         Settings.shared.prepare()
     }
 
     deinit {
+        sendLogMessage(.debug, ".deinit")
         os_log(.debug, log: log, "[SafariExtension] SafariExtensionHandler.deinit")
     }
 
@@ -21,13 +24,28 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
         switch messageName {
         case "initialize":
             page.getPropertiesWithCompletionHandler { [weak self] (properties) in
+                guard let self = self else { return }
+
                 guard let properties = properties, let url = properties.url else {
                     return
                 }
-                guard let repositoryURL = self?.parseGitHubURL(url) else {
+                guard let repositoryURL = self.parseGitHubURL(url) else {
                     return
                 }
-                self?.service.synchronizeRepository(repositoryURL) { (_, _) in }
+
+                self.sendLogMessage(.debug, "Sync repo: \(repositoryURL.path)")
+                self.service.synchronizeRepository(repositoryURL) { [weak self] (successfully, URL) in
+                    guard let self = self else { return }
+                    if successfully {
+                        if let URL = URL {
+                            self.sendLogMessage(.debug, "Sync succeeded: \(URL.path)")
+                        } else {
+                            self.sendLogMessage(.debug, "Sync skipped: \(repositoryURL.path)")
+                        }
+                    } else {
+                        self.sendLogMessage(.debug, "Sync failed: \(repositoryURL.path)")
+                    }
+                }
             }
         case "didOpen":
             guard let userInfo = userInfo,
@@ -38,19 +56,28 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                 else { break }
             os_log("[SafariExtension] didOpen(file: %{public}s)", log: log, type: .debug, filepath)
 
+            sendLogMessage(.debug, "↑ initialize: \(resource)/\(slug)")
             service.sendInitializeRequest(resource: resource, slug: slug) { [weak self] (successfully, _) in
                 guard let self = self else { return }
 
                 if successfully {
+                    self.sendLogMessage(.debug, "↓ initialize: \(resource)/\(slug)")
+
                     self.service.sendInitializedNotification(resource: resource, slug: slug) { [weak self] (successfully, _)  in
                         guard let self = self else { return }
 
                         if successfully {
+                            self.sendLogMessage(.debug, "↑ didOpen: \(filepath)")
+
                             self.service.sendDidOpenNotification(resource: resource, slug: slug, path: filepath, text: text) { [weak self] (successfully, _)  in
                                 guard let self = self else { return }
                                 
                                 if successfully {
+                                    self.sendLogMessage(.debug, "↑ documentSymbol: \(filepath)")
+
                                     self.service.sendDocumentSymbolRequest(resource: resource, slug: slug, path: filepath) { (successfully, response) in
+                                        self.sendLogMessage(.debug, "↓ documentSymbol: \(filepath)")
+
                                         guard let value = response["value"] else { return }
                                         page.dispatchMessageToScript(withName: "response", userInfo: ["request": "documentSymbol", "result": "success", "value": value])
                                     }
@@ -58,6 +85,8 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                             }
                         }
                     }
+                } else {
+                    self.sendLogMessage(.debug, "! initialize: \(resource)/\(slug)")
                 }
             }
         case "hover":
@@ -77,10 +106,16 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                     break
                 }
             }
+
+            sendLogMessage(.debug, "↑ hover: \(line):\(character)")
             os_log("[SafariExtension] hover(file: %{public}s, line: %d, character: %d)", log: log, type: .debug, filepath, line, character + skip)
 
-            service.sendHoverRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+            service.sendHoverRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { [weak self] (successfully, response) in
+                guard let self = self else { return }
+
                 if successfully {
+                    self.sendLogMessage(.debug, "↓ hover: \(line):\(character)")
+
                     if let value = response["value"] as? String {
                         page.dispatchMessageToScript(
                             withName: "response",
@@ -88,6 +123,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                         )
                     }
                 } else {
+                    self.sendLogMessage(.debug, "! hover: \(line):\(character)")
                     page.dispatchMessageToScript(withName: "response", userInfo: ["request": "hover", "result": "error"])
                 }
             }
@@ -108,10 +144,16 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                     break
                 }
             }
+
+            sendLogMessage(.debug, "↑ definition: \(line):\(character)")
             os_log("[SafariExtension] definition(file: %{public}s, line: %d, character: %d)", log: log, type: .debug, filepath, line, character + skip)
 
-            service.sendDefinitionRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+            service.sendDefinitionRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { [weak self] (successfully, response) in
+                guard let self = self else { return }
+
                 if successfully {
+                    self.sendLogMessage(.debug, "↓ definition: \(line):\(character)")
+
                     if let value = response["value"] as? [[String: Any]] {
                         let locations = value.compactMap { (location) -> [String: Any]? in
                             guard let uri = location["uri"] as? String, let start = location["start"] as? [String: Any], let line = start["line"] as? Int else { return nil }
@@ -134,6 +176,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                         )
                     }
                 } else {
+                    self.sendLogMessage(.debug, "! definition: \(line):\(character)")
                     page.dispatchMessageToScript(withName: "response", userInfo: ["request": "definition", "result": "error"])
                 }
             }
@@ -155,12 +198,12 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                 return
             }
 
-            activeTab.getActivePage { (activePate) in
-                guard let activePate = activePate else {
+            activeTab.getActivePage { (activePage) in
+                guard let activePage = activePage else {
                     return
                 }
 
-                activePate.getPropertiesWithCompletionHandler { [weak self] (properties) in
+                activePage.getPropertiesWithCompletionHandler { [weak self] (properties) in
                     guard let properties = properties, let url = properties.url else {
                         return
                     }
@@ -196,10 +239,39 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
         return viewController
     }
 
+    private func sendLogMessage(_ level: LogLevel, _ message: String) {
+        SFSafariApplication.getActiveWindow { (window) in
+            guard let window = window else {
+                return
+            }
+
+            window.getActiveTab { (activeTab) in
+                guard let activeTab = activeTab else {
+                    return
+                }
+
+                activeTab.getActivePage { (activePage) in
+                    guard let activePage = activePage else {
+                        return
+                    }
+
+                    activePage.dispatchMessageToScript(withName: "log", userInfo: ["value": "[\(level.rawValue.uppercased())] \(message)"])
+                }
+            }
+        }
+    }
+
     private func parseGitHubURL(_ url: URL) -> URL? {
         guard let scheme = url.scheme, scheme == "https" ,let host = url.host, host == "github.com", url.pathComponents.count >= 3 else {
             return nil
         }
         return URL(string: "\(scheme)://\(host)/\(url.pathComponents.dropFirst().prefix(2).joined(separator: "/")).git")
+    }
+
+    private enum LogLevel: String {
+        case debug
+        case info
+        case warn
+        case error
     }
 }

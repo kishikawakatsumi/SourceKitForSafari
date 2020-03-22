@@ -130,6 +130,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
 
         if FileManager().fileExists(atPath: directory.path) && !force {
             os_log("Sync repository: [skip]", log: log, type: .debug)
+            reply(true, nil)
             return
         }
 
