@@ -86,9 +86,30 @@ final class LanguageServer {
         let documentRoot = Workspace.documentRoot(resource: resource, slug: slug)
         let identifier = documentRoot.appendingPathComponent(document)
 
+        let ext = identifier.pathExtension
+        let language: Language
+        switch ext {
+        case "swift":
+            language = .swift
+        case "m":
+            language = .objective_c
+        case "mm":
+            language = .objective_cpp
+        case "c":
+            language = .c
+        case "cpp", "cc", "cxx", "c++":
+            language = .cpp
+        case "h":
+            language = .objective_c
+        case "hpp":
+            language = .objective_cpp
+        default:
+            language = .swift
+        }
+
         let document = TextDocumentItem(
             uri: DocumentURI(identifier),
-            language: .swift,
+            language: language,
             version: 1,
             text: text
         )
