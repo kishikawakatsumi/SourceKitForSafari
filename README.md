@@ -2,7 +2,7 @@
 
 SourceKit for Safari is a Safari extension for GitHub, that enables IDE features like go to definition, or documentation on hover.
 
-<img src="https://user-images.githubusercontent.com/40610/76706163-cc2bd980-6728-11ea-9b46-8ba95e8848eb.gif" width="600" />
+<img src="https://user-images.githubusercontent.com/40610/77254137-87f98580-6ca2-11ea-96db-6d01d9df6c5d.gif" width="600" />
 
 ## Warning
 
@@ -21,13 +21,13 @@ Bring up a list of document items, then select your desired document item to jum
 
 Hovering the mouse cursor over a symbol shows documentation.
 
-<img src="https://user-images.githubusercontent.com/40610/76712323-f1d1d680-675a-11ea-8271-986f5aae3f63.png" width="400" />
+<img src="https://user-images.githubusercontent.com/40610/77254202-ffc7b000-6ca2-11ea-9fb1-ce0e16f8e09e.png" width="400" />
 
 ### Jumps to Definition
 
 If the text at the mouse cursor is a symbol defined in another file, turn it into a link navigating to the file.
 
-<img src="https://user-images.githubusercontent.com/40610/76712193-aa971600-6759-11ea-9aa1-424ee7f30ab3.png" width="400" />
+<img src="https://user-images.githubusercontent.com/40610/77254205-022a0a00-6ca3-11ea-840f-d54d6a8baa10.png" width="400" />
 
 ## Installation
 
