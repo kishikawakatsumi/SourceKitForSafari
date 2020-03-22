@@ -91,6 +91,28 @@ final class SourceKitServiceProxy {
         }
     }
 
+    func sendExitNotification(resource: String, slug: String, completion: @escaping (Bool, [String: Any]) -> Void) {
+        connection.resume()
+        defer { connection.suspend() }
+        guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+        service.sendExitNotification(context: context, resource: resource, slug: slug) { (successfully, response) in
+            completion(successfully, response)
+        }
+    }
+
+    func sendShutdownRequest(resource: String, slug: String, completion: @escaping (Bool, [String: Any]) -> Void) {
+        connection.resume()
+        defer { connection.suspend() }
+        guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+        service.sendShutdownRequest(context: context, resource: resource, slug: slug) { (successfully, response) in
+            completion(successfully, response)
+        }
+    }
+
+
+
     func defaultLanguageServerPath(completion: @escaping (Bool, String) -> Void) {
         connection.resume()
         defer { connection.suspend() }

@@ -17,6 +17,10 @@ final class ServerRegistry {
         return server
     }
 
+    func remove(resource: String, slug: String) {
+        servers.removeValue(forKey: makeKey(host: resource, slug: slug))
+    }
+
     private func makeKey(host: String, slug: String) -> URL {
         URL(
             string: host.replacingOccurrences(of: "https://", with: "")

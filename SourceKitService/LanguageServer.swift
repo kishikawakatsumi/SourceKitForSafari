@@ -21,6 +21,7 @@ final class LanguageServer {
     private let queue = DispatchQueue(label: "request-queue")
 
     private var isInitialized = false
+    private let serverProcess = Process()
 
     init(resource: String, slug: String) {
         self.resource = resource
@@ -44,14 +45,13 @@ final class LanguageServer {
         connection.start(receiveHandler: Client())
         isInitialized = true
 
-        let process = Process()
-        process.launchPath = serverPath
+        serverProcess.launchPath = serverPath
         if let toolchain = context["toolchain"] {
-            process.environment = [
+            serverProcess.environment = [
                 "SOURCEKIT_TOOLCHAIN_PATH": toolchain
             ]
         }
-        process.arguments = [
+        serverProcess.arguments = [
             "--log-level", "info",
             "-Xswiftc", "-sdk",
             "-Xswiftc", SDKPath,
@@ -59,14 +59,14 @@ final class LanguageServer {
             "-Xswiftc", target
         ]
 
-        os_log("Initialize language server: %{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
+        os_log("Initialize language server: %{public}s", log: log, type: .debug, "\(serverProcess.launchPath!) \(serverProcess.arguments!.joined(separator: " "))")
 
-        process.standardOutput = serverToClient
-        process.standardInput = clientToServer
-        process.terminationHandler = { [weak self] process in
+        serverProcess.standardOutput = serverToClient
+        serverProcess.standardInput = clientToServer
+        serverProcess.terminationHandler = { [weak self] process in
             self?.connection.close()
         }
-        process.launch()
+        serverProcess.launch()
 
         let request = InitializeRequest(
             rootURI: DocumentURI(rootURI), capabilities: ClientCapabilities(), workspaceFolders: [WorkspaceFolder(uri: DocumentURI(rootURI))]
@@ -131,6 +131,22 @@ final class LanguageServer {
         _ = connection.send(definitionRequest, queue: queue) {
             completion($0)
         }
+    }
+
+    func sendShutdownRequest(context: [String : String], completion: @escaping (Result<ShutdownRequest.Response, ResponseError>) -> Void) {
+        guard isInitialized else {
+            completion(.success(ShutdownRequest.Response()))
+            return
+        }
+        let request = ShutdownRequest()
+        _ = connection.send(request, queue: queue) {
+            completion($0)
+        }
+    }
+
+    func sendExitNotification() {
+        connection.send(ExitNotification())
+        serverProcess.terminate()
     }
 }
 

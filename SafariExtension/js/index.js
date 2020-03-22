@@ -204,10 +204,10 @@ const activate = () => {
                   const img = imageData
                     ? `<img src="${imageData}" width="16" height="16" align="center" />`
                     : symbolLetter.toUpperCase();
-                  navigationItem.innerHTML = `<a href="${
+                  navigationItem.innerHTML = `<a class="--sourcekit-for-safari_symbol-navigation-item" href="${
                     parsedUrl.href
                   }#L${documentSymbol.start.line +
-                    1}" style="margin: 10px 0; display: block;">${img} ${
+                    1}" style="margin: 10px 4px; display: block;">${img} ${
                     documentSymbol.name
                   }</a>`;
                   symbolNavigation.appendChild(navigationItem);

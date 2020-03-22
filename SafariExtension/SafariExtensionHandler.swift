@@ -9,13 +9,13 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
     override init() {
         super.init()
         sendLogMessage(.debug, ".init()")
-        os_log(.debug, log: log, "[SafariExtension] SafariExtensionHandler.init()")
+        os_log("[SafariExtension] SafariExtensionHandler.init()", log: log, type: .debug)
         Settings.shared.prepare()
     }
 
     deinit {
         sendLogMessage(.debug, ".deinit")
-        os_log(.debug, log: log, "[SafariExtension] SafariExtensionHandler.deinit")
+        os_log("[SafariExtension] SafariExtensionHandler.deinit", log: log, type: .debug)
     }
 
     override func messageReceived(withName messageName: String, from page: SFSafariPage, userInfo: [String : Any]?) {

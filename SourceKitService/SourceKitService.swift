@@ -122,6 +122,32 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         }
     }
 
+    func sendShutdownRequest(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
+        os_log("[SourceKitService] sendShutdownRequest(resource: %{public}s, slug: %{public}s)", log: log, type: .debug, resource, slug)
+
+        let server = ServerRegistry.shared.get(resource: resource, slug: slug)
+
+        server.sendShutdownRequest(context: context) {
+            switch $0 {
+            case .success:
+                reply(true, ["result": "success"])
+            case .failure(let error):
+                reply(false, ["result": "error \(error)"])
+            }
+        }
+    }
+
+    func sendExitNotification(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
+        os_log("[SourceKitService] sendExitNotification(slug: %{public}s)", log: log, type: .debug, slug)
+
+        let server = ServerRegistry.shared.get(resource: resource, slug: slug)
+
+        server.sendExitNotification()
+        ServerRegistry.shared.remove(resource: resource, slug: slug)
+        
+        reply(true, ["result": "success"])
+    }
+
     func synchronizeRepository(repository: URL, force: Bool, reply: @escaping (Bool, URL?) -> Void) {
         guard let host = repository.host else { return }
 

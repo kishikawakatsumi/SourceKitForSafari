@@ -49,6 +49,18 @@ NS_SWIFT_NAME(sendHoverRequest(context:resource:slug:path:line:character:reply:)
                                    reply:(void (^)(BOOL successfully, NSDictionary<NSString *, id> *response))reply
 NS_SWIFT_NAME(sendDefinitionRequest(context:resource:slug:path:line:character:reply:));
 
+- (void)sendShutdownRequestWithContext:(NSDictionary<NSString *, NSString *> *)context
+                              resource:(NSString *)resource
+                                  slug:(NSString *)slug
+                                 reply:(void (^)(BOOL successfully, NSDictionary<NSString *, id> *response))reply
+NS_SWIFT_NAME(sendShutdownRequest(context:resource:slug:reply:));
+
+- (void)sendExitNotificationWithContext:(NSDictionary<NSString *, NSString *> *)context
+                               resource:(NSString *)resource
+                                   slug:(NSString *)slug
+                                  reply:(void (^)(BOOL successfully, NSDictionary<NSString *, id> *response))reply
+NS_SWIFT_NAME(sendExitNotification(context:resource:slug:reply:));
+
 - (void)defaultLanguageServerPathWithReply:(void (^)(BOOL successfully, NSString *path))reply
 NS_SWIFT_NAME(defaultLanguageServerPath(reply:));
 

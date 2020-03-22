@@ -1,4 +1,5 @@
 import SafariServices
+import OSLog
 
 final class SafariExtensionViewController: SFSafariExtensionViewController {
     static let shared: SafariExtensionViewController = {
@@ -32,9 +33,12 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
     @IBOutlet private var repositoryTextField: NSTextField!
     @IBOutlet private var accessTokenTextField: NSTextField!
 
-    @IBOutlet private var syncButton: NSButton!
+    @IBOutlet private var syncSpinner: NSProgressIndicator!
     @IBOutlet private var deleteButton: NSButton!
-    @IBOutlet private var spinner: NSProgressIndicator!
+    @IBOutlet private var syncButton: NSButton!
+
+    @IBOutlet private var relaunchSpinner: NSProgressIndicator!
+    @IBOutlet private var relaunchButton: NSButton!
 
     func updateUI() {
         DispatchQueue.main.async { [weak self] in
@@ -42,8 +46,10 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
 
             if Settings.shared.serverPathOption == .default {
                 self.serverPopUp.selectItem(at: 0)
+                self.serverTextField.isEditable = false
             } else {
                 self.serverPopUp.selectItem(at: 1)
+                self.serverTextField.isEditable = true
             }
 
             self.serverTextField.stringValue = Settings.shared.serverPath
@@ -63,8 +69,10 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
 
             if Settings.shared.toolchainOption == .default {
                 self.toolchainPopUp.selectItem(at: 0)
+                self.serverTextField.isEditable = false
             } else {
                 self.toolchainPopUp.selectItem(at: 1)
+                self.serverTextField.isEditable = true
             }
 
             self.toolchainTextField.stringValue = Settings.shared.toolchain
@@ -78,6 +86,17 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
         if sender.indexOfSelectedItem == 0 {
             Settings.shared.serverPathOption = .default
             serverTextField.isEditable = false
+
+            service.defaultLanguageServerPath { (successfully, response) in
+                if successfully {
+                    os_log("[SafariExtension] Settings changed 'server path': %{public}s", log: log, type: .debug, "\(response)")
+                    Settings.shared.serverPath = response
+
+                    DispatchQueue.main.async { [weak self] in
+                        self?.serverTextField.stringValue = response
+                    }
+                }
+            }
         } else {
             Settings.shared.serverPathOption = .custom
             serverTextField.isEditable = true
@@ -91,7 +110,12 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
 
         service.defaultSDKPath(for: SDKOption.rawValue) { (successfully, response) in
             if successfully {
+                os_log("[SafariExtension] Settings changed 'SDK path': %{public}s", log: log, type: .debug, "\(response)")
                 Settings.shared.SDKPath = response
+
+                DispatchQueue.main.async { [weak self] in
+                    self?.SDKTextField.stringValue = response
+                }
             }
         }
     }
@@ -112,11 +136,13 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
     private func synchronizeRepository(_ sender: NSButton) {
         guard let repository = URL(string: repository) else { return }
 
-        spinner.startAnimation(self)
+        syncSpinner.startAnimation(self)
 
         service.synchronizeRepository(repository, force: true) { [weak self] (successfully, response) in
             guard let self = self else { return }
-            self.spinner.stopAnimation(self)
+            DispatchQueue.main.async { [weak self] in
+                self?.syncSpinner.stopAnimation(self)
+            }
         }
     }
 
@@ -124,11 +150,57 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
     private func deleteLocalRepository(_ sender: NSButton) {
         guard let repository = URL(string: repository) else { return }
 
-        spinner.startAnimation(self)
+        syncSpinner.startAnimation(self)
 
         service.deleteLocalRepository(repository) { [weak self] (successfully, response) in
             guard let self = self else { return }
-            self.spinner.stopAnimation(self)
+            DispatchQueue.main.async { [weak self] in
+                self?.syncSpinner.stopAnimation(self)
+            }
+        }
+    }
+
+    @IBAction
+    private func relaunchServer(_ sender: NSButton) {
+        guard let repository = URL(string: repository) else { return }
+        guard let resource = repository.host else { return }
+        let slug = repository.deletingPathExtension().path.split(separator: "/").joined(separator: "/")
+
+        relaunchSpinner.startAnimation(self)
+
+        service.sendShutdownRequest(resource: resource, slug: slug) { [weak self] (successfully, response) in
+            guard let self = self else { return }
+            self.service.sendExitNotification(resource: resource, slug: slug) { [weak self] (successfully, response) in
+                guard let self = self else { return }
+
+                self.service.sendInitializeRequest(resource: resource, slug: slug) { [weak self] (successfully, response) in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.syncSpinner.stopAnimation(self)
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension SafariExtensionViewController: NSTextFieldDelegate {
+    func controlTextDidChange(_ notification: Notification) {
+        if let textField = notification.object as? NSTextField, textField === serverTextField {
+            os_log("[SafariExtension] Settings changed 'server path': %{public}s", log: log, type: .debug, "\(textField.stringValue)")
+            Settings.shared.serverPath = textField.stringValue
+        }
+        if let textField = notification.object as? NSTextField, textField === SDKTextField {
+            os_log("[SafariExtension] Settings changed 'SDK path': %{public}s", log: log, type: .debug, "\(textField.stringValue)")
+            Settings.shared.SDKPath = textField.stringValue
+        }
+        if let textField = notification.object as? NSTextField, textField === toolchainTextField {
+            os_log("[SafariExtension] Settings changed 'toolchain': %{public}s", log: log, type: .debug, "\(textField.stringValue)")
+            Settings.shared.toolchain = textField.stringValue
+        }
+        if let textField = notification.object as? NSTextField, textField === accessTokenTextField {
+            os_log("[SafariExtension] Settings changed 'access token': %{public}s", log: log, type: .debug, "\(textField.stringValue)")
+            Settings.shared.accessToken = textField.stringValue
         }
     }
 }

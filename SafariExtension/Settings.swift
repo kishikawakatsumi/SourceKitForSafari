@@ -113,10 +113,10 @@ final class Settings {
     }
 
     enum SDKOption: String, CaseIterable {
-        case iOS
-        case macOS
-        case watchOS
-        case tvOS
+        case iOS = "iphonesimulator"
+        case macOS = "macosx"
+        case watchOS = "watchsimulator"
+        case tvOS = "appletvsimulator"
     }
 
     enum ToolchainOption: String, CaseIterable {
