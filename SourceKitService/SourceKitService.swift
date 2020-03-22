@@ -320,13 +320,25 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
 
             let start = location.range.lowerBound
             let end = location.range.upperBound
+
+            var content = ""
+            if let file = URL(string: location.uri.stringValue), let source = try? String(contentsOf: file) {
+                let lines = source
+                    .split(separator: "\n", omittingEmptySubsequences: false)
+                    .dropFirst(start.line)
+                    .prefix(10)
+                content = lines.joined(separator: "\n")
+            }
+
             response.append(
                 ["uri": location.uri.stringValue
                     .replacingOccurrences(of: Workspace.root.absoluteString, with: "")
                     .split(separator: "/")
                     .joined(separator: "/"),
                  "start": ["line": start.line, "character": start.utf16index],
-                 "end": ["line": end.line, "character": end.utf16index],]
+                 "end": ["line": end.line, "character": end.utf16index],
+                 "content": content,
+                ]
             )
         }
         return response

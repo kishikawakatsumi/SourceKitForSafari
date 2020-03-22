@@ -17,6 +17,27 @@
 		14046101240BEE94004FE328 /* SafariExtensionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140460FF240BEE94004FE328 /* SafariExtensionViewController.xib */; };
 		14046106240BEE94004FE328 /* ToolbarItemIcon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 14046105240BEE94004FE328 /* ToolbarItemIcon.pdf */; };
 		1404610A240BEE94004FE328 /* SourceKit for Safari.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 140460F6240BEE94004FE328 /* SourceKit for Safari.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		144D1D7B242678BF00B7AC65 /* E@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D66242678BF00B7AC65 /* E@2x.png */; };
+		144D1D7C242678C000B7AC65 /* S@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D67242678BF00B7AC65 /* S@3x.png */; };
+		144D1D7D242678C000B7AC65 /* I.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D68242678BF00B7AC65 /* I.png */; };
+		144D1D7E242678C000B7AC65 /* I@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D69242678BF00B7AC65 /* I@2x.png */; };
+		144D1D7F242678C000B7AC65 /* I@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D6A242678BF00B7AC65 /* I@3x.png */; };
+		144D1D80242678C000B7AC65 /* M.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D6B242678BF00B7AC65 /* M.png */; };
+		144D1D81242678C000B7AC65 /* S@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D6C242678BF00B7AC65 /* S@2x.png */; };
+		144D1D82242678C000B7AC65 /* E@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D6D242678BF00B7AC65 /* E@3x.png */; };
+		144D1D83242678C000B7AC65 /* C@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D6E242678BF00B7AC65 /* C@2x.png */; };
+		144D1D84242678C000B7AC65 /* M@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D6F242678BF00B7AC65 /* M@3x.png */; };
+		144D1D85242678C000B7AC65 /* M@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D70242678BF00B7AC65 /* M@2x.png */; };
+		144D1D86242678C000B7AC65 /* C@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D71242678BF00B7AC65 /* C@3x.png */; };
+		144D1D87242678C000B7AC65 /* P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D72242678BF00B7AC65 /* P@2x.png */; };
+		144D1D88242678C000B7AC65 /* F@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D73242678BF00B7AC65 /* F@3x.png */; };
+		144D1D89242678C000B7AC65 /* F@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D74242678BF00B7AC65 /* F@2x.png */; };
+		144D1D8A242678C000B7AC65 /* P@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D75242678BF00B7AC65 /* P@3x.png */; };
+		144D1D8B242678C000B7AC65 /* C.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D76242678BF00B7AC65 /* C.png */; };
+		144D1D8C242678C000B7AC65 /* S.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D77242678BF00B7AC65 /* S.png */; };
+		144D1D8D242678C000B7AC65 /* E.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D78242678BF00B7AC65 /* E.png */; };
+		144D1D8E242678C000B7AC65 /* P.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D79242678BF00B7AC65 /* P.png */; };
+		144D1D8F242678C000B7AC65 /* F.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D7A242678BF00B7AC65 /* F.png */; };
 		145E9A20241405F6006DD651 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A1F241405F6006DD651 /* main.m */; };
 		145E9A2624140626006DD651 /* SourceKitService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKitService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		145E9A292414068B006DD651 /* SourceKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A282414068B006DD651 /* SourceKitService.swift */; };
@@ -86,6 +107,27 @@
 		14046102240BEE94004FE328 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14046105240BEE94004FE328 /* ToolbarItemIcon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ToolbarItemIcon.pdf; sourceTree = "<group>"; };
 		14046107240BEE94004FE328 /* SafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafariExtension.entitlements; sourceTree = "<group>"; };
+		144D1D66242678BF00B7AC65 /* E@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "E@2x.png"; sourceTree = "<group>"; };
+		144D1D67242678BF00B7AC65 /* S@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S@3x.png"; sourceTree = "<group>"; };
+		144D1D68242678BF00B7AC65 /* I.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = I.png; sourceTree = "<group>"; };
+		144D1D69242678BF00B7AC65 /* I@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "I@2x.png"; sourceTree = "<group>"; };
+		144D1D6A242678BF00B7AC65 /* I@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "I@3x.png"; sourceTree = "<group>"; };
+		144D1D6B242678BF00B7AC65 /* M.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = M.png; sourceTree = "<group>"; };
+		144D1D6C242678BF00B7AC65 /* S@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S@2x.png"; sourceTree = "<group>"; };
+		144D1D6D242678BF00B7AC65 /* E@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "E@3x.png"; sourceTree = "<group>"; };
+		144D1D6E242678BF00B7AC65 /* C@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "C@2x.png"; sourceTree = "<group>"; };
+		144D1D6F242678BF00B7AC65 /* M@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M@3x.png"; sourceTree = "<group>"; };
+		144D1D70242678BF00B7AC65 /* M@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M@2x.png"; sourceTree = "<group>"; };
+		144D1D71242678BF00B7AC65 /* C@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "C@3x.png"; sourceTree = "<group>"; };
+		144D1D72242678BF00B7AC65 /* P@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "P@2x.png"; sourceTree = "<group>"; };
+		144D1D73242678BF00B7AC65 /* F@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F@3x.png"; sourceTree = "<group>"; };
+		144D1D74242678BF00B7AC65 /* F@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F@2x.png"; sourceTree = "<group>"; };
+		144D1D75242678BF00B7AC65 /* P@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "P@3x.png"; sourceTree = "<group>"; };
+		144D1D76242678BF00B7AC65 /* C.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = C.png; sourceTree = "<group>"; };
+		144D1D77242678BF00B7AC65 /* S.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S.png; sourceTree = "<group>"; };
+		144D1D78242678BF00B7AC65 /* E.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = E.png; sourceTree = "<group>"; };
+		144D1D79242678BF00B7AC65 /* P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = P.png; sourceTree = "<group>"; };
+		144D1D7A242678BF00B7AC65 /* F.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = F.png; sourceTree = "<group>"; };
 		145E9A19241405F6006DD651 /* SourceKitService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = SourceKitService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		145E9A1B241405F6006DD651 /* SourceKitServiceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceKitServiceProtocol.h; sourceTree = "<group>"; };
 		145E9A1F241405F6006DD651 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -189,11 +231,40 @@
 				145E9A2A24140884006DD651 /* SafariExtension-Bridging-Header.h */,
 				145E9A412414B876006DD651 /* js */,
 				145E9A442414B8B5006DD651 /* css */,
+				144D1D65242678BF00B7AC65 /* images */,
 				14046105240BEE94004FE328 /* ToolbarItemIcon.pdf */,
 				14046107240BEE94004FE328 /* SafariExtension.entitlements */,
 				14046102240BEE94004FE328 /* Info.plist */,
 			);
 			path = SafariExtension;
+			sourceTree = "<group>";
+		};
+		144D1D65242678BF00B7AC65 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				144D1D76242678BF00B7AC65 /* C.png */,
+				144D1D6E242678BF00B7AC65 /* C@2x.png */,
+				144D1D71242678BF00B7AC65 /* C@3x.png */,
+				144D1D78242678BF00B7AC65 /* E.png */,
+				144D1D66242678BF00B7AC65 /* E@2x.png */,
+				144D1D6D242678BF00B7AC65 /* E@3x.png */,
+				144D1D7A242678BF00B7AC65 /* F.png */,
+				144D1D74242678BF00B7AC65 /* F@2x.png */,
+				144D1D73242678BF00B7AC65 /* F@3x.png */,
+				144D1D68242678BF00B7AC65 /* I.png */,
+				144D1D69242678BF00B7AC65 /* I@2x.png */,
+				144D1D6A242678BF00B7AC65 /* I@3x.png */,
+				144D1D6B242678BF00B7AC65 /* M.png */,
+				144D1D70242678BF00B7AC65 /* M@2x.png */,
+				144D1D6F242678BF00B7AC65 /* M@3x.png */,
+				144D1D79242678BF00B7AC65 /* P.png */,
+				144D1D72242678BF00B7AC65 /* P@2x.png */,
+				144D1D75242678BF00B7AC65 /* P@3x.png */,
+				144D1D77242678BF00B7AC65 /* S.png */,
+				144D1D6C242678BF00B7AC65 /* S@2x.png */,
+				144D1D67242678BF00B7AC65 /* S@3x.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		145E9A1A241405F6006DD651 /* SourceKitService */ = {
@@ -372,13 +443,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144D1D83242678C000B7AC65 /* C@2x.png in Resources */,
 				14046106240BEE94004FE328 /* ToolbarItemIcon.pdf in Resources */,
+				144D1D85242678C000B7AC65 /* M@2x.png in Resources */,
+				144D1D89242678C000B7AC65 /* F@2x.png in Resources */,
+				144D1D86242678C000B7AC65 /* C@3x.png in Resources */,
 				145E9A3E24146F97006DD651 /* xcode.css in Resources */,
+				144D1D7B242678BF00B7AC65 /* E@2x.png in Resources */,
+				144D1D80242678C000B7AC65 /* M.png in Resources */,
+				144D1D7C242678C000B7AC65 /* S@3x.png in Resources */,
 				145E9A3A24146BA5006DD651 /* light.css in Resources */,
+				144D1D82242678C000B7AC65 /* E@3x.png in Resources */,
+				144D1D8E242678C000B7AC65 /* P.png in Resources */,
+				144D1D8F242678C000B7AC65 /* F.png in Resources */,
+				144D1D88242678C000B7AC65 /* F@3x.png in Resources */,
+				144D1D8A242678C000B7AC65 /* P@3x.png in Resources */,
 				145E9A3924146BA5006DD651 /* light-border.css in Resources */,
 				145E9A3724146BA5006DD651 /* tippy.css in Resources */,
+				144D1D84242678C000B7AC65 /* M@3x.png in Resources */,
+				144D1D81242678C000B7AC65 /* S@2x.png in Resources */,
+				144D1D8D242678C000B7AC65 /* E.png in Resources */,
+				144D1D7F242678C000B7AC65 /* I@3x.png in Resources */,
 				1493110F241CF44200CF87D3 /* style.css in Resources */,
+				144D1D8B242678C000B7AC65 /* C.png in Resources */,
+				144D1D7E242678C000B7AC65 /* I@2x.png in Resources */,
+				144D1D87242678C000B7AC65 /* P@2x.png in Resources */,
 				145E9A462414B907006DD651 /* bundle.js in Resources */,
+				144D1D7D242678C000B7AC65 /* I.png in Resources */,
+				144D1D8C242678C000B7AC65 /* S.png in Resources */,
 				14046101240BEE94004FE328 /* SafariExtensionViewController.xib in Resources */,
 				145E9A3D24146F97006DD651 /* github.css in Resources */,
 			);

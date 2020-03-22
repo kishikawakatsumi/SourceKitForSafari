@@ -6,16 +6,20 @@
   "license": "MIT",
   "main": "./index.js",
   "scripts": {
-    "build": "browserify index.js -o bundle.js"
+    "build": "browserify -t browserify-css index.js -o bundle.js"
   },
   "dependencies": {
     "@popperjs/core": "^2.1.0",
+    "bootstrap": "^4.4.1",
     "git-url-parse": "^11.1.2",
     "highlight.js": "^9.18.1",
+    "jquery": "^3.4.1",
     "marked": "^0.8.0",
+    "popper.js": "^1.16.1",
     "tippy.js": "^6.0.3"
   },
   "devDependencies": {
-    "browserify": "^16.5.0"
+    "browserify": "^16.5.0",
+    "browserify-css": "^0.15.0"
   }
 }
