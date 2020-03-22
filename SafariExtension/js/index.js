@@ -153,8 +153,23 @@ const activate = () => {
             const blobCodeInner = document.querySelector(".blob-code-inner");
             const style = getComputedStyle(blobCodeInner);
 
+            const navigationContainer = document.createElement("div");
+            navigationContainer.classList.add(
+              "--sourcekit-for-safari_symbol-navigation",
+              "row"
+            );
+            const navigationLayoutColumn = document.createElement("div");
+            navigationLayoutColumn.classList.add("overflow-auto", "col-12");
+
+            navigationContainer.appendChild(navigationLayoutColumn);
+
             const symbolNavigation = document.createElement("ul");
+            symbolNavigation.classList.add(
+              "--sourcekit-for-safari_symbol-navigation-list"
+            );
             symbolNavigation.style.cssText = `list-style: none; font-family: ${style.fontFamily}; font-size: ${style.fontSize};`;
+
+            navigationLayoutColumn.appendChild(symbolNavigation);
 
             symbols.forEach(documentSymbol => {
               if (!isNaN(documentSymbol.kind)) {
@@ -187,13 +202,13 @@ const activate = () => {
             });
 
             codeNavigation = tippy(document.querySelector(".blob-wrapper"), {
-              content: symbolNavigation,
+              content: navigationContainer,
               interactive: true,
               arrow: false,
               animation: false,
               duration: 0,
               placement: "right-start",
-              offset: [0, -20],
+              offset: [0, -80],
               theme: "light-border",
               trigger: "manual",
               hideOnClick: false
