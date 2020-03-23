@@ -246,31 +246,20 @@ const activate = () => {
                     return;
                   }
 
-                  const symbolImages = {
-                    s: `${safari.extension.baseURI}S@3x.png"`,
-                    c: `${safari.extension.baseURI}C@3x.png"`,
-                    i: `${safari.extension.baseURI}I@3x.png"`,
-                    p: `${safari.extension.baseURI}P@3x.png"`,
-                    m: `${safari.extension.baseURI}M@3x.png"`,
-                    f: `${safari.extension.baseURI}F@3x.png"`,
-                    e: `${safari.extension.baseURI}E@3x.png"`
-                  };
-
                   const navigationItem = document.createElement("li");
                   navigationItem.classList.add(
                     "--sourcekit-for-safari_symbol-navigation-item"
                   );
-                  const symbolLetter = documentSymbol.kind.slice(0, 1);
-                  const imageData = symbolImages[symbolLetter];
-                  const img = imageData
+                  const symbolLetter = documentSymbol.kind
+                    .slice(0, 1)
+                    .toUpperCase();
+                  const imageData = `${safari.extension.baseURI}${symbolLetter}@3x.png"`;
+                  const supportedSymbols = ["S", "C", "I", "P", "M", "F", "E"];
+                  const img = supportedSymbols.includes(symbolLetter)
                     ? `<img src="${imageData}" width="16" height="16" align="center" />`
-                    : symbolLetter.toUpperCase();
-                  navigationItem.innerHTML = `<a class="--sourcekit-for-safari_symbol-navigation-item" href="${
-                    parsedUrl.href
-                  }#L${documentSymbol.start.line +
-                    1}" style="margin: 10px 4px; display: block;">${img} ${
-                    documentSymbol.name
-                  }</a>`;
+                    : symbolLetter;
+                  // prettier-ignore
+                  navigationItem.innerHTML = `<a class="--sourcekit-for-safari_symbol-navigation-item" href="${parsedUrl.href}#L${documentSymbol.start.line + 1}" style="margin: 10px 4px; display: block;">${img} ${documentSymbol.name}</a>`;
                   symbolNavigation.appendChild(navigationItem);
                 });
 
