@@ -58,7 +58,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 if let response = response {
                     switch response {
                     case .documentSymbols(let documentSymbols):
-                        reply(true, ["result": "success", "value": self.encodeResponse(documentSymbols)])
+                        reply(true, ["result": "success", "value": self.encodeResponse(documentSymbols, indent: 0)])
                     case .symbolInformation(let symbolInformation):
                         reply(true, ["result": "success", "value": self.encodeResponse(symbolInformation)])
                     }
@@ -287,7 +287,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         reply(false, "")
     }
 
-    private func encodeResponse(_ documentSymbol: DocumentSymbol) -> [String: Any] {
+    private func encodeResponse(_ documentSymbol: DocumentSymbol, _ indent: Int) -> [String: Any] {
         var kind = "\(documentSymbol.kind.rawValue)"
         let start = documentSymbol.selectionRange.lowerBound
         let end = documentSymbol.selectionRange.upperBound
@@ -323,16 +323,17 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
             "kind": kind,
             "start": ["line": start.line, "character": start.utf16index],
             "end": ["line": end.line, "character": end.utf16index],
+            "indent": indent,
         ]
     }
 
-    private func encodeResponse(_ documentSymbols: [DocumentSymbol]) -> [[String: Any]] {
+    private func encodeResponse(_ documentSymbols: [DocumentSymbol], indent: Int = 0) -> [[String: Any]] {
         var response = [[String: Any]]()
         for documentSymbol in documentSymbols {
-            response.append(encodeResponse(documentSymbol))
+            response.append(encodeResponse(documentSymbol, indent))
 
             if let children = documentSymbol.children {
-                response += encodeResponse(children)
+                response += encodeResponse(children, indent: indent + 1)
             }
         }
         return response
