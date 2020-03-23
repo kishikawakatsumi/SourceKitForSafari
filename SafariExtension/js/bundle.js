@@ -74,6 +74,64 @@ const readLines = lines => {
   return contents.join("\n");
 };
 
+const hideAllQuickHelpPopovers = () => {
+  $(".--sourcekit-for-safari_quickhelp").popover("hide");
+};
+
+const setupQuickHelpContent = suffix => {
+  return (() => {
+    const id = `quickhelp${suffix}`;
+    const quickHelp = quickHelpElements[id];
+    const popover = quickHelp ? $(quickHelp) : $(quickHelpTemplate);
+    popover.attr("id", id);
+    quickHelpElements[id] = popover;
+    return popover;
+  })();
+};
+
+const setupQuickHelp = (element, popoverContent) => {
+  $(element).popover({
+    html: true,
+    content: popoverContent,
+    trigger: "manual",
+    placement: "top",
+    modifiers: [
+      {
+        name: "flip",
+        options: {
+          fallbackPlacements: ["bottom"]
+        }
+      }
+    ]
+  });
+  $(element).on("click", event => {
+    event.stopPropagation();
+    $(".--sourcekit-for-safari_quickhelp")
+      .not(element)
+      .popover("hide");
+    $(element).popover("toggle");
+  });
+  $(document).on("click", ".popover", event => {
+    event.stopPropagation();
+  });
+  $(document).off("click", "html");
+  $(document).on("click", "html", () => {
+    hideAllQuickHelpPopovers();
+  });
+  $(element).on("shown.bs.popover", () => {
+    document.querySelectorAll(".nav-link").forEach(nav => {
+      nav.dataset.toggle = "tab";
+    });
+    document
+      .querySelectorAll(".--sourcekit-for-safari_jump-to-definition")
+      .forEach(link => {
+        $(link).on("click", () => {
+          hideAllQuickHelpPopovers();
+        });
+      });
+  });
+};
+
 const activate = () => {
   const location = normalizedLocation();
   const parsedUrl = GitUrlParse(location);
@@ -267,17 +325,7 @@ const activate = () => {
                   </div>
                 `;
 
-                const popoverContent = (() => {
-                  const id = `quickhelp${suffix}`;
-                  const quickHelp = quickHelpElements[id];
-                  const popover = quickHelp
-                    ? $(quickHelp)
-                    : $(quickHelpTemplate);
-                  popover.attr("id", id);
-                  quickHelpElements[id] = popover;
-                  return popover;
-                })();
-
+                const popoverContent = setupQuickHelpContent(suffix);
                 $(".tab-header-documentation", popoverContent).replaceWith(
                   `
                   <li class="nav-item tab-header-documentation">
@@ -292,50 +340,7 @@ const activate = () => {
                 if (popover) {
                   popover.config.content = popoverContent.prop("outerHTML");
                 } else {
-                  $(element).popover({
-                    html: true,
-                    content: popoverContent,
-                    trigger: "manual",
-                    placement: "top",
-                    modifiers: [
-                      {
-                        name: "flip",
-                        options: {
-                          fallbackPlacements: ["bottom"]
-                        }
-                      }
-                    ]
-                  });
-                  $(element).on("click", event => {
-                    event.stopPropagation();
-                    $(".--sourcekit-for-safari_quickhelp")
-                      .not(element)
-                      .popover("hide");
-                    $(element).popover("toggle");
-                  });
-                  $(document).on("click", ".popover", event => {
-                    event.stopPropagation();
-                  });
-                  $(document).off("click", "html");
-                  $(document).on("click", "html", () => {
-                    $(".--sourcekit-for-safari_quickhelp").popover("hide");
-                  });
-                  $(element).on("shown.bs.popover", () => {
-                    document.querySelectorAll(".nav-link").forEach(nav => {
-                      nav.dataset.toggle = "tab";
-                    });
-                    document
-                      .querySelectorAll(
-                        ".--sourcekit-for-safari_jump-to-definition"
-                      )
-                      .forEach(link => {
-                        $(link).on("click", () => {
-                          $(".--sourcekit-for-safari_quickhelp").popover(
-                            "hide"
-                          );
-                        });
-                      });
-                  });
+                  setupQuickHelp(element, popoverContent);
                 }
               }
             })();
@@ -407,17 +412,7 @@ const activate = () => {
                   </div>
                 `;
 
-                const popoverContent = (() => {
-                  const id = `quickhelp${suffix}`;
-                  const quickHelp = quickHelpElements[id];
-                  const popover = quickHelp
-                    ? $(quickHelp)
-                    : $(quickHelpTemplate);
-                  popover.attr("id", id);
-                  quickHelpElements[id] = popover;
-                  return popover;
-                })();
-
+                const popoverContent = setupQuickHelpContent(suffix);
                 $(".tab-header-definition", popoverContent).replaceWith(
                   `
                   <li class="nav-item tab-header-definition">
@@ -432,50 +427,7 @@ const activate = () => {
                 if (popover) {
                   popover.config.content = popoverContent.prop("outerHTML");
                 } else {
-                  $(element).popover({
-                    html: true,
-                    content: popoverContent,
-                    trigger: "manual",
-                    placement: "top",
-                    modifiers: [
-                      {
-                        name: "flip",
-                        options: {
-                          fallbackPlacements: ["bottom"]
-                        }
-                      }
-                    ]
-                  });
-                  $(element).on("click", event => {
-                    event.stopPropagation();
-                    $(".--sourcekit-for-safari_quickhelp")
-                      .not(element)
-                      .popover("hide");
-                    $(element).popover("toggle");
-                  });
-                  $(document).on("click", ".popover", event => {
-                    event.stopPropagation();
-                  });
-                  $(document).off("click", "html");
-                  $(document).on("click", "html", () => {
-                    $(".--sourcekit-for-safari_quickhelp").popover("hide");
-                  });
-                  $(element).on("shown.bs.popover", () => {
-                    document.querySelectorAll(".nav-link").forEach(nav => {
-                      nav.dataset.toggle = "tab";
-                    });
-                    document
-                      .querySelectorAll(
-                        ".--sourcekit-for-safari_jump-to-definition"
-                      )
-                      .forEach(link => {
-                        $(link).on("click", () => {
-                          $(".--sourcekit-for-safari_quickhelp").popover(
-                            "hide"
-                          );
-                        });
-                      });
-                  });
+                  setupQuickHelp(element, popoverContent);
                 }
               }
             })();
