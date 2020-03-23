@@ -67,14 +67,6 @@
 			</dict>
 			<dict>
 				<key>Style Sheet</key>
-				<string>light.css</string>
-				<key>Allowed URL Patterns</key>
-				<array>
-					<string>https://github.com/*</string>
-				</array>
-			</dict>
-			<dict>
-				<key>Style Sheet</key>
 				<string>xcode.css</string>
 				<key>Allowed URL Patterns</key>
 				<array>

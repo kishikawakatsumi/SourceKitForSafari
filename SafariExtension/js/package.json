@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "./index.js",
   "scripts": {
-    "build": "browserify -t browserify-css index.js -o bundle.js"
+    "build": "browserify -t browserify-css index.js -o bundle.js && cp -f bundle.js ../../ChromeExtension"
   },
   "dependencies": {
     "@popperjs/core": "^2.1.0",

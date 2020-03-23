@@ -1,0 +1,32 @@
+{
+  "name": "SourceKit for Chrome",
+  "version": "0.0.1",
+  "description": "Browser extension for GitHub, that enables IDE features like go to definition, or documentation on hover.",
+  "permissions": ["activeTab", "declarativeContent", "<all_urls>"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.github.com/*"],
+      "run_at": "document_end",
+      "css": [
+        "css/index.css",
+        "css/style.css",
+        "css/tippyjs/tippy.css",
+        "css/tippyjs/light-border.css",
+        "css/highlightjs/xcode.css"
+      ],
+      "js": ["bundle.js"]
+    }
+  ],
+  "web_accessible_resources": ["images/*.png"],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "manifest_version": 2
+}

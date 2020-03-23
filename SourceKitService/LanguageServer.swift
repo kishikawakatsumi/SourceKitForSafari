@@ -9,6 +9,7 @@ final class LanguageServer {
     private let resource: String
     private let slug: String
 
+    private let serverProcess = Process()
     private let clientToServer = Pipe()
     private let serverToClient = Pipe()
 
@@ -19,9 +20,7 @@ final class LanguageServer {
     )
 
     private let queue = DispatchQueue(label: "request-queue")
-
-    private var isInitialized = false
-    private let serverProcess = Process()
+    private var state = State.created
 
     init(resource: String, slug: String) {
         self.resource = resource
@@ -29,10 +28,11 @@ final class LanguageServer {
     }
 
     func sendInitializeRequest(context: [String : String], completion: @escaping (Result<InitializeRequest.Response, ResponseError>) -> Void) {
-        if isInitialized {
+        guard state == .created else {
             completion(Result<InitializeRequest.Response, ResponseError>.success(InitializeRequest.Response(capabilities: ServerCapabilities())))
             return
         }
+        state = .initializing
 
         guard let serverPath = context["serverPath"] else { return }
         guard let SDKPath = context["SDKPath"] else { return }
@@ -43,7 +43,6 @@ final class LanguageServer {
         let rootURI = Workspace.documentRoot(resource: resource, slug: slug)
 
         connection.start(receiveHandler: Client())
-        isInitialized = true
 
         serverProcess.launchPath = serverPath
         if let toolchain = context["toolchain"] {
@@ -71,17 +70,20 @@ final class LanguageServer {
         let request = InitializeRequest(
             rootURI: DocumentURI(rootURI), capabilities: ClientCapabilities(), workspaceFolders: [WorkspaceFolder(uri: DocumentURI(rootURI))]
         )
-        _ = connection.send(request, queue: queue) {
+        _ = connection.send(request, queue: queue) { [weak self] in
+            guard let self = self else { return }
             completion($0)
+            self.state = .running
         }
     }
 
     func sendInitializedNotification(context: [String : String]) {
+        guard state == .running else { return }
         connection.send(InitializedNotification())
     }
 
     func sendDidOpenNotification(context: [String : String], document: String, text: String) {
-        os_log("[didOpen] document %{public}s", log: log, type: .debug, "\(document)")
+        guard state == .running else { return }
 
         let documentRoot = Workspace.documentRoot(resource: resource, slug: slug)
         let identifier = documentRoot.appendingPathComponent(document)
@@ -117,6 +119,8 @@ final class LanguageServer {
     }
 
     func sendDocumentSymbolRequest(context: [String : String], document: String, completion: @escaping (Result<DocumentSymbolRequest.Response, ResponseError>) -> Void) {
+        guard state == .running else { return }
+
         let documentRoot = Workspace.documentRoot(resource: resource, slug: slug)
         let identifier = documentRoot.appendingPathComponent(document)
 
@@ -129,6 +133,8 @@ final class LanguageServer {
     }
 
     func sendHoverRequest(context: [String : String], document: String, line: Int, character: Int, completion: @escaping (Result<HoverRequest.Response, ResponseError>) -> Void) {
+        guard state == .running else { return }
+
         let documentRoot = Workspace.documentRoot(resource: resource, slug: slug)
         let identifier = documentRoot.appendingPathComponent(document)
 
@@ -142,6 +148,8 @@ final class LanguageServer {
     }
 
     func sendDefinitionRequest(context: [String : String], document: String, line: Int, character: Int, completion: @escaping (Result<DefinitionRequest.Response, ResponseError>) -> Void) {
+        guard state == .running else { return }
+
         let documentRoot = Workspace.documentRoot(resource: resource, slug: slug)
         let identifier = documentRoot.appendingPathComponent(document)
 
@@ -155,7 +163,7 @@ final class LanguageServer {
     }
 
     func sendShutdownRequest(context: [String : String], completion: @escaping (Result<ShutdownRequest.Response, ResponseError>) -> Void) {
-        guard isInitialized else {
+        guard state == .running else {
             completion(.success(ShutdownRequest.Response()))
             return
         }
@@ -168,6 +176,13 @@ final class LanguageServer {
     func sendExitNotification() {
         connection.send(ExitNotification())
         serverProcess.terminate()
+    }
+
+    enum State {
+        case created
+        case initializing
+        case running
+        case closed
     }
 }
 
