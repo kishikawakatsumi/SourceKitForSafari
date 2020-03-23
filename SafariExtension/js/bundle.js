@@ -320,11 +320,21 @@ const activate = () => {
                   $(document).on("click", "html", () => {
                     $(".--sourcekit-for-safari_quickhelp").popover("hide");
                   });
-                  $(element).on("shown.bs.popover", function() {
-                    const navs = document.querySelectorAll(".nav-link");
-                    navs.forEach(nav => {
+                  $(element).on("shown.bs.popover", () => {
+                    document.querySelectorAll(".nav-link").forEach(nav => {
                       nav.dataset.toggle = "tab";
                     });
+                    document
+                      .querySelectorAll(
+                        ".--sourcekit-for-safari_jump-to-definition"
+                      )
+                      .forEach(link => {
+                        $(link).on("click", () => {
+                          $(".--sourcekit-for-safari_quickhelp").popover(
+                            "hide"
+                          );
+                        });
+                      });
                   });
                 }
               }
@@ -370,8 +380,8 @@ const activate = () => {
                     const onThisFile = href.includes(parsedUrl.href);
                     const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
                     const text = thisIsTheDefinition ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>` : `Defined ${onThisFile ? "on" : "in"}`;
-                    const linkOrText = href ? 
-                      `<a class="--sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
+                    const linkOrText = href ?
+                      `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
                       `<span class="--sourcekit-for-safari_text-bold">${definition.path}</span>`
                     return `
                       <div class="--sourcekit-for-safari_bg-gray">
@@ -450,11 +460,21 @@ const activate = () => {
                   $(document).on("click", "html", () => {
                     $(".--sourcekit-for-safari_quickhelp").popover("hide");
                   });
-                  $(element).on("shown.bs.popover", function() {
-                    const navs = document.querySelectorAll(".nav-link");
-                    navs.forEach(nav => {
+                  $(element).on("shown.bs.popover", () => {
+                    document.querySelectorAll(".nav-link").forEach(nav => {
                       nav.dataset.toggle = "tab";
                     });
+                    document
+                      .querySelectorAll(
+                        ".--sourcekit-for-safari_jump-to-definition"
+                      )
+                      .forEach(link => {
+                        $(link).on("click", () => {
+                          $(".--sourcekit-for-safari_quickhelp").popover(
+                            "hide"
+                          );
+                        });
+                      });
                   });
                 }
               }
