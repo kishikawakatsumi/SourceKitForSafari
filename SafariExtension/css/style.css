@@ -25,6 +25,7 @@ pre.--sourcekit-for-safari_code {
 }
 
 .--sourcekit-for-safari_symbol-navigation {
-  max-width: 600px;
+  min-width: 250px;
+  max-width: 340px;
   max-height: 800px;
 }
