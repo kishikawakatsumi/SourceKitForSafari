@@ -8,14 +8,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
 
     override init() {
         super.init()
-        sendLogMessage(.debug, ".init()")
-        os_log("[SafariExtension] SafariExtensionHandler.init()", log: log, type: .debug)
         Settings.shared.prepare()
-    }
-
-    deinit {
-        sendLogMessage(.debug, ".deinit")
-        os_log("[SafariExtension] SafariExtensionHandler.deinit", log: log, type: .debug)
     }
 
     override func messageReceived(withName messageName: String, from page: SFSafariPage, userInfo: [String : Any]?) {
@@ -158,14 +151,21 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                         let locations = value.compactMap { (location) -> [String: Any]? in
                             guard let uri = location["uri"] as? String, let start = location["start"] as? [String: Any], let line = start["line"] as? Int else { return nil }
 
-                            let ref = uri
-                                .replacingOccurrences(of: resource, with: "")
-                                .replacingOccurrences(of: slug, with: "")
-                                .split(separator: "/")
-                                .joined(separator: "/")
-                                .appending("#L\(line + 1)")
+                            let filename = location["filename"] ?? ""
+                            let content = location["content"] ?? ""
+                            
+                            if !uri.isEmpty {
+                                let ref = uri
+                                    .replacingOccurrences(of: resource, with: "")
+                                    .replacingOccurrences(of: slug, with: "")
+                                    .split(separator: "/")
+                                    .joined(separator: "/")
+                                    .appending("#L\(line + 1)")
 
-                            return ["uri": ref, "content": location["content"] ?? ""]
+                                return ["uri": ref, "filename": filename, "content": content]
+                            } else {
+                                return ["uri": "", "filename": filename, "content": content]
+                            }
                         }
 
                         guard !locations.isEmpty else { return }

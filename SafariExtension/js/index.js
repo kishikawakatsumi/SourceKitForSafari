@@ -342,37 +342,42 @@ const activate = () => {
               if (value && value.locations) {
                 const definitions = [];
                 value.locations.forEach(location => {
-                  const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
-                  definitions.push({
-                    href: href,
-                    path: location.uri,
-                    content: location.content
-                  });
+                  if (location.uri) {
+                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
+                    definitions.push({
+                      href: href,
+                      path: location.uri,
+                      content: location.content
+                    });
+                  } else {
+                    definitions.push({
+                      path: location.filename,
+                      content: location.content
+                    });
+                  }
                 });
 
+                // prettier-ignore
                 const definition = definitions
                   .map(definition => {
-                    const referenceLineNumber = definition.href
+                    const href = definition.href || ""
+                    const referenceLineNumber = href
                       .replace(parsedUrl.href, "")
                       .replace("#L", "");
-                    const onThisFile = definition.href.includes(parsedUrl.href);
-                    const thisIsTheDefinition =
-                      onThisFile &&
-                      referenceLineNumber == +element.dataset.lineNumber + 1;
-                    const text = thisIsTheDefinition
-                      ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>`
-                      : `Defined ${onThisFile ? "on" : "in"}`;
-                    return `<div class="--sourcekit-for-safari_bg-gray">${text} <a class="--sourcekit-for-safari_text-bold" href="${
-                      definition.href
-                    }">${
-                      thisIsTheDefinition
-                        ? ""
-                        : onThisFile
-                        ? `line ${referenceLineNumber}`
-                        : definition.path
-                    }</a></div><div><pre class="--sourcekit-for-safari_code"><code>${
-                      hljs.highlight("swift", definition.content).value
-                    }</code></pre></div>`;
+                    const onThisFile = href.includes(parsedUrl.href);
+                    const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
+                    const text = thisIsTheDefinition ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>` : `Defined ${onThisFile ? "on" : "in"}`;
+                    const linkOrText = href ? 
+                      `<a class="--sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
+                      `<span class="--sourcekit-for-safari_text-bold">${definition.path}</span>`
+                    return `
+                      <div class="--sourcekit-for-safari_bg-gray">
+                        ${text} ${linkOrText}
+                      </div>
+                      <div>
+                        <pre class="--sourcekit-for-safari_code"><code>${hljs.highlight("swift", definition.content).value}</code></pre>
+                      </div>
+                      `;
                   })
                   .join("\n");
                 element.dataset.definition = definition;
