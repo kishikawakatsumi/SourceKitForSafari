@@ -1,5 +1,6 @@
 @import url("./node_modules/bootstrap/dist/css/bootstrap-grid.min.css");
 
+/* Import from `bootstrap.css` manually. Because it conflicts GitHub's CSS */
 .col-12 {
   position: relative;
   width: 100%;
@@ -357,6 +358,7 @@
   transition: height 0.35s ease;
 }
 
+/* SourceKit for Safari */
 pre > code {
   font-size: 12px;
 }

@@ -258,20 +258,24 @@ const activate = () => {
                   const symbolLetter = documentSymbol.kind
                     .slice(0, 1)
                     .toUpperCase();
-                  const imageData = `${safari.extension.baseURI}${symbolLetter}@3x.png"`;
+                  const imageSource = `${safari.extension.baseURI}${symbolLetter}`;
                   const supportedSymbols = ["S", "C", "I", "P", "M", "F", "E"];
+                  const indentationStyle = `style="margin-left: ${10 *
+                    documentSymbol.indent}px;"`;
                   const icon = supportedSymbols.includes(symbolLetter)
-                    ? `<img src="${imageData}" width="16" height="16" align="center" />`
+                    ? `<img srcset="${imageSource}.png, ${imageSource}@2x.png 2x, ${imageSource}@3x.png 3x" width="16" height="16" align="center" ${indentationStyle} />`
                     : symbolLetter;
 
                   const navigationItem = document.createElement("a");
                   navigationItem.classList.add(
                     "list-group-item",
-                    "list-group-item-action"
+                    "list-group-item-action",
+                    "text-nowrap"
                   );
                   navigationItem.href = `${parsedUrl.href}#L${documentSymbol
                     .start.line + 1}`;
                   navigationItem.innerHTML = `${icon} ${documentSymbol.name}`;
+                  navigationItem.style.cssText = "white-space: nowrap;";
                   navigationItemContainer.appendChild(navigationItem);
                 });
 
