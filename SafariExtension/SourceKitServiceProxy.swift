@@ -25,6 +25,7 @@ final class SourceKitServiceProxy {
     private let connection = NSXPCConnection(serviceName: "com.kishikawakatsumi.SourceKitService")
 
     private init() {
+        os_log("[SafariExtension] SourceKitServiceProxy.init()", log: log, type: .debug)
         connection.remoteObjectInterface = NSXPCInterface(with: SourceKitServiceProtocol.self)
     }
 

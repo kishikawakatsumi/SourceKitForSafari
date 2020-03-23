@@ -270,7 +270,6 @@
 		145E9A1A241405F6006DD651 /* SourceKitService */ = {
 			isa = PBXGroup;
 			children = (
-				1492043C241E81B40088EA9B /* SourceKitService.entitlements */,
 				145E9A1B241405F6006DD651 /* SourceKitServiceProtocol.h */,
 				145E9A282414068B006DD651 /* SourceKitService.swift */,
 				14931108241C30DB00CF87D3 /* LanguageServer.swift */,
@@ -278,6 +277,7 @@
 				1493110C241C310B00CF87D3 /* Workspace.swift */,
 				145E9A272414068A006DD651 /* SourceKitService-Bridging-Header.h */,
 				145E9A1F241405F6006DD651 /* main.m */,
+				1492043C241E81B40088EA9B /* SourceKitService.entitlements */,
 				145E9A21241405F6006DD651 /* Info.plist */,
 			);
 			path = SourceKitService;

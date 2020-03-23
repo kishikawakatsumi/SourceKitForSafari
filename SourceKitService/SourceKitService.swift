@@ -7,11 +7,11 @@ let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: 
 @objc
 class SourceKitService: NSObject, SourceKitServiceProtocol {
     override init() {
-        os_log("[SourceKitService] init()", log: log, type: .debug)
+        os_log("[SourceKitService] SourceKitService.init()", log: log, type: .debug)
     }
 
     deinit {
-        os_log("[SourceKitService] deinit", log: log, type: .debug)
+        os_log("[SourceKitService] SourceKitService.deinit", log: log, type: .debug)
     }
 
     func sendInitalizeRequest(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
@@ -341,12 +341,10 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     private func encodeResponse(_ locations: [Location]) -> [[String: Any]] {
         var response = [[String: Any]]()
         for location in locations {
-            guard location.uri.stringValue.contains(Workspace.root.absoluteString) else {
-                continue
-            }
-
             let start = location.range.lowerBound
             let end = location.range.upperBound
+
+            guard start.line >= 0 else { continue }
 
             var content = ""
             if let file = URL(string: location.uri.stringValue), let source = try? String(contentsOf: file) {
@@ -357,16 +355,30 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 content = lines.joined(separator: "\n")
             }
 
-            response.append(
-                ["uri": location.uri.stringValue
-                    .replacingOccurrences(of: Workspace.root.absoluteString, with: "")
-                    .split(separator: "/")
-                    .joined(separator: "/"),
-                 "start": ["line": start.line, "character": start.utf16index],
-                 "end": ["line": end.line, "character": end.utf16index],
-                 "content": content,
-                ]
-            )
+            let filename = URL(string: location.uri.stringValue)?.lastPathComponent ?? ""
+
+            if location.uri.stringValue.contains(Workspace.root.absoluteString) {
+                response.append(
+                    ["uri": location.uri.stringValue
+                        .replacingOccurrences(of: Workspace.root.absoluteString, with: "")
+                        .split(separator: "/")
+                        .joined(separator: "/"),
+                     "filename": filename,
+                     "start": ["line": start.line, "character": start.utf16index],
+                     "end": ["line": end.line, "character": end.utf16index],
+                     "content": content,
+                    ]
+                )
+            } else {
+                response.append(
+                    ["uri": "",
+                     "filename": filename,
+                     "start": ["line": start.line, "character": start.utf16index],
+                     "end": ["line": end.line, "character": end.utf16index],
+                     "content": content,
+                    ]
+                )
+            }
         }
         return response
     }
