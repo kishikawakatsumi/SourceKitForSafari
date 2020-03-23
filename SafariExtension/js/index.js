@@ -215,49 +215,45 @@ const activate = () => {
                   return;
                 }
 
+                const navigationContainer = document.createElement("div");
+                navigationContainer.classList.add(
+                  "--sourcekit-for-safari_symbol-navigation",
+                  "overflow-auto"
+                );
+                const navigationList = document.createElement("div");
+                navigationList.classList.add("list-group", "col-12");
+
+                navigationContainer.appendChild(navigationList);
+
                 const blobCodeInner = document.querySelector(
                   ".blob-code-inner"
                 );
                 const style = getComputedStyle(blobCodeInner);
-
-                const navigationContainer = document.createElement("div");
-                navigationContainer.classList.add(
-                  "--sourcekit-for-safari_symbol-navigation",
-                  "row"
-                );
-                const navigationLayoutColumn = document.createElement("div");
-                navigationLayoutColumn.classList.add("overflow-auto", "col-12");
-
-                navigationContainer.appendChild(navigationLayoutColumn);
-
-                const symbolNavigation = document.createElement("ul");
-                symbolNavigation.classList.add(
-                  "--sourcekit-for-safari_symbol-navigation-list"
-                );
-                symbolNavigation.style.cssText = `list-style: none; font-family: ${style.fontFamily}; font-size: ${style.fontSize};`;
-
-                navigationLayoutColumn.appendChild(symbolNavigation);
+                navigationList.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize};`;
 
                 symbols.forEach(documentSymbol => {
                   if (!isNaN(documentSymbol.kind)) {
                     return;
                   }
 
-                  const navigationItem = document.createElement("li");
-                  navigationItem.classList.add(
-                    "--sourcekit-for-safari_symbol-navigation-item"
-                  );
                   const symbolLetter = documentSymbol.kind
                     .slice(0, 1)
                     .toUpperCase();
                   const imageData = `${safari.extension.baseURI}${symbolLetter}@3x.png"`;
                   const supportedSymbols = ["S", "C", "I", "P", "M", "F", "E"];
-                  const img = supportedSymbols.includes(symbolLetter)
+                  const icon = supportedSymbols.includes(symbolLetter)
                     ? `<img src="${imageData}" width="16" height="16" align="center" />`
                     : symbolLetter;
-                  // prettier-ignore
-                  navigationItem.innerHTML = `<a class="--sourcekit-for-safari_symbol-navigation-item" href="${parsedUrl.href}#L${documentSymbol.start.line + 1}" style="margin: 10px 4px; display: block;">${img} ${documentSymbol.name}</a>`;
-                  symbolNavigation.appendChild(navigationItem);
+
+                  const navigationItem = document.createElement("a");
+                  navigationItem.classList.add(
+                    "list-group-item",
+                    "list-group-item-action"
+                  );
+                  navigationItem.href = `${parsedUrl.href}#L${documentSymbol
+                    .start.line + 1}`;
+                  navigationItem.innerHTML = `${icon} ${documentSymbol.name}`;
+                  navigationList.appendChild(navigationItem);
                 });
 
                 codeNavigation = tippy(
@@ -269,7 +265,7 @@ const activate = () => {
                     animation: false,
                     duration: 0,
                     placement: "right-start",
-                    offset: [0, -80],
+                    offset: [0, -100],
                     theme: "light-border",
                     trigger: "manual",
                     hideOnClick: false
