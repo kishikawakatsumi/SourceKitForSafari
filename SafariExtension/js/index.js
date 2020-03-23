@@ -220,16 +220,35 @@ const activate = () => {
                   "--sourcekit-for-safari_symbol-navigation",
                   "overflow-auto"
                 );
+
                 const navigationList = document.createElement("div");
                 navigationList.classList.add("list-group", "col-12");
-
-                navigationContainer.appendChild(navigationList);
 
                 const blobCodeInner = document.querySelector(
                   ".blob-code-inner"
                 );
                 const style = getComputedStyle(blobCodeInner);
                 navigationList.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize};`;
+
+                navigationContainer.appendChild(navigationList);
+
+                const navigationHeader = document.createElement("a");
+                navigationHeader.href =
+                  "#--sourcekit-for-safari_symbol-navigation-items";
+                navigationHeader.classList.add(
+                  "list-group-item",
+                  "list-group-item-action"
+                );
+                navigationHeader.dataset.toggle = "collapse";
+                navigationHeader.innerHTML = "Symbol Navigator ▾";
+                navigationHeader.style.cssText = "font-family: bold;";
+                navigationList.appendChild(navigationHeader);
+
+                const navigationItemContainer = document.createElement("div");
+                navigationItemContainer.classList.add("collapse", "show");
+                navigationItemContainer.id =
+                  "--sourcekit-for-safari_symbol-navigation-items";
+                navigationList.appendChild(navigationItemContainer);
 
                 symbols.forEach(documentSymbol => {
                   if (!isNaN(documentSymbol.kind)) {
@@ -253,7 +272,7 @@ const activate = () => {
                   navigationItem.href = `${parsedUrl.href}#L${documentSymbol
                     .start.line + 1}`;
                   navigationItem.innerHTML = `${icon} ${documentSymbol.name}`;
-                  navigationList.appendChild(navigationItem);
+                  navigationItemContainer.appendChild(navigationItem);
                 });
 
                 codeNavigation = tippy(

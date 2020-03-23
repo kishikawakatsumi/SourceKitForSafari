@@ -346,6 +346,17 @@
   border-top-width: 1px;
 }
 
+.collapse:not(.show) {
+  display: none;
+}
+
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
 pre > code {
   font-size: 12px;
 }
@@ -366,7 +377,7 @@ pre > code {
 }
 
 .--sourcekit-for-safari_symbol-navigation .list-group-item {
-  padding: 4px 0;
+  padding: 4px 2px;
   margin-bottom: 0;
   border: none;
   line-height: 1em;
