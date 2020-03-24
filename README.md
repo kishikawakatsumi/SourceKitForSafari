@@ -51,6 +51,10 @@ If the text at the mouse cursor is a symbol defined in another file, turn it int
 
 See also [Chrome extension development tutorial.](https://developer.chrome.com/extensions/getstarted)
 
+* Open `SourceKit for Safari.app`
+
+__(Unlike Safari Extension, Chrome Extension communicates with the language server through the host application. Therefore, the host application must be running while using the extension.)__
+
 ## Getting Started
 
 SourceKit for Safari depends on [SourceKit-LSP](https://github.com/apple/sourcekit-lsp). In order to use SourceKit for Safari, you need to install SourceKit-LSP and set the installation location.
