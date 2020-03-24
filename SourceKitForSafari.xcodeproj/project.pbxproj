@@ -38,6 +38,9 @@
 		144D1D8D242678C000B7AC65 /* E.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D78242678BF00B7AC65 /* E.png */; };
 		144D1D8E242678C000B7AC65 /* P.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D79242678BF00B7AC65 /* P.png */; };
 		144D1D8F242678C000B7AC65 /* F.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D7A242678BF00B7AC65 /* F.png */; };
+		145B31A924295B3200660469 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 145B31A824295B3200660469 /* Swifter */; };
+		145B31AD2429633700660469 /* SourceKitServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145B31AA2429632900660469 /* SourceKitServiceProxy.swift */; };
+		145B31B124296D0800660469 /* SourceKitService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKitService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		145E9A20241405F6006DD651 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A1F241405F6006DD651 /* main.m */; };
 		145E9A2624140626006DD651 /* SourceKitService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKitService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		145E9A292414068B006DD651 /* SourceKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A282414068B006DD651 /* SourceKitService.swift */; };
@@ -65,6 +68,13 @@
 			remoteGlobalIDString = 140460F5240BEE94004FE328;
 			remoteInfo = SafariExtension;
 		};
+		145B31B224296D0800660469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 140460D7240BEE79004FE328 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 145E9A18241405F6006DD651;
+			remoteInfo = SourceKitService;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +87,17 @@
 				1404610A240BEE94004FE328 /* SourceKit for Safari.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		145B31B424296D0800660469 /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				145B31B124296D0800660469 /* SourceKitService.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		145E9A2524140601006DD651 /* CopyFiles */ = {
@@ -128,6 +149,8 @@
 		144D1D78242678BF00B7AC65 /* E.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = E.png; sourceTree = "<group>"; };
 		144D1D79242678BF00B7AC65 /* P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = P.png; sourceTree = "<group>"; };
 		144D1D7A242678BF00B7AC65 /* F.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = F.png; sourceTree = "<group>"; };
+		145B31AA2429632900660469 /* SourceKitServiceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceKitServiceProxy.swift; sourceTree = "<group>"; };
+		145B31AE2429637300660469 /* SourceKitForSafari-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SourceKitForSafari-Bridging-Header.h"; sourceTree = "<group>"; };
 		145E9A19241405F6006DD651 /* SourceKitService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = SourceKitService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		145E9A1B241405F6006DD651 /* SourceKitServiceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceKitServiceProtocol.h; sourceTree = "<group>"; };
 		145E9A1F241405F6006DD651 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -156,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14DB8099241F06E600728A29 /* LSPBindings in Frameworks */,
+				145B31A924295B3200660469 /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,11 +227,13 @@
 			isa = PBXGroup;
 			children = (
 				140460E2240BEE79004FE328 /* AppDelegate.swift */,
+				145B31AA2429632900660469 /* SourceKitServiceProxy.swift */,
 				140460E4240BEE79004FE328 /* ViewController.swift */,
 				140460E8240BEE7A004FE328 /* Main.storyboard */,
 				140460E6240BEE7A004FE328 /* Assets.xcassets */,
 				140460EC240BEE7A004FE328 /* SourceKitForSafari.entitlements */,
 				140460EB240BEE7A004FE328 /* Info.plist */,
+				145B31AE2429637300660469 /* SourceKitForSafari-Bridging-Header.h */,
 			);
 			path = SourceKitForSafari;
 			sourceTree = "<group>";
@@ -331,15 +357,18 @@
 				140460DC240BEE79004FE328 /* Frameworks */,
 				140460DD240BEE79004FE328 /* Resources */,
 				1404610E240BEE94004FE328 /* Embed App Extensions */,
+				145B31B424296D0800660469 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				14046109240BEE94004FE328 /* PBXTargetDependency */,
+				145B31B324296D0800660469 /* PBXTargetDependency */,
 			);
 			name = SourceKitForSafari;
 			packageProductDependencies = (
 				14DB8098241F06E600728A29 /* LSPBindings */,
+				145B31A824295B3200660469 /* Swifter */,
 			);
 			productName = SourceKitForSafari;
 			productReference = 140460DF240BEE79004FE328 /* SourceKit for Safari.app */;
@@ -395,6 +424,7 @@
 				TargetAttributes = {
 					140460DE240BEE79004FE328 = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 					140460F5240BEE94004FE328 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -417,6 +447,7 @@
 			mainGroup = 140460D6240BEE79004FE328;
 			packageReferences = (
 				14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */,
+				145B31A724295B3200660469 /* XCRemoteSwiftPackageReference "swifter" */,
 			);
 			productRefGroup = 140460E0240BEE79004FE328 /* Products */;
 			projectDirPath = "";
@@ -490,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				145B31AD2429633700660469 /* SourceKitServiceProxy.swift in Sources */,
 				140460E5240BEE79004FE328 /* ViewController.swift in Sources */,
 				140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */,
 			);
@@ -525,6 +557,11 @@
 			isa = PBXTargetDependency;
 			target = 140460F5240BEE94004FE328 /* SafariExtension */;
 			targetProxy = 14046108240BEE94004FE328 /* PBXContainerItemProxy */;
+		};
+		145B31B324296D0800660469 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 145E9A18241405F6006DD651 /* SourceKitService */;
+			targetProxy = 145B31B224296D0800660469 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -666,6 +703,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SourceKitForSafari/SourceKitForSafari.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -679,6 +717,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari;
 				PRODUCT_MODULE_NAME = SourceKitForSafari;
 				PRODUCT_NAME = "SourceKit for Safari";
+				SWIFT_OBJC_BRIDGING_HEADER = "SourceKitForSafari/SourceKitForSafari-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -688,6 +728,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SourceKitForSafari/SourceKitForSafari.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -701,6 +742,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari;
 				PRODUCT_MODULE_NAME = SourceKitForSafari;
 				PRODUCT_NAME = "SourceKit for Safari";
+				SWIFT_OBJC_BRIDGING_HEADER = "SourceKitForSafari/SourceKitForSafari-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -841,6 +883,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		145B31A724295B3200660469 /* XCRemoteSwiftPackageReference "swifter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/httpswift/swifter.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.7;
+			};
+		};
 		14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/sourcekit-lsp.git";
@@ -852,6 +902,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		145B31A824295B3200660469 /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 145B31A724295B3200660469 /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
+		};
 		14DB8098241F06E600728A29 /* LSPBindings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */;

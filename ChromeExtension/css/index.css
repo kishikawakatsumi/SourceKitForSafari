@@ -1,0 +1,386 @@
+@import url("./node_modules/bootstrap/dist/css/bootstrap-grid.min.css");
+
+/* Import from `bootstrap.css` manually. Because it conflicts GitHub's CSS */
+.col-12 {
+  position: relative;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  text-decoration: none;
+}
+
+.nav-link.disabled {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -1px;
+}
+
+.nav-justified .nav-item {
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.tab-content > .tab-pane {
+  display: none;
+}
+
+.tab-content > .active {
+  display: block;
+}
+
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: block;
+  max-width: 276px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  white-space: normal;
+  line-break: auto;
+  font-size: 0.875rem;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+}
+
+.popover .arrow {
+  position: absolute;
+  display: block;
+  width: 1rem;
+  height: 0.5rem;
+  margin: 0 0.3rem;
+}
+
+.popover .arrow::before,
+.popover .arrow::after {
+  position: absolute;
+  display: block;
+  content: "";
+  border-color: transparent;
+  border-style: solid;
+}
+
+.bs-popover-top,
+.bs-popover-auto[x-placement^="top"] {
+  margin-bottom: 0.5rem;
+}
+
+.bs-popover-top > .arrow,
+.bs-popover-auto[x-placement^="top"] > .arrow {
+  bottom: calc(-0.5rem - 1px);
+}
+
+.bs-popover-top > .arrow::before,
+.bs-popover-auto[x-placement^="top"] > .arrow::before {
+  bottom: 0;
+  border-width: 0.5rem 0.5rem 0;
+  border-top-color: rgba(0, 0, 0, 0.25);
+}
+
+.bs-popover-top > .arrow::after,
+.bs-popover-auto[x-placement^="top"] > .arrow::after {
+  bottom: 1px;
+  border-width: 0.5rem 0.5rem 0;
+  border-top-color: #fff;
+}
+
+.bs-popover-right,
+.bs-popover-auto[x-placement^="right"] {
+  margin-left: 0.5rem;
+}
+
+.bs-popover-right > .arrow,
+.bs-popover-auto[x-placement^="right"] > .arrow {
+  left: calc(-0.5rem - 1px);
+  width: 0.5rem;
+  height: 1rem;
+  margin: 0.3rem 0;
+}
+
+.bs-popover-right > .arrow::before,
+.bs-popover-auto[x-placement^="right"] > .arrow::before {
+  left: 0;
+  border-width: 0.5rem 0.5rem 0.5rem 0;
+  border-right-color: rgba(0, 0, 0, 0.25);
+}
+
+.bs-popover-right > .arrow::after,
+.bs-popover-auto[x-placement^="right"] > .arrow::after {
+  left: 1px;
+  border-width: 0.5rem 0.5rem 0.5rem 0;
+  border-right-color: #fff;
+}
+
+.bs-popover-bottom,
+.bs-popover-auto[x-placement^="bottom"] {
+  margin-top: 0.5rem;
+}
+
+.bs-popover-bottom > .arrow,
+.bs-popover-auto[x-placement^="bottom"] > .arrow {
+  top: calc(-0.5rem - 1px);
+}
+
+.bs-popover-bottom > .arrow::before,
+.bs-popover-auto[x-placement^="bottom"] > .arrow::before {
+  top: 0;
+  border-width: 0 0.5rem 0.5rem 0.5rem;
+  border-bottom-color: rgba(0, 0, 0, 0.25);
+}
+
+.bs-popover-bottom > .arrow::after,
+.bs-popover-auto[x-placement^="bottom"] > .arrow::after {
+  top: 1px;
+  border-width: 0 0.5rem 0.5rem 0.5rem;
+  border-bottom-color: #fff;
+}
+
+.bs-popover-bottom .popover-header::before,
+.bs-popover-auto[x-placement^="bottom"] .popover-header::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+  width: 1rem;
+  margin-left: -0.5rem;
+  content: "";
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.bs-popover-left,
+.bs-popover-auto[x-placement^="left"] {
+  margin-right: 0.5rem;
+}
+
+.bs-popover-left > .arrow,
+.bs-popover-auto[x-placement^="left"] > .arrow {
+  right: calc(-0.5rem - 1px);
+  width: 0.5rem;
+  height: 1rem;
+  margin: 0.3rem 0;
+}
+
+.bs-popover-left > .arrow::before,
+.bs-popover-auto[x-placement^="left"] > .arrow::before {
+  right: 0;
+  border-width: 0.5rem 0 0.5rem 0.5rem;
+  border-left-color: rgba(0, 0, 0, 0.25);
+}
+
+.bs-popover-left > .arrow::after,
+.bs-popover-auto[x-placement^="left"] > .arrow::after {
+  right: 1px;
+  border-width: 0.5rem 0 0.5rem 0.5rem;
+  border-left-color: #fff;
+}
+
+.popover-header {
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.popover-header:empty {
+  display: none;
+}
+
+.popover-body {
+  padding: 0.5rem 0.75rem;
+  color: #212529;
+}
+
+.popover {
+  min-width: 600px;
+  max-width: 800px;
+}
+
+.tab-pane {
+  max-height: 200px;
+}
+
+.popover-body {
+  padding: 0;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-link {
+  font-size: 12px;
+}
+
+.nav-tabs .nav-link {
+  color: #586069;
+  border: none;
+  margin: 0 4px 0 0;
+  padding: 0 8px 4px;
+}
+
+.nav-tabs .nav-link:hover {
+  border-bottom: 2px solid #e2e4e8;
+}
+
+.nav-tabs .nav-link.active {
+  color: #24292e;
+  font-weight: 600;
+  border: none;
+  border-bottom: 2px solid #e36209;
+}
+
+.nav-tabs .nav-link.active:hover {
+  border-bottom: 2px solid #e36209;
+}
+
+.list-group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.list-group-item-action {
+  width: 100%;
+  color: #495057;
+  text-align: inherit;
+}
+
+.list-group-item-action:hover,
+.list-group-item-action:focus {
+  z-index: 1;
+  color: #495057;
+  text-decoration: none;
+  background-color: #f8f9fa;
+}
+
+.list-group-item-action:active {
+  color: #212529;
+  background-color: #e9ecef;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.list-group-item:last-child {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.list-group-item.disabled,
+.list-group-item:disabled {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+}
+
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.list-group-item + .list-group-item {
+  border-top-width: 0;
+}
+
+.list-group-item + .list-group-item.active {
+  margin-top: -1px;
+  border-top-width: 1px;
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
+/* SourceKit for Safari */
+pre > code {
+  font-size: 12px;
+}
+
+.--sourcekit-for-safari_documentation-container {
+  padding: 4px 16px;
+}
+
+.--sourcekit-for-safari_documentation {
+  font-size: 12px;
+}
+
+.--sourcekit-for-safari_documentation > h1 {
+  font-size: 16px;
+}
+.--sourcekit-for-safari_documentation > h3 {
+  font-size: 14px;
+}
+
+.--sourcekit-for-safari_symbol-navigation .list-group-item {
+  padding: 4px 2px;
+  margin-bottom: 0;
+  border: none;
+  line-height: 1em;
+}

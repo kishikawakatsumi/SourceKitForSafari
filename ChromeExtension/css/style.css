@@ -1,0 +1,31 @@
+.--sourcekit-for-safari_quickhelp {
+  cursor: pointer;
+}
+
+.--sourcekit-for-safari_quickhelp:hover {
+  background-color: #ffea7f;
+}
+
+.--sourcekit-for-safari_bg-gray {
+  background-color: #fafbfc;
+  color: #24292e;
+  border-top: 1px solid #e1e4e8;
+  font-size: 12px;
+  padding: 4px 16px;
+}
+
+.--sourcekit-for-safari_text-bold {
+  font-weight: bold;
+}
+
+pre.--sourcekit-for-safari_code {
+  font-size: 12px;
+  border-top: 1px solid #e1e4e8;
+  padding: 8px 0 0 0;
+}
+
+.--sourcekit-for-safari_symbol-navigation {
+  min-width: 250px;
+  max-width: 340px;
+  max-height: 800px;
+}

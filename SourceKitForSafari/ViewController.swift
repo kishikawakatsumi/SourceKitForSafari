@@ -14,4 +14,9 @@ final class ViewController: NSViewController {
             }
         }
     }
+
+    @IBAction
+    private func quitApplication(_ sender: NSButton) {
+        NSApplication.shared.terminate(self)
+    }
 }
