@@ -1,5 +1,9 @@
 # SourceKit for Safari
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/40610/77445101-ffa8eb00-6e2f-11ea-9796-57a9ce5254b5.png" width="480" />
+</p>
+
 SourceKit for Safari is a browser extension for GitHub, that enables IDE features on your browser such as symbol navigator, go to definition and documentation on hover.
 
 <img src="https://user-images.githubusercontent.com/40610/77254137-87f98580-6ca2-11ea-96db-6d01d9df6c5d.gif" width="600" />
@@ -14,7 +18,7 @@ This is really proof of concept code--functional proof of concept, but proof of 
 
 Bring up a list of document items, then select your desired document item to jump to the respective source code location.
 
-<img src="https://user-images.githubusercontent.com/40610/77390450-59ca9180-6dd9-11ea-81de-8af63fca48bd.png" width="400" />
+<img src="https://user-images.githubusercontent.com/40610/77390450-59ca9180-6dd9-11ea-81de-8af63fca48bd.png" width="350" />
 
 ### Quick Help popup
 
@@ -29,6 +33,8 @@ If the text at the mouse cursor is a symbol defined in another file, turn it int
 <img src="https://user-images.githubusercontent.com/40610/77254205-022a0a00-6ca3-11ea-840f-d54d6a8baa10.png" width="400" />
 
 ## Installation
+
+<img src="https://user-images.githubusercontent.com/40610/77444575-5feb5d00-6e2f-11ea-9926-9102245b9afd.png" width="64" /><img src="https://user-images.githubusercontent.com/40610/77444792-a17c0800-6e2f-11ea-9c52-8911a3acee1a.png" width="64" />
 
 ### Safari
 
