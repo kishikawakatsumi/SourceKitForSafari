@@ -34,10 +34,10 @@ function restoreOptions() {
     {
       "sourcekit-lsp.serverPathOption": "default",
       "sourcekit-lsp.serverPath":
-        "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
       "sourcekit-lsp.SDKOption": "iphonesimulator",
       "sourcekit-lsp.SDKPath":
-        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator13.2.sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator13.4.sdk",
       "sourcekit-lsp.target": "x86_64-apple-ios13-simulator"
     },
     function(items) {

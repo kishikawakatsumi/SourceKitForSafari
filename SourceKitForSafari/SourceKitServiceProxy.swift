@@ -149,7 +149,6 @@ final class SourceKitServiceProxy {
 
     func defaultLanguageServerPath(completion: @escaping (Bool, String) -> Void) {
         let connection = self.connection
-        let context = self.context
 
         queue.async {
             connection.resume()
@@ -164,7 +163,6 @@ final class SourceKitServiceProxy {
 
     func defaultSDKPath(for SDK: String, completion: @escaping (Bool, String) -> Void) {
         let connection = self.connection
-        let context = self.context
 
         queue.async {
             connection.resume()
@@ -179,7 +177,6 @@ final class SourceKitServiceProxy {
 
     func synchronizeRepository(_ repository: URL, force: Bool = false, completion: @escaping (Bool, URL?) -> Void) {
         let connection = self.connection
-        let context = self.context
 
         queue.async {
             connection.resume()
@@ -194,7 +191,6 @@ final class SourceKitServiceProxy {
 
     func deleteLocalRepository(_ repository: URL, completion: @escaping (Bool, URL?) -> Void) {
         let connection = self.connection
-        let context = self.context
 
         queue.async {
             connection.resume()

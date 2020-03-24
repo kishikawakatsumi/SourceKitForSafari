@@ -260,7 +260,26 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func defaultLanguageServerPath(reply: @escaping (Bool, String) -> Void) {
-        reply(true, "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")
+        let process = Process()
+        process.launchPath = "/usr/bin/xcrun"
+        process.arguments = [
+            "-find",
+            "sourcekit-lsp",
+        ]
+
+        let standardOutput = Pipe()
+        process.standardOutput = standardOutput
+
+        process.launch()
+        process.waitUntilExit()
+
+        if process.terminationStatus == 0 {
+            if let result = String(data: standardOutput.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                reply(true, result)
+                return
+            }
+        }
+        reply(false, "")
     }
 
     func defaultSDKPath(for SDK: String, reply: @escaping (Bool, String) -> Void) {
