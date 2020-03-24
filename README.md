@@ -1,6 +1,6 @@
 # SourceKit for Safari
 
-SourceKit for Safari is a Safari extension for GitHub, that enables IDE features like go to definition, or documentation on hover.
+SourceKit for Safari is a browser extension for GitHub, that enables IDE features like go to definition, or documentation on hover.
 
 <img src="https://user-images.githubusercontent.com/40610/77254137-87f98580-6ca2-11ea-96db-6d01d9df6c5d.gif" width="600" />
 
@@ -8,14 +8,13 @@ SourceKit for Safari is a Safari extension for GitHub, that enables IDE features
 
 This is really proof of concept code--functional proof of concept, but proof of concept nonetheless--and has not been thoroughly tested. Use at your own risk.
 
-
 ## Features
 
 ### Show Document Items
 
 Bring up a list of document items, then select your desired document item to jump to the respective source code location.
 
-<img src="https://user-images.githubusercontent.com/40610/76712085-b7ffd080-6758-11ea-8506-8863d496e5b5.png" width="400" />
+<img src="https://user-images.githubusercontent.com/40610/77390450-59ca9180-6dd9-11ea-81de-8af63fca48bd.png" width="400" />
 
 ### Quick Help popup
 
@@ -31,9 +30,26 @@ If the text at the mouse cursor is a symbol defined in another file, turn it int
 
 ## Installation
 
+### Safari
+
 * Download the latest `SourceKit for Safari.app` from [GitHub Releases](https://github.com/kishikawakatsumi/SourceKitForSafari/releases), run it once to install the extension.
 * Open Safari - Preferences - Extension, make sure SourceKit for Safari is checked on the left panel.
 
+### Chrome
+
+* Download the latest `SourceKit for Safari.app` from [GitHub Releases](https://github.com/kishikawakatsumi/SourceKitForSafari/releases), run it once to install the extension.
+
+* Open the Extension Management page by navigating to `chrome://extensions`.
+   * The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
+* Enable Developer Mode by clicking the toggle switch next to Developer mode.
+
+<img src="https://user-images.githubusercontent.com/40610/77389846-939a9880-6dd7-11ea-8638-77e2e570d70e.png" width="180" />
+
+* Click the __Load Unpacked__ button and select the extension directory (`ChromeExtension` directory in the archive).
+
+<img src="https://user-images.githubusercontent.com/40610/77390172-7fa36680-6dd8-11ea-8142-4b211ecb29d4.png" width="300" />
+
+See also [Chrome extension development tutorial.](https://developer.chrome.com/extensions/getstarted)
 
 ## Getting Started
 
@@ -54,6 +70,10 @@ If you want to use other SourceKit-LSP binary, click the toolbar icon and set it
 
 <img src="https://user-images.githubusercontent.com/40610/76707770-7e699e00-6735-11ea-93a7-0f24b07e290d.png" width="600" />
 
+(for Chrome users, click the extension toolbar icon, then select `options` in the menu.)
+
+<img src="https://user-images.githubusercontent.com/40610/77390825-6ef3f000-6dda-11ea-9aad-099f31615a5d.png" width="400">
+
 Hover over symbols in the source code; then, the documentation for that symbol a popup will show or turn it link to the definition (The first may take some time).
 
 ## How it works
@@ -65,7 +85,6 @@ Then, when the source file is displayed on the browser, it automatically communi
 SourceKit for Safari does not automatically update local repositories.
 
 If the local repository is outdated, click the toolbar icon and press the Sync button to update it.
-
 
 ## Development
 
@@ -80,7 +99,6 @@ npm run build
 ```
 
 Please make sure to perform clean build when you change injected JavaScript or CSS files. Otherwise, the changes will not install correctly.
-
 
 ## References
 
