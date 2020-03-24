@@ -9,8 +9,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         guard let userDefaults = UserDefaults(suiteName: "27AEDK3C9F.kishikawakatsumi.SourceKitForSafari") else { return }
         userDefaults.register(defaults: [
-            "sourcekit-lsp.serverPath": "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
-            "sourcekit-lsp.SDKPath": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator13.2.sdk",
+            "sourcekit-lsp.serverPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+            "sourcekit-lsp.SDKPath": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator13.4.sdk",
             "sourcekit-lsp.target": "x86_64-apple-ios13-simulator",
         ])
 
