@@ -1,11 +1,18 @@
 {
+  "manifest_version": 2,
   "name": "SourceKit for Chrome",
   "version": "0.0.1",
   "description": "Browser extension for GitHub, that enables IDE features like go to definition, or documentation on hover.",
-  "permissions": ["activeTab", "declarativeContent", "<all_urls>"],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "author": "Kishikawa Katsumi",
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "persistent": false,
+    "scripts": ["background.js"]
   },
   "content_scripts": [
     {
@@ -21,12 +28,11 @@
       "js": ["bundle.js"]
     }
   ],
-  "web_accessible_resources": ["images/*.png"],
-  "icons": {
-    "16": "icon16.png",
-    "32": "icon32.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
+  "homepage_url": "https://github.com/kishikawakatsumi/SourceKitForSafari",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
   },
-  "manifest_version": 2
+  "permissions": ["activeTab", "declarativeContent", "storage", "<all_urls>"],
+  "web_accessible_resources": ["images/*.png"]
 }

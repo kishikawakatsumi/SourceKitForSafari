@@ -705,34 +705,71 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SourceKitForSafari" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="198"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OTM-eM-pKe">
-                                <rect key="frame" x="137" y="13" width="206" height="32"/>
-                                <buttonCell key="cell" type="push" title="Enable Source Kit for Safari" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eEY-ih-gMf">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="showPreferencesForExtension:" target="XfG-lQ-9wD" id="Cia-cS-SyL"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rht-i3-xlN">
-                                <rect key="frame" x="18" y="127" width="444" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Source Kit for Safari" id="E38-rg-4Vb">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                            <box title="Safari Extension" translatesAutoresizingMaskIntoConstraints="NO" id="mKa-nU-y5R">
+                                <rect key="frame" x="17" y="99" width="446" height="79"/>
+                                <view key="contentView" id="59k-Wd-JHG">
+                                    <rect key="frame" x="3" y="3" width="440" height="61"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OTM-eM-pKe">
+                                            <rect key="frame" x="117" y="13" width="206" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Enable Source Kit for Safari" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eEY-ih-gMf">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="showPreferencesForExtension:" target="XfG-lQ-9wD" id="Cia-cS-SyL"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OTM-eM-pKe" secondAttribute="trailing" constant="20" symbolic="YES" id="7s1-8P-ZAg"/>
+                                        <constraint firstAttribute="bottom" secondItem="OTM-eM-pKe" secondAttribute="bottom" constant="20" symbolic="YES" id="MKd-xo-9be"/>
+                                        <constraint firstItem="OTM-eM-pKe" firstAttribute="centerX" secondItem="59k-Wd-JHG" secondAttribute="centerX" id="W3R-mJ-hOu"/>
+                                        <constraint firstItem="OTM-eM-pKe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="59k-Wd-JHG" secondAttribute="leading" constant="20" symbolic="YES" id="iA5-ze-cTT"/>
+                                        <constraint firstItem="OTM-eM-pKe" firstAttribute="top" secondItem="59k-Wd-JHG" secondAttribute="top" constant="20" symbolic="YES" id="jkG-Ar-Ego"/>
+                                    </constraints>
+                                </view>
+                            </box>
+                            <box title="Chrome Extension" translatesAutoresizingMaskIntoConstraints="NO" id="tix-Wm-k0S">
+                                <rect key="frame" x="17" y="16" width="446" height="79"/>
+                                <view key="contentView" id="Ma6-xf-RNf">
+                                    <rect key="frame" x="3" y="3" width="440" height="61"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xES-6m-uwu">
+                                            <rect key="frame" x="117" y="13" width="206" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="geP-zH-fDn">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="quitApplication:" target="XfG-lQ-9wD" id="OWd-wR-LrK"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="xES-6m-uwu" secondAttribute="bottom" constant="20" symbolic="YES" id="hdG-7f-sho"/>
+                                        <constraint firstItem="xES-6m-uwu" firstAttribute="top" secondItem="Ma6-xf-RNf" secondAttribute="top" constant="20" symbolic="YES" id="hiw-kM-hKw"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xES-6m-uwu" secondAttribute="trailing" constant="20" symbolic="YES" id="qCF-NU-hVu"/>
+                                        <constraint firstItem="xES-6m-uwu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ma6-xf-RNf" secondAttribute="leading" constant="20" symbolic="YES" id="sJu-NN-pGK"/>
+                                        <constraint firstItem="xES-6m-uwu" firstAttribute="centerX" secondItem="Ma6-xf-RNf" secondAttribute="centerX" id="zbd-hW-2LA"/>
+                                    </constraints>
+                                </view>
+                            </box>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Rht-i3-xlN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="AzM-i3-Hcf"/>
-                            <constraint firstItem="Rht-i3-xlN" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="Yyb-Fb-Z5i"/>
-                            <constraint firstItem="OTM-eM-pKe" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="Zep-zx-6tN"/>
-                            <constraint firstAttribute="bottom" secondItem="OTM-eM-pKe" secondAttribute="bottom" constant="20" symbolic="YES" id="xYZ-Xx-uxd"/>
-                            <constraint firstAttribute="trailing" secondItem="Rht-i3-xlN" secondAttribute="trailing" constant="20" symbolic="YES" id="zVb-p4-TQH"/>
+                            <constraint firstItem="tix-Wm-k0S" firstAttribute="top" secondItem="mKa-nU-y5R" secondAttribute="bottom" constant="8" symbolic="YES" id="0Nf-WA-gcw"/>
+                            <constraint firstAttribute="bottom" secondItem="tix-Wm-k0S" secondAttribute="bottom" constant="20" symbolic="YES" id="1hC-iB-7Ng"/>
+                            <constraint firstItem="xES-6m-uwu" firstAttribute="width" secondItem="OTM-eM-pKe" secondAttribute="width" id="1sk-CL-aen"/>
+                            <constraint firstItem="mKa-nU-y5R" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="7jK-W7-OH2"/>
+                            <constraint firstAttribute="trailing" secondItem="tix-Wm-k0S" secondAttribute="trailing" constant="20" symbolic="YES" id="ZMM-Jq-pve"/>
+                            <constraint firstItem="mKa-nU-y5R" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="grz-HX-aac"/>
+                            <constraint firstItem="tix-Wm-k0S" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="khH-LS-aOA"/>
+                            <constraint firstAttribute="trailing" secondItem="mKa-nU-y5R" secondAttribute="trailing" constant="20" symbolic="YES" id="uny-q3-BPb"/>
                         </constraints>
                     </view>
                 </viewController>

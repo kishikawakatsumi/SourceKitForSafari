@@ -18,6 +18,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .ok(.htmlBody("OK"))
         }
 
+        server.POST["/options"] = { request -> HttpResponse in
+            let data = Data(request.body)
+            guard let userInfo = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                let serverPath = userInfo["sourcekit-lsp.serverPath"] as? String,
+                let SDKPath = userInfo["sourcekit-lsp.SDKPath"] as? String,
+                let target = userInfo["sourcekit-lsp.target"] as? String
+                else { return .badRequest(nil) }
+
+            userDefaults.set(serverPath, forKey: "sourcekit-lsp.serverPath")
+            userDefaults.set(SDKPath, forKey: "sourcekit-lsp.SDKPath")
+            userDefaults.set(target, forKey: "sourcekit-lsp.target")
+
+            return .ok(.json(["request": "options", "result": "success"]))
+        }
+
         server.POST["/initialize"] = { [weak self] (request) in
             guard let self = self else { return .internalServerError }
 
@@ -205,5 +220,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return nil
         }
         return URL(string: "\(scheme)://\(host)/\(url.pathComponents.dropFirst().prefix(2).joined(separator: "/")).git")
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        guard !flag else { return false }
+        for window in sender.windows {
+            window.makeKeyAndOrderFront(self)
+            return true
+        }
+        return true
     }
 }
