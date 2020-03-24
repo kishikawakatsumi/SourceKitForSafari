@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "SourceKit for Chrome",
-  "version": "0.0.1",
+  "version": "0.3.0",
   "description": "Browser extension for GitHub, that enables IDE features like go to definition, or documentation on hover.",
   "icons": {
     "16": "icon16.png",
