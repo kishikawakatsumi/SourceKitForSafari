@@ -1,6 +1,6 @@
 # SourceKit for Safari
 
-SourceKit for Safari is a browser extension for GitHub, that enables IDE features like go to definition, or documentation on hover.
+SourceKit for Safari is a browser extension for GitHub, that enables IDE features on your browsers such as symbol navigator, go to definition and documentation on hover.
 
 <img src="https://user-images.githubusercontent.com/40610/77254137-87f98580-6ca2-11ea-96db-6d01d9df6c5d.gif" width="600" />
 
