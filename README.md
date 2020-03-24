@@ -71,10 +71,10 @@ If you are using a toolchain from Swift.org, the SourceKit-LSP server is include
 
 If your toolchain did not come with SourceKit-LSP, you should [build it from source](https://github.com/apple/sourcekit-lsp/blob/master/Documentation/Development.md).
 
-SourceKit for Safari uses SourceKit-LSP that comes with Xcode 11.4 beta by default.
+SourceKit for Safari uses SourceKit-LSP that comes with Xcode 11.4 by default.
 
 ```
-/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp
 ```
 If you want to use other SourceKit-LSP binary, click the toolbar icon and set its full path to the settings text field.
 
