@@ -49,11 +49,11 @@ If the text at the mouse cursor is a symbol defined in another file, turn it int
    * The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
 * Enable Developer Mode by clicking the toggle switch next to Developer mode.
 
-<img src="https://user-images.githubusercontent.com/40610/77389846-939a9880-6dd7-11ea-8638-77e2e570d70e.png" width="180" />
+<img src="https://user-images.githubusercontent.com/40610/77447757-5fed5c00-6e33-11ea-8f1a-fa03ecb4b02a.png" width="200" />
 
 * Click the __Load Unpacked__ button and select the extension directory (`ChromeExtension` directory in the archive).
 
-<img src="https://user-images.githubusercontent.com/40610/77390172-7fa36680-6dd8-11ea-8142-4b211ecb29d4.png" width="300" />
+<img src="https://user-images.githubusercontent.com/40610/77447864-801d1b00-6e33-11ea-87cc-1f31219bc5ab.png" width="300" />
 
 See also [Chrome extension development tutorial.](https://developer.chrome.com/extensions/getstarted)
 
@@ -78,7 +78,7 @@ SourceKit for Safari uses SourceKit-LSP that comes with Xcode 11.4 beta by defau
 ```
 If you want to use other SourceKit-LSP binary, click the toolbar icon and set its full path to the settings text field.
 
-<img src="https://user-images.githubusercontent.com/40610/76707770-7e699e00-6735-11ea-93a7-0f24b07e290d.png" width="600" />
+<img src="https://user-images.githubusercontent.com/40610/77447951-9b882600-6e33-11ea-9f87-ac34ea44a8d4.png" width="600" />
 
 (for Chrome users, click the extension toolbar icon, then select `options` in the menu.)
 
