@@ -46,6 +46,10 @@ function readLine(line, lineIndex, columnIndex) {
   for (var i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     if (node.nodeName === "#text") {
+      if (!node.nodeValue.trim()) {
+        columnIndex += node.nodeValue.length;
+        continue;
+      }
       var element = document.createElement("span");
       element.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
       element.dataset.lineNumber = lineIndex;
@@ -263,140 +267,142 @@ function handleResponse(event, parsedUrl) {
         case "hover":
           (() => {
             const suffix = `-${event.message.line}-${event.message.character}`;
-            const element = document.querySelector(`.symbol${suffix}`);
-            if (
-              !element.dataset.hoverRequestState ||
-              element.dataset.documentation
-            ) {
-              return;
-            }
-
-            const value = event.message.value;
-            if (value) {
-              const documentation = `${marked(value)}`;
-              element.dataset.documentation = documentation;
-              element.dataset.hoverRequestState = "finished";
-              element.classList.add("--sourcekit-for-safari_quickhelp");
-
-              const documentationContainer = document.createElement("div");
-              documentationContainer.classList.add(
-                "--sourcekit-for-safari_documentation-container",
-                "--sourcekit-for-safari_documentation"
-              );
-              documentationContainer.innerHTML = documentation;
-
-              const tabContent = document.createElement("div");
-              tabContent.innerHTML = `
-                <div class="tab-pane active overflow-auto" id="documentation${suffix}" role="tabpanel" aria-labelledby="documentation-tab">
-                  ${documentationContainer.outerHTML}
-                </div>
-              `;
-
-              const popoverContent = setupQuickHelpContent(suffix);
-              $(".tab-header-documentation", popoverContent).replaceWith(
-                `
-                <li class="nav-item tab-header-documentation">
-                  <a class="nav-link active" id="documentation-tab${suffix}" data-toggle="tab" href="#documentation${suffix}" role="tab" aria-controls="documentation" aria-selected="true">Documentation</a>
-                </li>
-                `
-              );
-              $(".nav-link", popoverContent).attr("data-toggle", "tab");
-              $(".tab-content", popoverContent).append(tabContent.innerHTML);
-
-              const popover = $(element).data("bs.popover");
-              if (popover) {
-                popover.config.content = popoverContent.prop("outerHTML");
-              } else {
-                setupQuickHelp(element, popoverContent);
+            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+              if (
+                !element.dataset.hoverRequestState ||
+                element.dataset.documentation
+              ) {
+                return;
               }
-            }
+
+              const value = event.message.value;
+              if (value) {
+                const documentation = `${marked(value)}`;
+                element.dataset.documentation = documentation;
+                element.dataset.hoverRequestState = "finished";
+                element.classList.add("--sourcekit-for-safari_quickhelp");
+
+                const documentationContainer = document.createElement("div");
+                documentationContainer.classList.add(
+                  "--sourcekit-for-safari_documentation-container",
+                  "--sourcekit-for-safari_documentation"
+                );
+                documentationContainer.innerHTML = documentation;
+
+                const tabContent = document.createElement("div");
+                tabContent.innerHTML = `
+                  <div class="tab-pane active overflow-auto" id="documentation${suffix}" role="tabpanel" aria-labelledby="documentation-tab">
+                    ${documentationContainer.outerHTML}
+                  </div>
+                `;
+
+                const popoverContent = setupQuickHelpContent(suffix);
+                $(".tab-header-documentation", popoverContent).replaceWith(
+                  `
+                  <li class="nav-item tab-header-documentation">
+                    <a class="nav-link active" id="documentation-tab${suffix}" data-toggle="tab" href="#documentation${suffix}" role="tab" aria-controls="documentation" aria-selected="true">Documentation</a>
+                  </li>
+                  `
+                );
+                $(".nav-link", popoverContent).attr("data-toggle", "tab");
+                $(".tab-content", popoverContent).append(tabContent.innerHTML);
+
+                const popover = $(element).data("bs.popover");
+                if (popover) {
+                  popover.config.content = popoverContent.prop("outerHTML");
+                } else {
+                  setupQuickHelp(element, popoverContent);
+                }
+              }
+            });
           })();
           break;
         case "definition":
           (() => {
             const suffix = `-${event.message.line}-${event.message.character}`;
-            const element = document.querySelector(`.symbol${suffix}`);
-            if (
-              !element.dataset.definitionRequestState ||
-              element.dataset.definition
-            ) {
-              return;
-            }
-
-            const value = event.message.value;
-            if (value && value.locations) {
-              const definitions = [];
-              value.locations.forEach(location => {
-                if (location.uri) {
-                  const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
-                  definitions.push({
-                    href: href,
-                    path: location.uri,
-                    content: location.content
-                  });
-                } else {
-                  definitions.push({
-                    path: location.filename,
-                    content: location.content
-                  });
-                }
-              });
-
-              // prettier-ignore
-              const definition = definitions
-                .map(definition => {
-                  const href = definition.href || ""
-                  const referenceLineNumber = href
-                    .replace(parsedUrl.href, "")
-                    .replace("#L", "");
-                  const onThisFile = href.includes(parsedUrl.href);
-                  const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
-                  const text = thisIsTheDefinition ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>` : `Defined ${onThisFile ? "on" : "in"}`;
-                  const linkOrText = href ?
-                    `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
-                    `<span class="--sourcekit-for-safari_text-bold">${definition.path}</span>`
-                  return `
-                    <div class="--sourcekit-for-safari_bg-gray">
-                      ${text} ${linkOrText}
-                    </div>
-                    <div>
-                      <pre class="--sourcekit-for-safari_code"><code>${hljs.highlight("swift", definition.content).value}</code></pre>
-                    </div>
-                    `;
-                })
-                .join("\n");
-              element.dataset.definition = definition;
-              element.dataset.definitionRequestState = "finished";
-              element.classList.add("--sourcekit-for-safari_quickhelp");
-
-              const definitionContainer = document.createElement("div");
-              definitionContainer.innerHTML = definition;
-
-              const tabContent = document.createElement("div");
-              tabContent.innerHTML = `
-                <div class="tab-pane overflow-auto" id="definition${suffix}" role="tabpanel" aria-labelledby="definition-tab">
-                  ${definitionContainer.outerHTML}
-                </div>
-              `;
-
-              const popoverContent = setupQuickHelpContent(suffix);
-              $(".tab-header-definition", popoverContent).replaceWith(
-                `
-                <li class="nav-item tab-header-definition">
-                  <a class="nav-link" id="definition-tab${suffix}" data-toggle="tab" href="#definition${suffix}" role="tab" aria-controls="definition" aria-selected="true">Definition</a>
-                </li>
-                `
-              );
-              $(".nav-link", popoverContent).attr("data-toggle", "tab");
-              $(".tab-content", popoverContent).append(tabContent.innerHTML);
-
-              const popover = $(element).data("bs.popover");
-              if (popover) {
-                popover.config.content = popoverContent.prop("outerHTML");
-              } else {
-                setupQuickHelp(element, popoverContent);
+            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+              if (
+                !element.dataset.definitionRequestState ||
+                element.dataset.definition
+              ) {
+                return;
               }
-            }
+
+              const value = event.message.value;
+              if (value && value.locations) {
+                const definitions = [];
+                value.locations.forEach(location => {
+                  if (location.uri) {
+                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
+                    definitions.push({
+                      href: href,
+                      path: location.uri,
+                      content: location.content
+                    });
+                  } else {
+                    definitions.push({
+                      path: location.filename,
+                      content: location.content
+                    });
+                  }
+                });
+
+                // prettier-ignore
+                const definition = definitions
+                  .map(definition => {
+                    const href = definition.href || ""
+                    const referenceLineNumber = href
+                      .replace(parsedUrl.href, "")
+                      .replace("#L", "");
+                    const onThisFile = href.includes(parsedUrl.href);
+                    const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
+                    const text = thisIsTheDefinition ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>` : `Defined ${onThisFile ? "on" : "in"}`;
+                    const linkOrText = href ?
+                      `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
+                      `<span class="--sourcekit-for-safari_text-bold">${definition.path}</span>`
+                    return `
+                      <div class="--sourcekit-for-safari_bg-gray">
+                        ${text} ${linkOrText}
+                      </div>
+                      <div>
+                        <pre class="--sourcekit-for-safari_code"><code>${hljs.highlight("swift", definition.content).value}</code></pre>
+                      </div>
+                      `;
+                  })
+                  .join("\n");
+                element.dataset.definition = definition;
+                element.dataset.definitionRequestState = "finished";
+                element.classList.add("--sourcekit-for-safari_quickhelp");
+
+                const definitionContainer = document.createElement("div");
+                definitionContainer.innerHTML = definition;
+
+                const tabContent = document.createElement("div");
+                tabContent.innerHTML = `
+                  <div class="tab-pane overflow-auto" id="definition${suffix}" role="tabpanel" aria-labelledby="definition-tab">
+                    ${definitionContainer.outerHTML}
+                  </div>
+                `;
+
+                const popoverContent = setupQuickHelpContent(suffix);
+                $(".tab-header-definition", popoverContent).replaceWith(
+                  `
+                  <li class="nav-item tab-header-definition">
+                    <a class="nav-link" id="definition-tab${suffix}" data-toggle="tab" href="#definition${suffix}" role="tab" aria-controls="definition" aria-selected="true">Definition</a>
+                  </li>
+                  `
+                );
+                $(".nav-link", popoverContent).attr("data-toggle", "tab");
+                $(".tab-content", popoverContent).append(tabContent.innerHTML);
+
+                const popover = $(element).data("bs.popover");
+                if (popover) {
+                  popover.config.content = popoverContent.prop("outerHTML");
+                } else {
+                  setupQuickHelp(element, popoverContent);
+                }
+              }
+            });
           })();
           break;
         default:
@@ -449,7 +455,8 @@ const activate = () => {
       return;
     }
     if (!element.dataset.hoverRequestState) {
-      element.dataset.hoverRequestState = "requesting";
+      element.dataset.hoverRequestState = `requesting-${+element.dataset
+        .lineNumber}:${+element.dataset.column}`;
       dispatchMessage("hover", {
         resource: parsedUrl.resource,
         slug: parsedUrl.full_name,
@@ -460,7 +467,8 @@ const activate = () => {
       });
     }
     if (!element.dataset.definitionRequestState) {
-      element.dataset.definitionRequestState = "requesting";
+      element.dataset.definitionRequestState = `requesting-${+element.dataset
+        .lineNumber}:${+element.dataset.column}`;
       dispatchMessage("definition", {
         resource: parsedUrl.resource,
         slug: parsedUrl.full_name,
