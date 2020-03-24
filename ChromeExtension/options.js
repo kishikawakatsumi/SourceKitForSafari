@@ -37,7 +37,7 @@ function restoreOptions() {
         "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
       "sourcekit-lsp.SDKOption": "iphonesimulator",
       "sourcekit-lsp.SDKPath":
-        "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator13.2.sdk",
       "sourcekit-lsp.target": "x86_64-apple-ios13-simulator"
     },
     function(items) {
