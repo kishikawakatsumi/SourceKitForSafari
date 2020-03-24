@@ -1,7 +1,7 @@
 # SourceKit for Safari
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/40610/77445101-ffa8eb00-6e2f-11ea-9796-57a9ce5254b5.png" width="480" />
+  <img src="https://user-images.githubusercontent.com/40610/77446950-6deead00-6e32-11ea-99bf-c7e80a08b2f4.png" width="480" />
 </p>
 
 SourceKit for Safari is a browser extension for GitHub, that enables IDE features on your browser such as symbol navigator, go to definition and documentation on hover.
@@ -18,19 +18,19 @@ This is really proof of concept code--functional proof of concept, but proof of 
 
 Bring up a list of document items, then select your desired document item to jump to the respective source code location.
 
-<img src="https://user-images.githubusercontent.com/40610/77390450-59ca9180-6dd9-11ea-81de-8af63fca48bd.png" width="350" />
+<img src="https://user-images.githubusercontent.com/40610/77447255-d2aa0780-6e32-11ea-98cc-0f49aa63d9b8.png" width="400" />
 
 ### Quick Help popup
 
 Hovering the mouse cursor over a symbol shows documentation.
 
-<img src="https://user-images.githubusercontent.com/40610/77254202-ffc7b000-6ca2-11ea-9fb1-ce0e16f8e09e.png" width="400" />
+<img src="https://user-images.githubusercontent.com/40610/77447411-fd945b80-6e32-11ea-8844-85270be38b91.png" width="400" />
 
 ### Jumps to Definition
 
 If the text at the mouse cursor is a symbol defined in another file, turn it into a link navigating to the file.
 
-<img src="https://user-images.githubusercontent.com/40610/77254205-022a0a00-6ca3-11ea-840f-d54d6a8baa10.png" width="400" />
+<img src="https://user-images.githubusercontent.com/40610/77447572-2caacd00-6e33-11ea-9f65-aa67dc89e639.png" width="400" />
 
 ## Installation
 
