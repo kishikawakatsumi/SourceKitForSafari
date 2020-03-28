@@ -263,7 +263,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         let process = Process()
         process.launchPath = "/usr/bin/xcrun"
         process.arguments = [
-            "-find",
+            "--find",
             "sourcekit-lsp",
         ]
 
