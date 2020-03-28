@@ -1,11 +1,11 @@
 import Foundation
 
 private let defaultServerPathOption = Settings.ServerPathOption.default
-private let defaultServerPath = "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
+private let defaultServerPath = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
 private let defaultSDKOption = Settings.SDKOption.iOS
 private let defaultSDKPath = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator13.2.sdk"
 private let defaultToolchainOption = Settings.ToolchainOption.default
-private let defaultToolchain = "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain"
+private let defaultToolchain = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain"
 private let defaultTarget = "x86_64-apple-ios13-simulator"
 
 final class Settings {
