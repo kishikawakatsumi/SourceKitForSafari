@@ -1,0 +1,11 @@
+{
+  "name": "sourcekit-for-safari-options",
+  "version": "0.1.0",
+  "description": "SourceKit for Safari Chrome extension option page",
+  "repository": "https://github.com/kishikawakatsumi/SourceKitForSafari",
+  "license": "MIT",
+  "main": "./options.js",
+  "dependencies": {
+    "chrome-options": "^1.0.0"
+  }
+}

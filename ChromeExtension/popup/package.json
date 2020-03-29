@@ -1,0 +1,14 @@
+{
+  "name": "sourcekit-for-safar-popup",
+  "version": "0.1.0",
+  "description": "SourceKit for Safari Chrome extension popup page",
+  "repository": "https://github.com/kishikawakatsumi/SourceKitForSafari",
+  "license": "MIT",
+  "main": "./popup.js",
+  "scripts": {
+    "build": "browserify popup.js -o bundle.js"
+  },
+  "dependencies": {
+    "git-url-parse": "^11.1.2"
+  }
+}

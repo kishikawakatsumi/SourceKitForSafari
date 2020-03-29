@@ -73,6 +73,15 @@ NS_SWIFT_NAME(synchronizeRepository(repository:force:reply:));
 - (void)deleteLocalRepository:(NSURL *)repository reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
 NS_SWIFT_NAME(deleteLocalRepository(repository:reply:));
 
+- (void)localCheckoutDirectoryFor:(NSURL *)repository reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
+NS_SWIFT_NAME(localCheckoutDirectory(for:reply:));
+
+- (void)showInFinderFor:(NSURL *)path reply:(void (^)(BOOL successfully))reply
+NS_SWIFT_NAME(showInFinder(for:reply:));
+
+- (void)lastUpdateFor:(NSURL *)repository reply:(void (^)(BOOL successfully, NSDate * _Nullable modificationDate))reply
+NS_SWIFT_NAME(lastUpdate(for:reply:));
+
 @end
 
 NS_ASSUME_NONNULL_END

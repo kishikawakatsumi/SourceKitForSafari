@@ -1,8 +1,8 @@
 {
-  "name": "@kishikawakattsumi/sourcekit-for-safari-helpers",
+  "name": "sourcekit-for-safari",
   "version": "0.1.0",
-  "description": "SourceKit for Safari helper library",
-  "repository": "https://github.com/kishikawakattsumi/sourcekit-for-safari-helpers",
+  "description": "SourceKit for Safari web frontend",
+  "repository": "https://github.com/kishikawakatsumi/SourceKitForSafari",
   "license": "MIT",
   "main": "./index.js",
   "scripts": {

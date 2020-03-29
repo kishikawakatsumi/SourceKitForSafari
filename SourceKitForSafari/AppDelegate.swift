@@ -7,45 +7,163 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let server = HttpServer()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        guard let userDefaults = UserDefaults(suiteName: "27AEDK3C9F.kishikawakatsumi.SourceKitForSafari") else { return }
-        userDefaults.register(defaults: [
-            "sourcekit-lsp.serverPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
-            "sourcekit-lsp.SDKPath": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator13.4.sdk",
-            "sourcekit-lsp.target": "x86_64-apple-ios13-simulator",
-        ])
-
         server.GET["/status"] = { request -> HttpResponse in
             return .ok(.htmlBody("OK"))
         }
 
-        server.POST["/options"] = { request -> HttpResponse in
+        server.GET["/settings"] = { request -> HttpResponse in
+            let settings = Settings()
+            let value: [String: Any] = [
+                "server": settings.server.rawValue,
+                "server_path": settings.serverPath,
+                "sdk": settings.sdk.rawValue,
+                "sdk_path": settings.sdkPath,
+                "target": settings.target,
+                "toolchain": settings.toolchain,
+                "auto_checkout": settings.automaticallyCheckoutsRepository,
+                "access_token_github": settings.accessToken,
+            ]
+
+            return .ok(.json(["request": "settings", "result": "success", "value": value]))
+        }
+
+        server.POST["/updateSettings"] = { [weak self] request -> HttpResponse in
+            guard let self = self else { return .internalServerError }
+
             let data = Data(request.body)
             guard let userInfo = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                let serverPath = userInfo["sourcekit-lsp.serverPath"] as? String,
-                let SDKPath = userInfo["sourcekit-lsp.SDKPath"] as? String,
-                let target = userInfo["sourcekit-lsp.target"] as? String
+                let server = userInfo["server"] as? String,
+                let sdk = userInfo["sdk"] as? String,
+                let target = userInfo["target"] as? String,
+                let toolchain = userInfo["toolchain"] as? String,
+                let autoCheckout = userInfo["auto_checkout"] as? Int,
+                let accessToken = userInfo["access_token_github"] as? String
                 else { return .badRequest(nil) }
 
-            userDefaults.set(serverPath, forKey: "sourcekit-lsp.serverPath")
-            userDefaults.set(SDKPath, forKey: "sourcekit-lsp.SDKPath")
-            userDefaults.set(target, forKey: "sourcekit-lsp.target")
+            let settings = Settings()
 
-            return .ok(.json(["request": "options", "result": "success"]))
+            if let server = Settings.Server(rawValue: server) {
+                settings.server = server
+            }
+            if let serverPath = userInfo["server_path"] as? String {
+                settings.serverPath = serverPath
+            }
+
+            if let sdk = Settings.SDK(rawValue: sdk) {
+                settings.sdk = sdk
+            }
+
+            let semaphore = DispatchSemaphore(value: 0)
+            self.service.defaultSDKPath(for: sdk) { (successfully, response) in
+                if successfully {
+                    settings.sdkPath = response
+                }
+                semaphore.signal()
+            }
+            semaphore.wait()
+
+            settings.target = target
+            settings.toolchain = toolchain
+            settings.automaticallyCheckoutsRepository = autoCheckout == 1
+            settings.accessToken = accessToken
+
+            return .ok(.json(["request": "updateSettings", "result": "success"]))
+        }
+
+        server.POST["/checkoutRepository"] = { [weak self] request -> HttpResponse in
+            guard let self = self else { return .internalServerError }
+
+            let data = Data(request.body)
+            guard let userInfo = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                let url = userInfo["url"] as? String, let repository = URL(string: url)
+                else { return .badRequest(nil) }
+
+            do {
+                let semaphore = DispatchSemaphore(value: 0)
+                self.service.synchronizeRepository(repository) { (successfully, response) in
+                    semaphore.signal()
+                }
+                semaphore.wait()
+            }
+
+            var value = [String: Any]()
+            do {
+                let semaphore = DispatchSemaphore(value: 0)
+                self.service.localCheckoutDirectory(for: repository) { (successfully, response) in
+                    if successfully {
+                        value["localCheckoutDirectory"] = response?.path
+                    }
+                    semaphore.signal()
+                }
+                semaphore.wait()
+            }
+            do {
+                let semaphore = DispatchSemaphore(value: 0)
+                self.service.lastUpdate(for: repository) { (successfully, response) in
+                    if successfully {
+                        let formatter = RelativeDateTimeFormatter()
+                        formatter.dateTimeStyle = .named
+                        value["lastUpdate"] = formatter.string(for: response)
+                    }
+                    semaphore.signal()
+                }
+                semaphore.wait()
+            }
+
+            return .ok(.json(["request": "repository", "result": "success", "value": value]))
+        }
+
+        server.POST["/repository"] = { [weak self] request -> HttpResponse in
+            guard let self = self else { return .internalServerError }
+
+            let data = Data(request.body)
+            guard let userInfo = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                let url = userInfo["url"] as? String, let repository = URL(string: url)
+                else { return .badRequest(nil) }
+
+            var value = [String: Any]()
+            do {
+                let semaphore = DispatchSemaphore(value: 0)
+                self.service.localCheckoutDirectory(for: repository) { (successfully, response) in
+                    if successfully {
+                        value["localCheckoutDirectory"] = response?.path
+                    }
+                    semaphore.signal()
+                }
+                semaphore.wait()
+            }
+            do {
+                let semaphore = DispatchSemaphore(value: 0)
+                self.service.lastUpdate(for: repository) { (successfully, response) in
+                    if successfully {
+                        let formatter = RelativeDateTimeFormatter()
+                        formatter.dateTimeStyle = .named
+                        value["lastUpdate"] = formatter.string(for: response)
+                    }
+                    semaphore.signal()
+                }
+                semaphore.wait()
+            }
+
+            return .ok(.json(["request": "repository", "result": "success", "value": value]))
         }
 
         server.POST["/initialize"] = { [weak self] (request) in
             guard let self = self else { return .internalServerError }
 
+            let settings = Settings()
+            guard settings.automaticallyCheckoutsRepository else { return .ok(.json(["request": "initialize", "result": "skip"])) }
+
             let data = Data(request.body)
             guard let userInfo = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                 let resource = userInfo["resource"] as? String, resource == "github.com", let href = userInfo["href"] as? String,
-                let url = URL(string: href), let repositoryURL = self.parseGitHubURL(url) else { return .badRequest(nil) }
+                let url = URL(string: href), let repositoryURL = parseGitHubURL(url) else { return .badRequest(nil) }
 
             let semaphore = DispatchSemaphore(value: 0)
             var result = [String: Any]()
-            self.service.synchronizeRepository(repositoryURL) { (successfully, URL) in
+            self.service.synchronizeRepository(repositoryURL) { (successfully, response) in
                 if successfully {
-                    if let _ = URL {
+                    if let _ = response {
                         result = ["request": "initialize", "result": "success"]
                     } else {
                         result = ["request": "initialize", "result": "skip"]
@@ -59,6 +177,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             return .ok(.json(result))
         }
+
         server.POST["/didOpen"] = { [weak self] (request) in
             guard let self = self else { return .internalServerError }
 
@@ -102,6 +221,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             return .ok(.json(result))
         }
+
         server.POST["/hover"] = { [weak self] (request) in
             guard let self = self else { return .internalServerError }
 
@@ -141,6 +261,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             return .ok(.json(result))
         }
+        
         server.POST["/definition"] = { [weak self] (request) in
             guard let self = self else { return .internalServerError }
 
@@ -213,13 +334,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } catch {
             print("\(error)")
         }
-    }
-
-    private func parseGitHubURL(_ url: URL) -> URL? {
-        guard let scheme = url.scheme, scheme == "https" ,let host = url.host, host == "github.com", url.pathComponents.count >= 3 else {
-            return nil
-        }
-        return URL(string: "\(scheme)://\(host)/\(url.pathComponents.dropFirst().prefix(2).joined(separator: "/")).git")
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

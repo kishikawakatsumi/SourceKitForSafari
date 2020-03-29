@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14019EDB24305738005397C5 /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
+		14019EDC24305769005397C5 /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
 		140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140460E2240BEE79004FE328 /* AppDelegate.swift */; };
 		140460E5240BEE79004FE328 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140460E4240BEE79004FE328 /* ViewController.swift */; };
 		140460E7240BEE7A004FE328 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 140460E6240BEE7A004FE328 /* Assets.xcassets */; };
@@ -38,8 +40,10 @@
 		144D1D8D242678C000B7AC65 /* E.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D78242678BF00B7AC65 /* E.png */; };
 		144D1D8E242678C000B7AC65 /* P.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D79242678BF00B7AC65 /* P.png */; };
 		144D1D8F242678C000B7AC65 /* F.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D7A242678BF00B7AC65 /* F.png */; };
+		1459AAD9242F3C18002D6185 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14931110241D4EC400CF87D3 /* Settings.swift */; };
+		1459AADA242F3C19002D6185 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14931110241D4EC400CF87D3 /* Settings.swift */; };
+		1459AADC242F3C4C002D6185 /* SourceKitServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */; };
 		145B31A924295B3200660469 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 145B31A824295B3200660469 /* Swifter */; };
-		145B31AD2429633700660469 /* SourceKitServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145B31AA2429632900660469 /* SourceKitServiceProxy.swift */; };
 		145B31B124296D0800660469 /* SourceKitService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKitService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		145E9A20241405F6006DD651 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A1F241405F6006DD651 /* main.m */; };
 		145E9A2624140626006DD651 /* SourceKitService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKitService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -112,6 +116,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		14019EDA24305738005397C5 /* parseGitHubURL().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "parseGitHubURL().swift"; sourceTree = "<group>"; };
 		140460DF240BEE79004FE328 /* SourceKit for Safari.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SourceKit for Safari.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		140460E2240BEE79004FE328 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		140460E4240BEE79004FE328 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -148,7 +153,6 @@
 		144D1D78242678BF00B7AC65 /* E.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = E.png; sourceTree = "<group>"; };
 		144D1D79242678BF00B7AC65 /* P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = P.png; sourceTree = "<group>"; };
 		144D1D7A242678BF00B7AC65 /* F.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = F.png; sourceTree = "<group>"; };
-		145B31AA2429632900660469 /* SourceKitServiceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceKitServiceProxy.swift; sourceTree = "<group>"; };
 		145B31AE2429637300660469 /* SourceKitForSafari-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SourceKitForSafari-Bridging-Header.h"; sourceTree = "<group>"; };
 		145E9A19241405F6006DD651 /* SourceKitService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = SourceKitService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		145E9A1B241405F6006DD651 /* SourceKitServiceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceKitServiceProtocol.h; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 				140460E1240BEE79004FE328 /* SourceKitForSafari */,
 				140460FA240BEE94004FE328 /* SafariExtension */,
 				145E9A1A241405F6006DD651 /* SourceKitService */,
+				1459AAD8242F3BFE002D6185 /* Shared */,
 				140460F7240BEE94004FE328 /* Frameworks */,
 				140460E0240BEE79004FE328 /* Products */,
 			);
@@ -225,7 +230,6 @@
 			isa = PBXGroup;
 			children = (
 				140460E2240BEE79004FE328 /* AppDelegate.swift */,
-				145B31AA2429632900660469 /* SourceKitServiceProxy.swift */,
 				140460E4240BEE79004FE328 /* ViewController.swift */,
 				140460E8240BEE7A004FE328 /* Main.storyboard */,
 				140460E6240BEE7A004FE328 /* Assets.xcassets */,
@@ -250,8 +254,6 @@
 				140460FB240BEE94004FE328 /* SafariExtensionHandler.swift */,
 				140460FD240BEE94004FE328 /* SafariExtensionViewController.swift */,
 				140460FF240BEE94004FE328 /* SafariExtensionViewController.xib */,
-				145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */,
-				14931110241D4EC400CF87D3 /* Settings.swift */,
 				145E9A2A24140884006DD651 /* SafariExtension-Bridging-Header.h */,
 				145E9A412414B876006DD651 /* js */,
 				145E9A442414B8B5006DD651 /* css */,
@@ -289,6 +291,16 @@
 				144D1D67242678BF00B7AC65 /* S@3x.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		1459AAD8242F3BFE002D6185 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */,
+				14931110241D4EC400CF87D3 /* Settings.swift */,
+				14019EDA24305738005397C5 /* parseGitHubURL().swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		145E9A1A241405F6006DD651 /* SourceKitService */ = {
@@ -518,8 +530,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				145B31AD2429633700660469 /* SourceKitServiceProxy.swift in Sources */,
+				1459AADC242F3C4C002D6185 /* SourceKitServiceProxy.swift in Sources */,
 				140460E5240BEE79004FE328 /* ViewController.swift in Sources */,
+				14019EDB24305738005397C5 /* parseGitHubURL().swift in Sources */,
+				1459AADA242F3C19002D6185 /* Settings.swift in Sources */,
 				140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,6 +544,7 @@
 			files = (
 				14931111241D4EC400CF87D3 /* Settings.swift in Sources */,
 				145E9A482414DEBA006DD651 /* SourceKitServiceProxy.swift in Sources */,
+				14019EDC24305769005397C5 /* parseGitHubURL().swift in Sources */,
 				140460FE240BEE94004FE328 /* SafariExtensionViewController.swift in Sources */,
 				140460FC240BEE94004FE328 /* SafariExtensionHandler.swift in Sources */,
 			);
@@ -539,6 +554,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1459AAD9242F3C18002D6185 /* Settings.swift in Sources */,
 				145E9A292414068B006DD651 /* SourceKitService.swift in Sources */,
 				14931109241C30DB00CF87D3 /* LanguageServer.swift in Sources */,
 				1493110D241C310B00CF87D3 /* Workspace.swift in Sources */,
