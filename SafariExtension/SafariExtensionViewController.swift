@@ -91,16 +91,18 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            if Settings.shared.server == .default {
+            let settings = Settings()
+
+            if settings.server == .default {
                 self.serverPopUp.selectItem(at: 0)
                 self.serverTextField.isEditable = false
             } else {
                 self.serverPopUp.selectItem(at: 1)
                 self.serverTextField.isEditable = true
             }
-            self.serverTextField.stringValue = Settings.shared.serverPath
+            self.serverTextField.stringValue = settings.serverPath
 
-            switch Settings.shared.sdk {
+            switch settings.sdk {
             case .iOS:
                 self.SDKPopUp.selectItem(at: 0)
             case .macOS:
@@ -111,15 +113,15 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
                 self.SDKPopUp.selectItem(at: 3)
             }
 
-            self.SDKTextLabel.stringValue = Settings.shared.sdkPath
+            self.SDKTextLabel.stringValue = settings.sdkPath
 
-            self.targetTextField.stringValue = Settings.shared.target
+            self.targetTextField.stringValue = settings.target
 
-            self.toolchainTextField.stringValue = Settings.shared.toolchain
+            self.toolchainTextField.stringValue = settings.toolchain
 
-            self.autoCheckoutCheckbox.state = Settings.shared.automaticallyCheckoutsRepository ? .on : .off
+            self.autoCheckoutCheckbox.state = settings.automaticallyCheckoutsRepository ? .on : .off
             
-            self.accessTokenTextField.stringValue = Settings.shared.accessToken
+            self.accessTokenTextField.stringValue = settings.accessToken
 
             self.repositoryTextField.stringValue = ""
             self.localCheckoutTextField.stringValue = ""
@@ -133,15 +135,17 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
 
     @IBAction
     private func serverPopUpAction(_ sender: NSPopUpButton) {
+        let settings = Settings()
+
         if sender.indexOfSelectedItem == 0 {
-            Settings.shared.server = .default
+            settings.server = .default
             serverTextField.isEditable = false
 
             serverSpinner.startAnimation(self)
 
             service.defaultLanguageServerPath { (successfully, response) in
                 if successfully {
-                    Settings.shared.serverPath = response
+                    settings.serverPath = response
 
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
@@ -151,21 +155,23 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
                 }
             }
         } else {
-            Settings.shared.server = .custom
+            settings.server = .custom
             serverTextField.isEditable = true
         }
     }
 
     @IBAction
     private func SDKPopUpAction(_ sender: NSPopUpButton) {
+        let settings = Settings()
+
         let SDK = Settings.SDK.allCases[sender.indexOfSelectedItem]
-        Settings.shared.sdk = SDK
+        settings.sdk = SDK
 
         SDKSpinner.startAnimation(self)
 
         service.defaultSDKPath(for: SDK.rawValue) { (successfully, response) in
             if successfully {
-                Settings.shared.sdkPath = response
+                settings.sdkPath = response
 
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
@@ -178,7 +184,8 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
 
     @IBAction
     private func autoCheckoutAction(_ sender: NSButton) {
-        Settings.shared.automaticallyCheckoutsRepository = sender.state == .on
+        let settings = Settings()
+        settings.automaticallyCheckoutsRepository = sender.state == .on
     }
 
     @IBAction
@@ -218,17 +225,19 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
 
 extension SafariExtensionViewController: NSTextFieldDelegate {
     func controlTextDidChange(_ notification: Notification) {
+        let settings = Settings()
+
         if let textField = notification.object as? NSTextField, textField === serverTextField {
-            Settings.shared.serverPath = textField.stringValue
+            settings.serverPath = textField.stringValue
         }
         if let textField = notification.object as? NSTextField, textField === targetTextField {
-            Settings.shared.target = textField.stringValue
+            settings.target = textField.stringValue
         }
         if let textField = notification.object as? NSTextField, textField === toolchainTextField {
-            Settings.shared.toolchain = textField.stringValue
+            settings.toolchain = textField.stringValue
         }
         if let textField = notification.object as? NSTextField, textField === accessTokenTextField {
-            Settings.shared.accessToken = textField.stringValue
+            settings.accessToken = textField.stringValue
         }
     }
 }

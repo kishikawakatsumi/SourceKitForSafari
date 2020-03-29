@@ -9,6 +9,9 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
+  "browser_action": {
+    "default_popup": "popup/popup.html"
+  },
   "author": "Kishikawa Katsumi",
   "background": {
     "persistent": false,
@@ -30,9 +33,15 @@
   ],
   "homepage_url": "https://github.com/kishikawakatsumi/SourceKitForSafari",
   "options_ui": {
-    "page": "options.html",
+    "page": "options/options.html",
     "open_in_tab": false
   },
-  "permissions": ["activeTab", "declarativeContent", "storage", "<all_urls>"],
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage",
+    "tabs",
+    "<all_urls>"
+  ],
   "web_accessible_resources": ["images/*.png"]
 }

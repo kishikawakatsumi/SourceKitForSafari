@@ -6,9 +6,11 @@ final class SourceKitServiceProxy {
 
     private var context: [String: String] {
         var context = [String: String]()
-        context["serverPath"] = Settings.shared.serverPath
-        context["SDKPath"] = Settings.shared.sdkPath
-        context["target"] = Settings.shared.target
+        
+        let settings = Settings()
+        context["serverPath"] = settings.serverPath
+        context["SDKPath"] = settings.sdkPath
+        context["target"] = settings.target
 
         return context
     }

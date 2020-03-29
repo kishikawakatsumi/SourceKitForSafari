@@ -6,7 +6,8 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
     override func messageReceived(withName messageName: String, from page: SFSafariPage, userInfo: [String : Any]?) {
         switch messageName {
         case "initialize":
-            guard Settings.shared.automaticallyCheckoutsRepository else { break }
+            let settings = Settings()
+            guard settings.automaticallyCheckoutsRepository else { return }
 
             guard let userInfo = userInfo,
                 let url = userInfo["url"] as? String,
@@ -142,17 +143,19 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
         viewController.updateUI { [weak self] in
             guard let self = self else { return }
 
-            if Settings.shared.server == .default {
+            let settings = Settings()
+
+            if settings.server == .default {
                 self.service.defaultLanguageServerPath { (successfully, response) in
                     if successfully {
-                        Settings.shared.serverPath = response
+                        settings.serverPath = response
                         viewController.serverPath = response
                     }
                 }
             }
-            self.service.defaultSDKPath(for: Settings.shared.sdk.rawValue) { (successfully, response) in
+            self.service.defaultSDKPath(for: settings.sdk.rawValue) { (successfully, response) in
                 if successfully {
-                    Settings.shared.sdkPath = response
+                    settings.sdkPath = response
                     viewController.sdkPath = response
                 }
             }
