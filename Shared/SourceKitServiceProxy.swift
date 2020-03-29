@@ -11,6 +11,7 @@ final class SourceKitServiceProxy {
         context["serverPath"] = settings.serverPath
         context["SDKPath"] = settings.sdkPath
         context["target"] = settings.target
+        context["accessToken"] = settings.accessToken
 
         return context
     }
@@ -141,15 +142,16 @@ final class SourceKitServiceProxy {
         }
     }
 
-    func synchronizeRepository(_ repository: URL, force: Bool = false, completion: @escaping (Bool, URL?) -> Void) {
+    func synchronizeRepository(_ repository: URL, ignoreLastUpdate force: Bool = false, completion: @escaping (Bool, URL?) -> Void) {
         let connection = self.connection
+        let context = self.context
 
         queue.async {
             connection.resume()
             defer { connection.suspend() }
             guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
 
-            service.synchronizeRepository(repository: repository, force: force) { (successfully, response) in
+            service.synchronizeRepository(context: context, repository: repository, ignoreLastUpdate: force) { (successfully, response) in
                 completion(successfully, response)
             }
         }
@@ -163,7 +165,7 @@ final class SourceKitServiceProxy {
             defer { connection.suspend() }
             guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
 
-            service.deleteLocalRepository(repository: repository) { (successfully, response) in
+            service.deleteLocalRepository(repository) { (successfully, response) in
                 completion(successfully, response)
             }
         }

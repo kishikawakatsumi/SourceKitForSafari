@@ -200,7 +200,7 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
 
         syncSpinner.startAnimation(self)
 
-        service.synchronizeRepository(repository, force: true) { [weak self] (successfully, response) in
+        service.synchronizeRepository(repository, ignoreLastUpdate: true) { [weak self] (successfully, response) in
             guard let self = self else { return }
 
             DispatchQueue.main.async { [weak self] in

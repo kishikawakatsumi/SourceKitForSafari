@@ -77,9 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           document.getElementById("local_checkout_directory").innerText =
-            response.value.localCheckoutDirectory;
+            response.value.localCheckoutDirectory || "";
           document.getElementById("last_update").innerText =
-            response.value.lastUpdate;
+            response.value.lastUpdate || "";
 
           document.getElementById("sync_repository_button").disabled = false;
 
