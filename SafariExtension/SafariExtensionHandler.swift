@@ -129,6 +129,59 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                     page.dispatchMessageToScript(withName: "response", userInfo: ["request": "definition", "result": "error"])
                 }
             }
+        case "references":
+            guard let userInfo = userInfo,
+                let resource = userInfo["resource"] as? String,
+                let slug = userInfo["slug"] as? String,
+                let filepath = userInfo["filepath"] as? String ,
+                let line = userInfo["line"] as? Int,
+                let character = userInfo["character"] as? Int,
+                let text = userInfo["text"] as? String
+                else { return }
+            var skip = 0
+            for character in text {
+                if character == " " || character == "." {
+                    skip += 1
+                } else {
+                    break
+                }
+            }
+
+            service.sendReferencesRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+                if successfully {
+                    if let value = response["value"] as? [[String: Any]] {
+                        let locations = value.compactMap { (location) -> [String: Any]? in
+                            guard let uri = location["uri"] as? String, let start = location["start"] as? [String: Any],
+                                let line = start["line"] as? Int else { return nil }
+
+                            let filename = location["filename"] ?? ""
+                            let content = location["content"] ?? ""
+
+                            if !uri.isEmpty {
+                                let ref = uri
+                                    .replacingOccurrences(of: resource, with: "")
+                                    .replacingOccurrences(of: slug, with: "")
+                                    .split(separator: "/")
+                                    .joined(separator: "/")
+                                    .appending("#L\(line + 1)")
+
+                                return ["uri": ref, "filename": filename, "content": content]
+                            } else {
+                                return ["uri": "", "filename": filename, "content": content]
+                            }
+                        }
+
+                        guard !locations.isEmpty else { return }
+
+                        page.dispatchMessageToScript(
+                            withName: "response",
+                            userInfo: ["request": "references", "result": "success", "value": ["locations": locations], "line": line, "character": character, "text": text]
+                        )
+                    }
+                } else {
+                    page.dispatchMessageToScript(withName: "response", userInfo: ["request": "references", "result": "error"])
+                }
+            }
         default:
             break
         }

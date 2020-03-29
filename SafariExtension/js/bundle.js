@@ -23,6 +23,7 @@ const quickHelpTemplate = `
       <ul class="--sourcekit-for-safari nav nav-tabs p-2" role="tablist">
         <li class="nav-item tab-header-documentation"></li>
         <li class="nav-item tab-header-definition"></li>
+        <li class="nav-item tab-header-references"></li>
       </ul>
     </div>
     <div class="tab-content"></div>
@@ -107,6 +108,13 @@ function setupQuickHelp(element, popoverContent) {
     });
     document
       .querySelectorAll(".--sourcekit-for-safari_jump-to-definition")
+      .forEach(link => {
+        $(link).on("click", () => {
+          hideAllQuickHelpPopovers();
+        });
+      });
+    document
+      .querySelectorAll(".--sourcekit-for-safari_jump-to-references")
       .forEach(link => {
         $(link).on("click", () => {
           hideAllQuickHelpPopovers();
@@ -405,6 +413,94 @@ function handleResponse(event, parsedUrl) {
             });
           })();
           break;
+        case "references":
+          (() => {
+            const suffix = `-${event.message.line}-${event.message.character}`;
+            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+              if (
+                !element.dataset.referencesRequestState ||
+                element.dataset.references
+              ) {
+                return;
+              }
+
+              const value = event.message.value;
+              if (value && value.locations) {
+                const references = [];
+                value.locations.forEach(location => {
+                  if (location.uri) {
+                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
+                    references.push({
+                      href: href,
+                      path: location.uri,
+                      content: location.content
+                    });
+                  } else {
+                    references.push({
+                      path: location.filename,
+                      content: location.content
+                    });
+                  }
+                });
+
+                // prettier-ignore
+                const reference = references
+                    .map(reference => {
+                      const href = reference.href || ""
+                      const referenceLineNumber = href
+                        .replace(parsedUrl.href, "")
+                        .replace("#L", "");
+                      const onThisFile = href.includes(parsedUrl.href);
+                      const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
+                      const text = thisIsTheDefinition ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>` : `Defined ${onThisFile ? "on" : "in"}`;
+                      const linkOrText = href ?
+                        `<a class="--sourcekit-for-safari_jump-to-references --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : reference.path}</a>` :
+                        `<span class="--sourcekit-for-safari_text-bold">${reference.path}</span>`
+                      return `
+                        <div class="--sourcekit-for-safari_bg-gray">
+                          ${text} ${linkOrText}
+                        </div>
+                        <div>
+                          <pre class="--sourcekit-for-safari_code"><code>${hljs.highlight("swift", reference.content).value}</code></pre>
+                        </div>
+                        `;
+                    })
+                    .join("\n");
+                element.dataset.references = reference;
+                element.dataset.referencesRequestState = "finished";
+                element.classList.add("--sourcekit-for-safari_quickhelp");
+
+                const referencesContainer = document.createElement("div");
+                referencesContainer.innerHTML = reference;
+
+                const tabContent = document.createElement("div");
+                tabContent.innerHTML = `
+                    <div class="tab-pane overflow-auto" id="references${suffix}" role="tabpanel" aria-labelledby="references-tab">
+                      ${referencesContainer.outerHTML}
+                    </div>
+                  `;
+
+                const popoverContent = setupQuickHelpContent(suffix);
+                $(".tab-header-references", popoverContent).replaceWith(
+                  `
+                    <li class="nav-item tab-header-references">
+                      <a class="nav-link" id="references-tab${suffix}" data-toggle="tab" href="#references${suffix}" role="tab" aria-controls="references" aria-selected="true">References</a>
+                    </li>
+                    `
+                );
+                $(".nav-link", popoverContent).attr("data-toggle", "tab");
+                $(".tab-content", popoverContent).append(tabContent.innerHTML);
+
+                const popover = $(element).data("bs.popover");
+                if (popover) {
+                  popover.config.content = popoverContent.prop("outerHTML");
+                } else {
+                  setupQuickHelp(element, popoverContent);
+                }
+              }
+            });
+          })();
+          break;
         default:
           break;
       }
@@ -473,6 +569,18 @@ const activate = () => {
       element.dataset.definitionRequestState = `requesting-${+element.dataset
         .lineNumber}:${+element.dataset.column}`;
       dispatchMessage("definition", {
+        resource: parsedUrl.resource,
+        slug: parsedUrl.full_name,
+        filepath: parsedUrl.filepath,
+        line: +element.dataset.lineNumber,
+        character: +element.dataset.column,
+        text: element.innerText
+      });
+    }
+    if (!element.dataset.referencesRequestState) {
+      element.dataset.referencesRequestState = `requesting-${+element.dataset
+        .lineNumber}:${+element.dataset.column}`;
+      dispatchMessage("references", {
         resource: parsedUrl.resource,
         slug: parsedUrl.full_name,
         filepath: parsedUrl.filepath,

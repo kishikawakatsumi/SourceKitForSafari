@@ -49,6 +49,15 @@ NS_SWIFT_NAME(sendHoverRequest(context:resource:slug:path:line:character:reply:)
                                    reply:(void (^)(BOOL successfully, NSDictionary<NSString *, id> *response))reply
 NS_SWIFT_NAME(sendDefinitionRequest(context:resource:slug:path:line:character:reply:));
 
+- (void)sendReferencesRequest:(NSDictionary<NSString *, NSString *> *)context
+                     resource:(NSString *)resource
+                         slug:(NSString *)slug
+                         path:(NSString *)path
+                         line:(NSInteger)line
+                    character:(NSInteger)character
+                        reply:(void (^)(BOOL successfully, NSDictionary<NSString *, id> *response))reply
+NS_SWIFT_NAME(sendReferencesRequest(context:resource:slug:path:line:character:reply:));
+
 - (void)sendShutdownRequestWithContext:(NSDictionary<NSString *, NSString *> *)context
                               resource:(NSString *)resource
                                   slug:(NSString *)slug
@@ -67,7 +76,10 @@ NS_SWIFT_NAME(defaultLanguageServerPath(reply:));
 - (void)defaultSDKPathForSDK:(NSString *)SDK reply:(void (^)(BOOL successfully, NSString *path))reply
 NS_SWIFT_NAME(defaultSDKPath(for:reply:));
 
-- (void)synchronizeRepository:(NSDictionary<NSString *, NSString *> *)context repository:(NSURL *)repository ignoreLastUpdate:(BOOL)ignoreLastUpdate reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
+- (void)synchronizeRepository:(NSDictionary<NSString *, NSString *> *)context
+                   repository:(NSURL *)repository
+             ignoreLastUpdate:(BOOL)ignoreLastUpdate
+                        reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
 NS_SWIFT_NAME(synchronizeRepository(context:repository:ignoreLastUpdate:reply:));
 
 - (void)deleteLocalRepository:(NSURL *)repository reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply

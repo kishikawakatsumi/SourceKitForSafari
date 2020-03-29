@@ -329,6 +329,73 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .ok(.json(result))
         }
 
+        server.POST["/references"] = { [weak self] (request) in
+            guard let self = self else { return .internalServerError }
+
+            let data = Data(request.body)
+            guard let userInfo = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                let resource = userInfo["resource"] as? String,
+                let slug = userInfo["slug"] as? String,
+                let filepath = userInfo["filepath"] as? String ,
+                let line = userInfo["line"] as? Int,
+                let character = userInfo["character"] as? Int,
+                let text = userInfo["text"] as? String
+                else { return .badRequest(nil) }
+
+            let semaphore = DispatchSemaphore(value: 0)
+            var result = [String: Any]()
+
+            var skip = 0
+            for character in text {
+                if character == " " || character == "." {
+                    skip += 1
+                } else {
+                    break
+                }
+            }
+
+            self.service.sendReferencesRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+                if successfully {
+                    if let value = response["value"] as? [[String: Any]] {
+                        let locations = value.compactMap { (location) -> [String: Any]? in
+                            guard let uri = location["uri"] as? String, let start = location["start"] as? [String: Any],
+                                let line = start["line"] as? Int else { return nil }
+
+                            let filename = location["filename"] ?? ""
+                            let content = location["content"] ?? ""
+
+                            if !uri.isEmpty {
+                                let ref = uri
+                                    .replacingOccurrences(of: resource, with: "")
+                                    .replacingOccurrences(of: slug, with: "")
+                                    .split(separator: "/")
+                                    .joined(separator: "/")
+                                    .appending("#L\(line + 1)")
+
+                                return ["uri": ref, "filename": filename, "content": content]
+                            } else {
+                                return ["uri": "", "filename": filename, "content": content]
+                            }
+                        }
+
+                        guard !locations.isEmpty else {
+                            semaphore.signal()
+                            return
+                        }
+
+                        result = ["request": "references", "result": "success", "value": ["locations": locations], "line": line, "character": character, "text": text]
+                        semaphore.signal()
+                    }
+                } else {
+                    result = ["request": "references", "result": "error"];
+                    semaphore.signal()
+                }
+            }
+            semaphore.wait()
+
+            return .ok(.json(result))
+        }
+
         do {
             try server.start(50000, forceIPv4: true, priority: .default)
         } catch {

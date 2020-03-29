@@ -1,5 +1,4 @@
 import Foundation
-import AppKit
 import LanguageServerProtocol
 import OSLog
 
@@ -109,6 +108,22 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 } else {
                     reply(true, ["result": "success", "value": ""])
                 }
+            case .failure(let error):
+                reply(false, ["result": "error \(error)"])
+            }
+        }
+    }
+
+    func sendReferencesRequest(context: [String : String], resource: String, slug: String, path: String, line: Int, character: Int, reply: @escaping (Bool, [String : Any]) -> Void) {
+        let server = ServerRegistry.shared.get(resource: resource, slug: slug)
+
+        server.sendReferencesRequest(context: context, document: path, line: line, character: character) { [weak self] in
+            guard let self = self else { return }
+
+            switch $0 {
+            case .success(let response):
+                let locations: [Location] = response
+                reply(true, ["result": "success", "value": self.encodeResponse(locations)])
             case .failure(let error):
                 reply(false, ["result": "error \(error)"])
             }
