@@ -38,7 +38,7 @@ final class LanguageServer {
         guard let SDKPath = context["SDKPath"] else { return }
         guard let target = context["target"] else { return }
 
-        os_log("[initialize] server: %{public}s, SDK: %{public}s, target: %{public}s", log: log, type: .debug, "\(serverPath) \(SDKPath) \(target)")
+        os_log("server: %{public}s, SDK: %{public}s, target: %{public}s", log: log, type: .debug, "\(serverPath) \(SDKPath) \(target)")
 
         let rootURI = Workspace.documentRoot(resource: resource, slug: slug)
 
@@ -58,7 +58,7 @@ final class LanguageServer {
             "-Xswiftc", target
         ]
 
-        os_log("Initialize language server: %{public}s", log: log, type: .debug, "\(serverProcess.launchPath!) \(serverProcess.arguments!.joined(separator: " "))")
+        os_log("Launch language server: %{public}s", log: log, type: .debug, "\(serverProcess.launchPath!) \(serverProcess.arguments!.joined(separator: " "))")
 
         serverProcess.standardOutput = serverToClient
         serverProcess.standardInput = clientToServer

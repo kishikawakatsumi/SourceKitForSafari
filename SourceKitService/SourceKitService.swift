@@ -7,16 +7,8 @@ let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: 
 
 @objc
 class SourceKitService: NSObject, SourceKitServiceProtocol {
-    override init() {
-        os_log("[SourceKitService] SourceKitService.init()", log: log, type: .debug)
-    }
-
-    deinit {
-        os_log("[SourceKitService] SourceKitService.deinit", log: log, type: .debug)
-    }
-
     func sendInitalizeRequest(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("[SourceKitService] sendInitalizeRequest(resource: %{public}s, slug: %{public}s)", log: log, type: .debug, resource, slug)
+        os_log("sendInitalizeRequest(resource: %{public}s, slug: %{public}s)", log: log, type: .debug, resource, slug)
 
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
@@ -38,7 +30,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func sendDidOpenNotification(context: [String : String], resource: String, slug: String, path: String, text: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("[SourceKitService] sendDidOpenNotification(slug: %{public}s, path: %{public}s)", log: log, type: .debug, slug, path)
+        os_log("sendDidOpenNotification(slug: %{public}s, path: %{public}s)", log: log, type: .debug, slug, path)
 
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
@@ -47,7 +39,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func sendDocumentSymbolRequest(context: [String : String], resource: String, slug: String, path: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("[SourceKitService] sendDocumentSymbolRequest(slug: %{public}s, path: %{public}s)", log: log, type: .debug, slug, path)
+        os_log("sendDocumentSymbolRequest(slug: %{public}s, path: %{public}s)", log: log, type: .debug, slug, path)
 
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
@@ -124,7 +116,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func sendShutdownRequest(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("[SourceKitService] sendShutdownRequest(resource: %{public}s, slug: %{public}s)", log: log, type: .debug, resource, slug)
+        os_log("sendShutdownRequest(resource: %{public}s, slug: %{public}s)", log: log, type: .debug, resource, slug)
 
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
@@ -139,7 +131,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func sendExitNotification(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("[SourceKitService] sendExitNotification(slug: %{public}s)", log: log, type: .debug, slug)
+        os_log("sendExitNotification(slug: %{public}s)", log: log, type: .debug, slug)
 
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
@@ -149,20 +141,23 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         reply(true, ["result": "success"])
     }
 
-    func synchronizeRepository(repository: URL, force: Bool, reply: @escaping (Bool, URL?) -> Void) {
-        guard let host = repository.host else { return }
+    func synchronizeRepository(context: [String : String], repository remoteRepository: URL, ignoreLastUpdate force: Bool, reply: @escaping (Bool, URL?) -> Void) {
+        guard let host = remoteRepository.host else { return }
 
         let groupContainer = Workspace.root
-        let directory = groupContainer.appendingPathComponent(host).appendingPathComponent(repository.path).deletingPathExtension()
+        let directory = groupContainer
+            .appendingPathComponent(host)
+            .appendingPathComponent(remoteRepository.path)
+            .deletingPathExtension()
 
         if FileManager().fileExists(atPath: directory.path) && !force {
-            os_log("Sync repository: [skip]", log: log, type: .debug)
+            os_log("[sync][skip]", log: log, type: .debug)
             reply(true, nil)
             return
         }
 
         let fileCoordinator = NSFileCoordinator()
-        fileCoordinator.coordinate(writingItemAt: directory, options: [], error: nil) { (URL) in
+        fileCoordinator.coordinate(writingItemAt: directory, options: [], error: nil) { (localDirectory) in
             if FileManager().fileExists(atPath: directory.path) {
                 let process = Process()
                 process.currentDirectoryURL = directory
@@ -176,7 +171,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     "HEAD",
                 ]
 
-                os_log("Sync repository: %{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
+                os_log("[sync] %{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
 
                 let standardOutput = Pipe()
                 process.standardOutput = standardOutput
@@ -187,19 +182,29 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 process.waitUntilExit()
 
                 if let result = String(data: standardOutput.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("%{public}s", log: log, type: .debug, "\(result)")
+                    os_log("[sync] %{public}s", log: log, type: .debug, "\(result)")
                 }
                 if let result = String(data: standardError.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("%{public}s", log: log, type: .debug, "\(result)")
+                    os_log("[sync] %{public}s", log: log, type: .debug, "\(result)")
                 }
-                os_log("Exit status: %d", log: log, type: .debug, process.terminationStatus)
+                os_log("[sync] exit status: %d", log: log, type: .debug, process.terminationStatus)
 
                 if process.terminationStatus == 0 {
-                    reply(true, URL)
+                    reply(true, localDirectory)
                 } else {
                     reply(false, nil);
                 }
             } else {
+                let remoteURL: URL
+                if let accessToken = context["accessToken"],
+                    var components = URLComponents(url: remoteRepository, resolvingAgainstBaseURL: false) {
+                    components.user = accessToken
+                    components.password = "x-oauth-basic"
+                    remoteURL = components.url ?? remoteRepository
+                } else {
+                    remoteURL = remoteRepository
+                }
+                
                 let process = Process()
                 process.launchPath = "/usr/bin/xcrun"
                 process.arguments = [
@@ -208,11 +213,11 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     "--depth",
                     "1",
                     "--recursive",
-                    repository.absoluteString,
-                    URL.path,
+                    remoteURL.absoluteString,
+                    localDirectory.path,
                 ]
 
-                os_log("Sync repository: %{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
+                os_log("[sync] %{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
 
                 let standardOutput = Pipe()
                 process.standardOutput = standardOutput
@@ -223,15 +228,15 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 process.waitUntilExit()
 
                 if let result = String(data: standardOutput.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("%{public}s", log: log, type: .debug, "\(result)")
+                    os_log("[sync] %{public}s", log: log, type: .debug, "\(result)")
                 }
                 if let result = String(data: standardError.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("%{public}s", log: log, type: .debug, "\(result)")
+                    os_log("[sync] %{public}s", log: log, type: .debug, "\(result)")
                 }
-                os_log("Exit status: %d", log: log, type: .debug, process.terminationStatus)
+                os_log("[sync] %d", log: log, type: .debug, process.terminationStatus)
 
                 if process.terminationStatus == 0 {
-                    reply(true, URL)
+                    reply(true, localDirectory)
                 } else {
                     reply(false, nil);
                 }
@@ -239,11 +244,11 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         }
     }
 
-    func deleteLocalRepository(repository: URL, reply: @escaping (Bool, URL?) -> Void) {
-        guard let host = repository.host else { return }
+    func deleteLocalRepository(_ localRepository: URL, reply: @escaping (Bool, URL?) -> Void) {
+        guard let host = localRepository.host else { return }
 
         let groupContainer = Workspace.root
-        let directory = groupContainer.appendingPathComponent(host).appendingPathComponent(repository.path).deletingPathExtension()
+        let directory = groupContainer.appendingPathComponent(host).appendingPathComponent(localRepository.path).deletingPathExtension()
 
         let fileCoordinator = NSFileCoordinator()
         fileCoordinator.coordinate(writingItemAt: directory, options: [], error: nil) { (URL) in
@@ -264,7 +269,9 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         guard let host = repository.host else { return }
 
         let groupContainer = Workspace.root
-        let directory = groupContainer.appendingPathComponent(host).appendingPathComponent(repository.deletingPathExtension().path.split(separator: "/").joined(separator: "/"))
+        let directory = groupContainer
+            .appendingPathComponent(host)
+            .appendingPathComponent(repository.deletingPathExtension().path.split(separator: "/").joined(separator: "/"))
 
         if FileManager().fileExists(atPath: directory.path) {
             reply(true, directory)
@@ -291,7 +298,9 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         guard let host = repository.host else { return }
 
         let groupContainer = Workspace.root
-        let directory = groupContainer.appendingPathComponent(host).appendingPathComponent(repository.path).deletingPathExtension()
+        let directory = groupContainer
+            .appendingPathComponent(host)
+            .appendingPathComponent(repository.path).deletingPathExtension()
 
         guard let attributes = try? FileManager().attributesOfItem(atPath: directory.path),
             let fileModificationDate = NSDictionary(dictionary: attributes).fileModificationDate()

@@ -67,11 +67,11 @@ NS_SWIFT_NAME(defaultLanguageServerPath(reply:));
 - (void)defaultSDKPathForSDK:(NSString *)SDK reply:(void (^)(BOOL successfully, NSString *path))reply
 NS_SWIFT_NAME(defaultSDKPath(for:reply:));
 
-- (void)synchronizeRepository:(NSURL *)repository force:(BOOL)force reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
-NS_SWIFT_NAME(synchronizeRepository(repository:force:reply:));
+- (void)synchronizeRepository:(NSDictionary<NSString *, NSString *> *)context repository:(NSURL *)repository ignoreLastUpdate:(BOOL)ignoreLastUpdate reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
+NS_SWIFT_NAME(synchronizeRepository(context:repository:ignoreLastUpdate:reply:));
 
 - (void)deleteLocalRepository:(NSURL *)repository reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
-NS_SWIFT_NAME(deleteLocalRepository(repository:reply:));
+NS_SWIFT_NAME(deleteLocalRepository(_:reply:));
 
 - (void)localCheckoutDirectoryFor:(NSURL *)repository reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
 NS_SWIFT_NAME(localCheckoutDirectory(for:reply:));
