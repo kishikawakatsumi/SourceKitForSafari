@@ -45,7 +45,7 @@ final class LanguageServer {
         connection.start(receiveHandler: Client())
 
         serverProcess.launchPath = serverPath
-        if let toolchain = context["toolchain"] {
+        if let toolchain = context["toolchain"], !toolchain.isEmpty {
             serverProcess.environment = [
                 "SOURCEKIT_TOOLCHAIN_PATH": toolchain
             ]

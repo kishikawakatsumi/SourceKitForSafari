@@ -6,17 +6,9 @@ final class SourceKitServiceProxy {
 
     private var context: [String: String] {
         var context = [String: String]()
-        guard let userDefaults = UserDefaults(suiteName: "27AEDK3C9F.kishikawakatsumi.SourceKitForSafari") else { return context }
-
-        if let serverPath = userDefaults.string(forKey: "sourcekit-lsp.serverPath") {
-            context["serverPath"] = serverPath
-        }
-        if let SDKPath = userDefaults.string(forKey: "sourcekit-lsp.SDKPath") {
-            context["SDKPath"] = SDKPath
-        }
-        if let target = userDefaults.string(forKey: "sourcekit-lsp.target") {
-            context["target"] = target
-        }
+        context["serverPath"] = Settings.shared.serverPath
+        context["SDKPath"] = Settings.shared.sdkPath
+        context["target"] = Settings.shared.target
 
         return context
     }
@@ -147,34 +139,6 @@ final class SourceKitServiceProxy {
         }
     }
 
-    func defaultLanguageServerPath(completion: @escaping (Bool, String) -> Void) {
-        let connection = self.connection
-
-        queue.async {
-            connection.resume()
-            defer { connection.suspend() }
-            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
-
-            service.defaultLanguageServerPath { (successfully, response) in
-                completion(successfully, response)
-            }
-        }
-    }
-
-    func defaultSDKPath(for SDK: String, completion: @escaping (Bool, String) -> Void) {
-        let connection = self.connection
-
-        queue.async {
-            connection.resume()
-            defer { connection.suspend() }
-            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
-
-            service.defaultSDKPath(for: SDK) { (successfully, response) in
-                completion(successfully, response)
-            }
-        }
-    }
-
     func synchronizeRepository(_ repository: URL, force: Bool = false, completion: @escaping (Bool, URL?) -> Void) {
         let connection = self.connection
 
@@ -198,6 +162,76 @@ final class SourceKitServiceProxy {
             guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
 
             service.deleteLocalRepository(repository: repository) { (successfully, response) in
+                completion(successfully, response)
+            }
+        }
+    }
+
+    func localCheckoutDirectory(for repository: URL, completion: @escaping (Bool, URL?) -> Void) {
+        let connection = self.connection
+
+        queue.async {
+            connection.resume()
+            defer { connection.suspend() }
+            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+            service.localCheckoutDirectory(for: repository) { (successfully, response) in
+                completion(successfully, response)
+            }
+        }
+    }
+
+    func showInFinder(for path: URL, completion: @escaping (Bool) -> Void) {
+        let connection = self.connection
+
+        queue.async {
+            connection.resume()
+            defer { connection.suspend() }
+            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+            service.showInFinder(for: path) { (successfully) in
+                completion(successfully)
+            }
+        }
+    }
+
+    func lastUpdate(for repository: URL, completion: @escaping (Bool, Date?) -> Void) {
+        let connection = self.connection
+
+        queue.async {
+            connection.resume()
+            defer { connection.suspend() }
+            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+            service.lastUpdate(for: repository) { (successfully, response) in
+                completion(successfully, response)
+            }
+        }
+    }
+
+    func defaultLanguageServerPath(completion: @escaping (Bool, String) -> Void) {
+        let connection = self.connection
+
+        queue.async {
+            connection.resume()
+            defer { connection.suspend() }
+            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+            service.defaultLanguageServerPath { (successfully, response) in
+                completion(successfully, response)
+            }
+        }
+    }
+
+    func defaultSDKPath(for SDK: String, completion: @escaping (Bool, String) -> Void) {
+        let connection = self.connection
+
+        queue.async {
+            connection.resume()
+            defer { connection.suspend() }
+            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+            service.defaultSDKPath(for: SDK) { (successfully, response) in
                 completion(successfully, response)
             }
         }

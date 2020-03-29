@@ -7,13 +7,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let server = HttpServer()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        guard let userDefaults = UserDefaults(suiteName: "27AEDK3C9F.kishikawakatsumi.SourceKitForSafari") else { return }
-        userDefaults.register(defaults: [
-            "sourcekit-lsp.serverPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
-            "sourcekit-lsp.SDKPath": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator13.4.sdk",
-            "sourcekit-lsp.target": "x86_64-apple-ios13-simulator",
-        ])
-
         server.GET["/status"] = { request -> HttpResponse in
             return .ok(.htmlBody("OK"))
         }
@@ -26,9 +19,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let target = userInfo["sourcekit-lsp.target"] as? String
                 else { return .badRequest(nil) }
 
-            userDefaults.set(serverPath, forKey: "sourcekit-lsp.serverPath")
-            userDefaults.set(SDKPath, forKey: "sourcekit-lsp.SDKPath")
-            userDefaults.set(target, forKey: "sourcekit-lsp.target")
+            let settings = Settings.shared
+            settings.serverPath = serverPath
+            settings.sdkPath = SDKPath
+            settings.target = target
 
             return .ok(.json(["request": "options", "result": "success"]))
         }
@@ -39,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let data = Data(request.body)
             guard let userInfo = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                 let resource = userInfo["resource"] as? String, resource == "github.com", let href = userInfo["href"] as? String,
-                let url = URL(string: href), let repositoryURL = self.parseGitHubURL(url) else { return .badRequest(nil) }
+                let url = URL(string: href), let repositoryURL = parseGitHubURL(url) else { return .badRequest(nil) }
 
             let semaphore = DispatchSemaphore(value: 0)
             var result = [String: Any]()
@@ -59,6 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             return .ok(.json(result))
         }
+
         server.POST["/didOpen"] = { [weak self] (request) in
             guard let self = self else { return .internalServerError }
 
@@ -102,6 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             return .ok(.json(result))
         }
+
         server.POST["/hover"] = { [weak self] (request) in
             guard let self = self else { return .internalServerError }
 
@@ -141,6 +137,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             return .ok(.json(result))
         }
+        
         server.POST["/definition"] = { [weak self] (request) in
             guard let self = self else { return .internalServerError }
 
@@ -213,13 +210,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } catch {
             print("\(error)")
         }
-    }
-
-    private func parseGitHubURL(_ url: URL) -> URL? {
-        guard let scheme = url.scheme, scheme == "https" ,let host = url.host, host == "github.com", url.pathComponents.count >= 3 else {
-            return nil
-        }
-        return URL(string: "\(scheme)://\(host)/\(url.pathComponents.dropFirst().prefix(2).joined(separator: "/")).git")
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

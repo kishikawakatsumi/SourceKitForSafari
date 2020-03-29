@@ -1,40 +1,27 @@
 import SafariServices
-import OSLog
-
-let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: "Safari Extension")
 
 final class SafariExtensionHandler: SFSafariExtensionHandler {
     private let service = SourceKitServiceProxy.shared
 
-    override init() {
-        super.init()
-        Settings.shared.prepare()
-    }
-
     override func messageReceived(withName messageName: String, from page: SFSafariPage, userInfo: [String : Any]?) {
         switch messageName {
         case "initialize":
-            page.getPropertiesWithCompletionHandler { [weak self] (properties) in
-                guard let self = self else { return }
+            guard Settings.shared.automaticallyCheckoutsRepository else { break }
 
-                guard let properties = properties, let url = properties.url else {
-                    return
-                }
-                guard let repositoryURL = self.parseGitHubURL(url) else {
-                    return
-                }
+            guard let userInfo = userInfo,
+                let url = userInfo["url"] as? String,
+                let owner = userInfo["owner"] as? String, owner != "trending",
+                let repositoryURL = URL(string: url)?.deletingPathExtension().appendingPathExtension("git")
+                else { return }
 
-                self.service.synchronizeRepository(repositoryURL) { (_, _) in }
-            }
+            self.service.synchronizeRepository(repositoryURL) { (_, _) in }
         case "didOpen":
             guard let userInfo = userInfo,
                 let resource = userInfo["resource"] as? String,
                 let slug = userInfo["slug"] as? String,
                 let filepath = userInfo["filepath"] as? String,
                 let text = userInfo["text"] as? String
-                else { break }
-            
-            os_log("[SafariExtension] didOpen(file: %{public}s)", log: log, type: .debug, filepath)
+                else { return }
 
             service.sendInitializeRequest(resource: resource, slug: slug) { [weak self] (successfully, _) in
                 guard let self = self else { return }
@@ -66,7 +53,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                 let line = userInfo["line"] as? Int,
                 let character = userInfo["character"] as? Int,
                 let text = userInfo["text"] as? String
-                else { break }
+                else { return }
             var skip = 0
             for character in text {
                 if character == " " || character == "." {
@@ -75,8 +62,6 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                     break
                 }
             }
-
-            os_log("[SafariExtension] hover(file: %{public}s, line: %d, character: %d)", log: log, type: .debug, filepath, line, character + skip)
 
             service.sendHoverRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
                 if successfully {
@@ -98,7 +83,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                 let line = userInfo["line"] as? Int,
                 let character = userInfo["character"] as? Int,
                 let text = userInfo["text"] as? String
-                else { break }
+                else { return }
             var skip = 0
             for character in text {
                 if character == " " || character == "." {
@@ -107,8 +92,6 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                     break
                 }
             }
-
-            os_log("[SafariExtension] definition(file: %{public}s, line: %d, character: %d)", log: log, type: .debug, filepath, line, character + skip)
 
             service.sendDefinitionRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
                 if successfully {
@@ -156,45 +139,51 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
 
     override func popoverWillShow(in window: SFSafariWindow) {
         let viewController = SafariExtensionViewController.shared
-        viewController.updateUI()
+        viewController.updateUI { [weak self] in
+            guard let self = self else { return }
 
-        window.getActiveTab { (activeTab) in
-            guard let activeTab = activeTab else {
-                return
-            }
-
-            activeTab.getActivePage { (activePage) in
-                guard let activePage = activePage else {
-                    return
-                }
-
-                activePage.getPropertiesWithCompletionHandler { [weak self] (properties) in
-                    guard let properties = properties, let url = properties.url else {
-                        return
+            if Settings.shared.server == .default {
+                self.service.defaultLanguageServerPath { (successfully, response) in
+                    if successfully {
+                        Settings.shared.serverPath = response
+                        viewController.serverPath = response
                     }
-
-                    guard let repositoryURL = self?.parseGitHubURL(url) else {
-                        viewController.repository = ""
-                        return
-                    }
-
-                    viewController.repository = repositoryURL.absoluteString
                 }
             }
-        }
-
-        if Settings.shared.serverPathOption == .default {
-            service.defaultLanguageServerPath { (successfully, response) in
+            self.service.defaultSDKPath(for: Settings.shared.sdk.rawValue) { (successfully, response) in
                 if successfully {
-                    Settings.shared.serverPath = response
-                    viewController.updateUI()
+                    Settings.shared.sdkPath = response
+                    viewController.sdkPath = response
                 }
             }
-        }
-        service.defaultSDKPath(for: Settings.shared.SDKOption.rawValue) { (successfully, response) in
-            if successfully {
-                Settings.shared.SDKPath = response
-                viewController.updateUI()
+
+            window.getActiveTab { (activeTab) in
+                guard let activeTab = activeTab else { return }
+
+                activeTab.getActivePage { (activePage) in
+                    guard let activePage = activePage else { return }
+
+                    activePage.getPropertiesWithCompletionHandler { [weak self] (properties) in
+                        guard let self = self else { return }
+                        guard let properties = properties, let url = properties.url else { return }
+
+                        guard let repositoryURL = parseGitHubURL(url) else {
+                            viewController.repository = ""
+                            return
+                        }
+
+                        viewController.repository = repositoryURL.absoluteString
+                        viewController.checkoutDirectory = nil
+                        viewController.lastUpdate = nil
+
+                        self.service.localCheckoutDirectory(for: repositoryURL) { (successfully, response) in
+                            viewController.checkoutDirectory = successfully ? response : nil
+                        }
+                        self.service.lastUpdate(for: repositoryURL) { (successfully, response) in
+                            viewController.lastUpdate = successfully ? response : nil
+                        }
+                    }
+                }
             }
         }
     }
@@ -202,41 +191,5 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
     override func popoverViewController() -> SFSafariExtensionViewController {
         let viewController = SafariExtensionViewController.shared
         return viewController
-    }
-
-    private func sendLogMessage(_ level: LogLevel, _ message: String) {
-        SFSafariApplication.getActiveWindow { (window) in
-            guard let window = window else {
-                return
-            }
-
-            window.getActiveTab { (activeTab) in
-                guard let activeTab = activeTab else {
-                    return
-                }
-
-                activeTab.getActivePage { (activePage) in
-                    guard let activePage = activePage else {
-                        return
-                    }
-
-                    activePage.dispatchMessageToScript(withName: "log", userInfo: ["value": "[\(level.rawValue.uppercased())] \(message)"])
-                }
-            }
-        }
-    }
-
-    private func parseGitHubURL(_ url: URL) -> URL? {
-        guard let scheme = url.scheme, scheme == "https" ,let host = url.host, host == "github.com", url.pathComponents.count >= 3 else {
-            return nil
-        }
-        return URL(string: "\(scheme)://\(host)/\(url.pathComponents.dropFirst().prefix(2).joined(separator: "/")).git")
-    }
-
-    private enum LogLevel: String {
-        case debug
-        case info
-        case warn
-        case error
     }
 }

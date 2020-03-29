@@ -427,7 +427,10 @@ const activate = () => {
     return;
   }
   dispatchMessage("initialize", {
+    url: parsedUrl.toString("https"),
     resource: parsedUrl.resource,
+    owner: parsedUrl.owner,
+    name: parsedUrl.name,
     href: parsedUrl.href
   });
 

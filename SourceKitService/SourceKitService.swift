@@ -1,4 +1,5 @@
 import Foundation
+import AppKit
 import LanguageServerProtocol
 import OSLog
 
@@ -257,6 +258,50 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 reply(false, nil);
             }
         }
+    }
+
+    func localCheckoutDirectory(for repository: URL, reply: @escaping (Bool, URL?) -> Void) {
+        guard let host = repository.host else { return }
+
+        let groupContainer = Workspace.root
+        let directory = groupContainer.appendingPathComponent(host).appendingPathComponent(repository.deletingPathExtension().path.split(separator: "/").joined(separator: "/"))
+
+        if FileManager().fileExists(atPath: directory.path) {
+            reply(true, directory)
+        } else {
+            reply(false, nil)
+        }
+    }
+
+    func showInFinder(for path: URL, reply: @escaping (Bool) -> Void) {
+        let process = Process()
+        process.launchPath = "/usr/bin/open"
+        process.arguments = [path.path]
+
+        let standardOutput = Pipe()
+        process.standardOutput = standardOutput
+
+        process.launch()
+        process.waitUntilExit()
+
+        reply(process.terminationStatus == 0)
+    }
+
+    func lastUpdate(for repository: URL, reply: @escaping (Bool, Date?) -> Void) {
+        guard let host = repository.host else { return }
+
+        let groupContainer = Workspace.root
+        let directory = groupContainer.appendingPathComponent(host).appendingPathComponent(repository.path).deletingPathExtension()
+
+        guard let attributes = try? FileManager().attributesOfItem(atPath: directory.path),
+            let fileModificationDate = NSDictionary(dictionary: attributes).fileModificationDate()
+            else
+        {
+            reply(false, nil)
+            return
+        }
+
+        reply(true, fileModificationDate)
     }
 
     func defaultLanguageServerPath(reply: @escaping (Bool, String) -> Void) {
