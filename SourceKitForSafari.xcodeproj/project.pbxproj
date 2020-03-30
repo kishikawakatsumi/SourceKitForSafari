@@ -10,7 +10,6 @@
 		14019EDB24305738005397C5 /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
 		14019EDC24305769005397C5 /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
 		140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140460E2240BEE79004FE328 /* AppDelegate.swift */; };
-		140460E5240BEE79004FE328 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140460E4240BEE79004FE328 /* ViewController.swift */; };
 		140460E7240BEE7A004FE328 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 140460E6240BEE7A004FE328 /* Assets.xcassets */; };
 		140460EA240BEE7A004FE328 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 140460E8240BEE7A004FE328 /* Main.storyboard */; };
 		140460F9240BEE94004FE328 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140460F8240BEE94004FE328 /* Cocoa.framework */; };
@@ -119,7 +118,6 @@
 		14019EDA24305738005397C5 /* parseGitHubURL().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "parseGitHubURL().swift"; sourceTree = "<group>"; };
 		140460DF240BEE79004FE328 /* SourceKit for Safari.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SourceKit for Safari.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		140460E2240BEE79004FE328 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		140460E4240BEE79004FE328 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		140460E6240BEE7A004FE328 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		140460E9240BEE7A004FE328 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		140460EB240BEE7A004FE328 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				140460E2240BEE79004FE328 /* AppDelegate.swift */,
-				140460E4240BEE79004FE328 /* ViewController.swift */,
 				140460E8240BEE7A004FE328 /* Main.storyboard */,
 				140460E6240BEE7A004FE328 /* Assets.xcassets */,
 				140460EC240BEE7A004FE328 /* SourceKitForSafari.entitlements */,
@@ -531,7 +528,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1459AADC242F3C4C002D6185 /* SourceKitServiceProxy.swift in Sources */,
-				140460E5240BEE79004FE328 /* ViewController.swift in Sources */,
 				14019EDB24305738005397C5 /* parseGitHubURL().swift in Sources */,
 				1459AADA242F3C19002D6185 /* Settings.swift in Sources */,
 				140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */,
