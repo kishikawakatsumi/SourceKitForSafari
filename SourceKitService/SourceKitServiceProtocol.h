@@ -58,6 +58,15 @@ NS_SWIFT_NAME(sendDefinitionRequest(context:resource:slug:path:line:character:re
                         reply:(void (^)(BOOL successfully, NSDictionary<NSString *, id> *response))reply
 NS_SWIFT_NAME(sendReferencesRequest(context:resource:slug:path:line:character:reply:));
 
+- (void)sendDocumentHighlightRequest:(NSDictionary<NSString *, NSString *> *)context
+                            resource:(NSString *)resource
+                                slug:(NSString *)slug
+                                path:(NSString *)path
+                                line:(NSInteger)line
+                           character:(NSInteger)character
+                               reply:(void (^)(BOOL successfully, NSDictionary<NSString *, id> *response))reply
+NS_SWIFT_NAME(sendDocumentHighlightRequest(context:resource:slug:path:line:character:reply:));
+
 - (void)sendShutdownRequestWithContext:(NSDictionary<NSString *, NSString *> *)context
                               resource:(NSString *)resource
                                   slug:(NSString *)slug

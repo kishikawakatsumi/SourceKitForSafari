@@ -127,6 +127,21 @@ final class SourceKitServiceProxy {
         }
     }
 
+    func sendDocumentHighlightRequest(resource: String, slug: String, path: String, line: Int, character: Int, completion: @escaping (Bool, [String: Any]) -> Void) {
+        let connection = self.connection
+        let context = self.context
+
+        queue.async {
+            connection.resume()
+            defer { connection.suspend() }
+            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+            service.sendDocumentHighlightRequest(context: context, resource: resource, slug: slug, path: path, line: line, character: character) { (successfully, response) in
+                completion(successfully, response)
+            }
+        }
+    }
+
     func sendExitNotification(resource: String, slug: String, completion: @escaping (Bool, [String: Any]) -> Void) {
         let connection = self.connection
         let context = self.context

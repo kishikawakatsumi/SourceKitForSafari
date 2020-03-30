@@ -6,6 +6,10 @@
   background-color: #ffea7f;
 }
 
+.--sourcekit-for-safari_document-highlight {
+  background-color: #8cc4ff;
+}
+
 .--sourcekit-for-safari_bg-gray {
   background-color: #fafbfc;
   color: #24292e;

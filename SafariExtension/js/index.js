@@ -29,10 +29,13 @@ const quickHelpTemplate = `
 `;
 
 let codeNavigation = null;
+let textDocument = null;
 
 function readLines(lines) {
+  textDocument = [];
   const contents = [];
   lines.forEach((line, index) => {
+    textDocument.push(line);
     contents.push(line.innerText.replace(/^[\r\n]+|[\r\n]+$/g, ""));
     readLine(line, index, 0);
   });
@@ -70,6 +73,33 @@ function readLine(line, lineIndex, columnIndex) {
   }
 }
 
+function highlightReferences(documentHighlights) {
+  documentHighlights.forEach(documentHighlight => {
+    const start = documentHighlight.start;
+    const end = documentHighlight.end;
+    if (start.line != end.line) {
+      return;
+    }
+    const line = textDocument[start.line];
+    let column = 0;
+    line.childNodes.forEach(node => {
+      let length = 0;
+      if (node.nodeName === "#text") {
+        length += node.nodeValue.length;
+      } else {
+        length += node.innerText.length;
+      }
+      if (column <= start.character && end.character < column + length) {
+        node.classList.add("--sourcekit-for-safari_document-highlight");
+        if (!node.matches(":hover")) {
+          node.style.setProperty("background-color", "#8cc4ff");
+        }
+      }
+      column += length;
+    });
+  });
+}
+
 function setupQuickHelp(element, popoverContent) {
   $(element).popover({
     html: true,
@@ -105,13 +135,6 @@ function setupQuickHelp(element, popoverContent) {
     });
     document
       .querySelectorAll(".--sourcekit-for-safari_jump-to-definition")
-      .forEach(link => {
-        $(link).on("click", () => {
-          hideAllQuickHelpPopovers();
-        });
-      });
-    document
-      .querySelectorAll(".--sourcekit-for-safari_jump-to-references")
       .forEach(link => {
         $(link).on("click", () => {
           hideAllQuickHelpPopovers();
@@ -155,7 +178,8 @@ function dispatchMessage(messageName, userInfo) {
               request: response.request,
               value: response.value,
               line: userInfo.line,
-              character: userInfo.character
+              character: userInfo.character,
+              text: userInfo.text
             }
           },
           parsedUrl
@@ -411,89 +435,24 @@ function handleResponse(event, parsedUrl) {
           })();
           break;
         case "references":
+          break;
+        case "documentHighlight":
           (() => {
             const suffix = `-${event.message.line}-${event.message.character}`;
             document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
               if (
-                !element.dataset.referencesRequestState ||
-                element.dataset.references
+                !element.dataset.documentHighlightRequestState ||
+                element.dataset.documentHighlight
               ) {
                 return;
               }
 
               const value = event.message.value;
-              if (value && value.locations) {
-                const references = [];
-                value.locations.forEach(location => {
-                  if (location.uri) {
-                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
-                    references.push({
-                      href: href,
-                      path: location.uri,
-                      content: location.content
-                    });
-                  } else {
-                    references.push({
-                      path: location.filename,
-                      content: location.content
-                    });
-                  }
-                });
-
-                // prettier-ignore
-                const reference = references
-                    .map(reference => {
-                      const href = reference.href || ""
-                      const referenceLineNumber = href
-                        .replace(parsedUrl.href, "")
-                        .replace("#L", "");
-                      const onThisFile = href.includes(parsedUrl.href);
-                      const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
-                      const text = thisIsTheDefinition ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>` : `Defined ${onThisFile ? "on" : "in"}`;
-                      const linkOrText = href ?
-                        `<a class="--sourcekit-for-safari_jump-to-references --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : reference.path}</a>` :
-                        `<span class="--sourcekit-for-safari_text-bold">${reference.path}</span>`
-                      return `
-                        <div class="--sourcekit-for-safari_bg-gray">
-                          ${text} ${linkOrText}
-                        </div>
-                        <div>
-                          <pre class="--sourcekit-for-safari_code"><code>${hljs.highlight("swift", reference.content).value}</code></pre>
-                        </div>
-                        `;
-                    })
-                    .join("\n");
-                element.dataset.references = reference;
-                element.dataset.referencesRequestState = "finished";
-                element.classList.add("--sourcekit-for-safari_quickhelp");
-
-                const referencesContainer = document.createElement("div");
-                referencesContainer.innerHTML = reference;
-
-                const tabContent = document.createElement("div");
-                tabContent.innerHTML = `
-                    <div class="tab-pane overflow-auto" id="references${suffix}" role="tabpanel" aria-labelledby="references-tab">
-                      ${referencesContainer.outerHTML}
-                    </div>
-                  `;
-
-                const popoverContent = setupQuickHelpContent(suffix);
-                $(".tab-header-references", popoverContent).replaceWith(
-                  `
-                    <li class="nav-item tab-header-references">
-                      <a class="nav-link" id="references-tab${suffix}" data-toggle="tab" href="#references${suffix}" role="tab" aria-controls="references" aria-selected="true">References</a>
-                    </li>
-                    `
-                );
-                $(".nav-link", popoverContent).attr("data-toggle", "tab");
-                $(".tab-content", popoverContent).append(tabContent.innerHTML);
-
-                const popover = $(element).data("bs.popover");
-                if (popover) {
-                  popover.config.content = popoverContent.prop("outerHTML");
-                } else {
-                  setupQuickHelp(element, popoverContent);
-                }
+              if (value) {
+                const highlights = value.documentHighlights;
+                highlightReferences(highlights);
+                element.dataset.documentHighlight = JSON.stringify(highlights);
+                element.dataset.hoverRequestState = "finished";
               }
             });
           })();
@@ -586,8 +545,34 @@ const activate = () => {
         text: element.innerText
       });
     }
+    if (!element.dataset.documentHighlightRequestState) {
+      element.dataset.documentHighlightRequestState = `requesting-${+element
+        .dataset.lineNumber}:${+element.dataset.column}`;
+      dispatchMessage("documentHighlight", {
+        resource: parsedUrl.resource,
+        slug: parsedUrl.full_name,
+        filepath: parsedUrl.filepath,
+        line: +element.dataset.lineNumber,
+        character: +element.dataset.column,
+        text: element.innerText
+      });
+    } else {
+      if (element.dataset.documentHighlight) {
+        highlightReferences(JSON.parse(element.dataset.documentHighlight));
+      }
+    }
   };
   document.addEventListener("mouseover", onMouseover);
+
+  const onMouseoout = e => {
+    document
+      .querySelectorAll(".--sourcekit-for-safari_document-highlight")
+      .forEach(element => {
+        element.classList.remove("--sourcekit-for-safari_document-highlight");
+        element.style.removeProperty("background-color");
+      });
+  };
+  document.addEventListener("mouseout", onMouseoout);
 
   if (typeof safari !== "undefined") {
     safari.self.addEventListener("message", event => {

@@ -55,10 +55,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             let semaphore = DispatchSemaphore(value: 0)
             self.service.defaultSDKPath(for: sdk) { (successfully, response) in
+                defer { semaphore.signal() }
+
                 if successfully {
                     settings.sdkPath = response
                 }
-                semaphore.signal()
             }
             semaphore.wait()
 
@@ -90,22 +91,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             do {
                 let semaphore = DispatchSemaphore(value: 0)
                 self.service.localCheckoutDirectory(for: repository) { (successfully, response) in
+                    defer { semaphore.signal() }
+
                     if successfully {
                         value["localCheckoutDirectory"] = response?.path
                     }
-                    semaphore.signal()
                 }
                 semaphore.wait()
             }
             do {
                 let semaphore = DispatchSemaphore(value: 0)
                 self.service.lastUpdate(for: repository) { (successfully, response) in
+                    defer { semaphore.signal() }
+
                     if successfully {
                         let formatter = RelativeDateTimeFormatter()
                         formatter.dateTimeStyle = .named
                         value["lastUpdate"] = formatter.string(for: response)
                     }
-                    semaphore.signal()
                 }
                 semaphore.wait()
             }
@@ -125,22 +128,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             do {
                 let semaphore = DispatchSemaphore(value: 0)
                 self.service.localCheckoutDirectory(for: repository) { (successfully, response) in
+                    defer { semaphore.signal() }
+
                     if successfully {
                         value["localCheckoutDirectory"] = response?.path
                     }
-                    semaphore.signal()
                 }
                 semaphore.wait()
             }
             do {
                 let semaphore = DispatchSemaphore(value: 0)
                 self.service.lastUpdate(for: repository) { (successfully, response) in
+                    defer { semaphore.signal() }
+
                     if successfully {
                         let formatter = RelativeDateTimeFormatter()
                         formatter.dateTimeStyle = .named
                         value["lastUpdate"] = formatter.string(for: response)
                     }
-                    semaphore.signal()
                 }
                 semaphore.wait()
             }
@@ -162,6 +167,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let semaphore = DispatchSemaphore(value: 0)
             var result = [String: Any]()
             self.service.synchronizeRepository(repositoryURL) { (successfully, response) in
+                defer { semaphore.signal() }
+
                 if successfully {
                     if let _ = response {
                         result = ["request": "initialize", "result": "success"]
@@ -171,7 +178,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 } else {
                     result = ["request": "initialize", "result": "failure"]
                 }
-                semaphore.signal()
             }
             semaphore.wait()
 
@@ -248,6 +254,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
 
             self.service.sendHoverRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+                defer { semaphore.signal() }
+
                 if successfully {
                     if let value = response["value"] as? String {
                         result = ["request": "hover", "result": "success", "value": value, "line": line, "character": character, "text": text];
@@ -255,7 +263,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 } else {
                     result = ["request": "hover", "result": "error"];
                 }
-                semaphore.signal()
             }
             semaphore.wait()
 
@@ -288,6 +295,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
 
             self.service.sendDefinitionRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+                defer { semaphore.signal() }
+
                 if successfully {
                     if let value = response["value"] as? [[String: Any]] {
                         let locations = value.compactMap { (location) -> [String: Any]? in
@@ -312,16 +321,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         }
 
                         guard !locations.isEmpty else {
-                            semaphore.signal()
                             return
                         }
 
                         result = ["request": "definition", "result": "success", "value": ["locations": locations], "line": line, "character": character, "text": text]
-                        semaphore.signal()
                     }
                 } else {
                     result = ["request": "definition", "result": "error"];
-                    semaphore.signal()
                 }
             }
             semaphore.wait()
@@ -355,6 +361,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
 
             self.service.sendReferencesRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+                defer { semaphore.signal() }
+
                 if successfully {
                     if let value = response["value"] as? [[String: Any]] {
                         let locations = value.compactMap { (location) -> [String: Any]? in
@@ -379,16 +387,54 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         }
 
                         guard !locations.isEmpty else {
-                            semaphore.signal()
                             return
                         }
 
                         result = ["request": "references", "result": "success", "value": ["locations": locations], "line": line, "character": character, "text": text]
-                        semaphore.signal()
                     }
                 } else {
                     result = ["request": "references", "result": "error"];
-                    semaphore.signal()
+                }
+            }
+            semaphore.wait()
+
+            return .ok(.json(result))
+        }
+
+        server.POST["/documentHighlight"] = { [weak self] (request) in
+            guard let self = self else { return .internalServerError }
+
+            let data = Data(request.body)
+            guard let userInfo = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                let resource = userInfo["resource"] as? String,
+                let slug = userInfo["slug"] as? String,
+                let filepath = userInfo["filepath"] as? String ,
+                let line = userInfo["line"] as? Int,
+                let character = userInfo["character"] as? Int,
+                let text = userInfo["text"] as? String
+                else { return .badRequest(nil) }
+
+            let semaphore = DispatchSemaphore(value: 0)
+            var result = [String: Any]()
+
+            var skip = 0
+            for character in text {
+                if character == " " || character == "." {
+                    skip += 1
+                } else {
+                    break
+                }
+            }
+
+            self.service.sendDocumentHighlightRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+                defer { semaphore.signal() }
+
+                if successfully {
+                    if let value = response["value"] as? [[String: Any]] {
+                        result = ["request": "documentHighlight", "result": "success", "value": ["documentHighlights": value], "line": line, "character": character, "text": text]
+                    }
+                } else {
+                    result = ["request": "documentHighlight", "result": "error"];
                 }
             }
             semaphore.wait()

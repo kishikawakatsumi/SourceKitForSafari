@@ -178,6 +178,21 @@ final class LanguageServer {
         }
     }
 
+    func sendDocumentHighlightRequest(context: [String : String], document: String, line: Int, character: Int, completion: @escaping (Result<DocumentHighlightRequest.Response, ResponseError>) -> Void) {
+        guard state == .running else { return }
+
+        let documentRoot = Workspace.documentRoot(resource: resource, slug: slug)
+        let identifier = documentRoot.appendingPathComponent(document)
+
+        let documentHighlightRequest = DocumentHighlightRequest(
+            textDocument: TextDocumentIdentifier(DocumentURI(identifier)),
+            position: Position(line: line, utf16index: character)
+        )
+        _ = connection.send(documentHighlightRequest, queue: queue) {
+            completion($0)
+        }
+    }
+
     func sendShutdownRequest(context: [String : String], completion: @escaping (Result<ShutdownRequest.Response, ResponseError>) -> Void) {
         guard state == .running else {
             completion(.success(ShutdownRequest.Response()))

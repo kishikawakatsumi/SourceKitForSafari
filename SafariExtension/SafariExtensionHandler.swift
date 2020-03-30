@@ -182,6 +182,38 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                     page.dispatchMessageToScript(withName: "response", userInfo: ["request": "references", "result": "error"])
                 }
             }
+        case "documentHighlight":
+            guard let userInfo = userInfo,
+                let resource = userInfo["resource"] as? String,
+                let slug = userInfo["slug"] as? String,
+                let filepath = userInfo["filepath"] as? String ,
+                let line = userInfo["line"] as? Int,
+                let character = userInfo["character"] as? Int,
+                let text = userInfo["text"] as? String
+                else { return }
+            var skip = 0
+            for character in text {
+                if character == " " || character == "." {
+                    skip += 1
+                } else {
+                    break
+                }
+            }
+
+            NSLog("%@", "====== START!!!")
+            service.sendDocumentHighlightRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
+                NSLog("%@", "====== END!!!")
+                if successfully {
+                    if let value = response["value"] as? [[String: Any]] {
+                        page.dispatchMessageToScript(
+                            withName: "response",
+                            userInfo: ["request": "documentHighlight", "result": "success", "value": ["documentHighlights": value], "line": line, "character": character, "text": text]
+                        )
+                    }
+                } else {
+                    page.dispatchMessageToScript(withName: "response", userInfo: ["request": "documentHighlight", "result": "error"])
+                }
+            }
         default:
             break
         }
