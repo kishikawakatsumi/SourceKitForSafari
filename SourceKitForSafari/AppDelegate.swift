@@ -1,14 +1,20 @@
 import Cocoa
+import SafariServices
 import Swifter
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     private let service = SourceKitServiceProxy.shared
     private let server = HttpServer()
+    private let port: in_port_t = 50000
+
+    private var statusItem: NSStatusItem?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        setupMenuItems()
+
         server.GET["/status"] = { request -> HttpResponse in
-            return .ok(.htmlBody("OK"))
+            return .ok(.text("OK"))
         }
 
         server.GET["/settings"] = { request -> HttpResponse in
@@ -442,19 +448,41 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .ok(.json(result))
         }
 
-        do {
-            try server.start(50000, forceIPv4: true, priority: .default)
-        } catch {
-            print("\(error)")
-        }
+        try? server.start(port, forceIPv4: true, priority: .default)
     }
 
-    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        guard !flag else { return false }
-        for window in sender.windows {
-            window.makeKeyAndOrderFront(self)
-            return true
+    private func setupMenuItems() {
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem?.button?.image = NSImage(named: "magnifyingglass")
+
+        let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "Open Preferences for Safari Extension...", action: #selector(showPreferencesForExtension), keyEquivalent: ""))
+        let chromeHelper = NSMenuItem(title: "Chrome Extension Helper: Connected", action: nil, keyEquivalent: "")
+        menu.addItem(chromeHelper)
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Quit SourceKit for Safari", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+
+        statusItem?.menu = menu
+
+        let timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
+            URLSession.shared.dataTask(with: URL(string: "http://127.0.0.1:\(self.port)/status")!) { (data, response, error) in
+                guard
+                    error == nil,
+                    let response = response as? HTTPURLResponse, response.statusCode == 200,
+                    let data = data, let _ = String(data: data, encoding: .utf8)
+                    else {
+                        chromeHelper.title = "Chrome Extension Helper: Unavaiable"
+                        return
+                }
+                chromeHelper.title = "Chrome Extension Helper: Operational"
+            }
+            .resume()
         }
-        return true
+        timer.fire()
+    }
+
+    @objc
+    private func showPreferencesForExtension() {
+        SFSafariApplication.showPreferencesForExtension(withIdentifier: "com.kishikawakatsumi.SourceKitForSafari.SafariExtension")
     }
 }
