@@ -116,10 +116,6 @@ The current DOM parsing algorithm is not smart yet. Therefore, whitespace is som
 |:-:|:-:|
 |<img src="https://user-images.githubusercontent.com/40610/77392928-5f2ada80-6ddf-11ea-9c6e-eda6ce4af76a.png" width="300">|<img src="https://user-images.githubusercontent.com/40610/77392911-5508dc00-6ddf-11ea-8f36-bd1563b4a686.png" width="300">|
 
-### Doesn't work in private repositories
-
-Unfortunately, it does not currently support private repository. In the near future, I have a plan to set up a personal access token to clone private repositories.
-
 ## Development
 
 To use [Node Packaged Modules](https://www.npmjs.com/) in injected scripts, it requires to combine multiple modules and JavaScript files into one JavaScript file using [Browserify](http://browserify.org/).
