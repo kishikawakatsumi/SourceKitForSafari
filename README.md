@@ -138,3 +138,4 @@ Please make sure to perform clean build when you change injected JavaScript or C
 
 - [SourceKit-LSP](https://github.com/apple/sourcekit-lsp)
 - [Safari App Extensions](https://developer.apple.com/documentation/safariservices/safari_app_extensions)
+- [Language Server Protocol Specification](https://microsoft.github.io/language-server-protocol/specifications/specification-current/)
