@@ -108,12 +108,12 @@ function setupQuickHelp(element, popoverContent) {
     html: true,
     content: popoverContent,
     trigger: "manual",
-    placement: "top",
+    placement: "bottom",
     modifiers: [
       {
         name: "flip",
         options: {
-          fallbackPlacements: ["bottom"]
+          fallbackPlacements: ["top"]
         }
       }
     ]
