@@ -32,6 +32,12 @@ If the text at the mouse cursor is a symbol defined in another file, turn it int
 
 <img src="https://user-images.githubusercontent.com/40610/77447572-2caacd00-6e33-11ea-9f65-aa67dc89e639.png" width="400" />
 
+### Highlights References
+
+Highlights all references to the symbol scoped to this file.
+
+<img src="https://user-images.githubusercontent.com/40610/77877664-5e87bd80-7291-11ea-96c3-22759391afa3.png" width="400" />
+
 ## Installation
 
 <img src="https://user-images.githubusercontent.com/40610/77444575-5feb5d00-6e2f-11ea-9926-9102245b9afd.png" width="64" /><img src="https://user-images.githubusercontent.com/40610/77444792-a17c0800-6e2f-11ea-9c52-8911a3acee1a.png" width="64" />
@@ -88,7 +94,7 @@ Hover over symbols in the source code; then, the documentation for that symbol a
 
 ## How it works
 
-SourceKit for Safari will automatically clone a GitHub repository to your local filesystem (`~/Library/Group Containers/27AEDK3C9F.com.kishikawakatsumi.SourceKitForSafari`) when you access there.
+SourceKit for Safari will automatically clone a GitHub repository to your local filesystem (`~/Library/Group Containers/$(TeamIdentifierPrefix).com.kishikawakatsumi.SourceKitForSafari`) when you access there.
 
 Then, when the source file is displayed on the browser, it automatically communicates with SourceKit-LSP to get information about the source code. Then show them with a popup on the browser.
 
