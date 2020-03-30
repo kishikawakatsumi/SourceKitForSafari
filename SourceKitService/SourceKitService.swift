@@ -1,5 +1,4 @@
 import Foundation
-import AppKit
 import LanguageServerProtocol
 import OSLog
 
@@ -8,8 +7,6 @@ let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: 
 @objc
 class SourceKitService: NSObject, SourceKitServiceProtocol {
     func sendInitalizeRequest(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("sendInitalizeRequest(resource: %{public}s, slug: %{public}s)", log: log, type: .debug, resource, slug)
-
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
         server.sendInitializeRequest(context: context) {
@@ -30,8 +27,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func sendDidOpenNotification(context: [String : String], resource: String, slug: String, path: String, text: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("sendDidOpenNotification(slug: %{public}s, path: %{public}s)", log: log, type: .debug, slug, path)
-
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
         server.sendDidOpenNotification(context: context, document: path, text: text)
@@ -39,8 +34,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func sendDocumentSymbolRequest(context: [String : String], resource: String, slug: String, path: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("sendDocumentSymbolRequest(slug: %{public}s, path: %{public}s)", log: log, type: .debug, slug, path)
-
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
         server.sendDocumentSymbolRequest(context: context, document: path) { [weak self] in
@@ -115,9 +108,42 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         }
     }
 
-    func sendShutdownRequest(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("sendShutdownRequest(resource: %{public}s, slug: %{public}s)", log: log, type: .debug, resource, slug)
+    func sendReferencesRequest(context: [String : String], resource: String, slug: String, path: String, line: Int, character: Int, reply: @escaping (Bool, [String : Any]) -> Void) {
+        let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
+        server.sendReferencesRequest(context: context, document: path, line: line, character: character) { [weak self] in
+            guard let self = self else { return }
+
+            switch $0 {
+            case .success(let response):
+                let locations: [Location] = response
+                reply(true, ["result": "success", "value": self.encodeResponse(locations)])
+            case .failure(let error):
+                reply(false, ["result": "error \(error)"])
+            }
+        }
+    }
+
+    func sendDocumentHighlightRequest(context: [String : String], resource: String, slug: String, path: String, line: Int, character: Int, reply: @escaping (Bool, [String : Any]) -> Void) {
+        let server = ServerRegistry.shared.get(resource: resource, slug: slug)
+
+        server.sendDocumentHighlightRequest(context: context, document: path, line: line, character: character) { [weak self] in
+            guard let self = self else { return }
+
+            switch $0 {
+            case .success(let response):
+                if let response = response {
+                    reply(true, ["result": "success", "value": self.encodeResponse(response)])
+                } else {
+                    reply(true, ["result": "success", "value": ""])
+                }
+            case .failure(let error):
+                reply(false, ["result": "error \(error)"])
+            }
+        }
+    }
+
+    func sendShutdownRequest(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
         server.sendShutdownRequest(context: context) {
@@ -131,8 +157,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func sendExitNotification(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
-        os_log("sendExitNotification(slug: %{public}s)", log: log, type: .debug, slug)
-
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
         server.sendExitNotification()
@@ -453,6 +477,60 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     ]
                 )
             }
+        }
+        return response
+    }
+
+    private func encodeResponse(_ highlights: [DocumentHighlight]) -> [[String: Any]] {
+        var response = [[String: Any]]()
+        for highlight in highlights {
+            let start = highlight.range.lowerBound
+            let end = highlight.range.upperBound
+
+            guard start.line >= 0 else { continue }
+
+//            var content = ""
+//            if let file = URL(string: location.uri.stringValue), let source = try? String(contentsOf: file) {
+//                let lines = source
+//                    .split(separator: "\n", omittingEmptySubsequences: false)
+//                    .dropFirst(start.line)
+//                    .prefix(10)
+//                content = lines.joined(separator: "\n")
+//            }
+//
+//            let filename = URL(string: location.uri.stringValue)?.lastPathComponent ?? ""
+//
+//            if location.uri.stringValue.contains(Workspace.root.absoluteString) {
+//                response.append(
+//                    ["uri": location.uri.stringValue
+//                        .replacingOccurrences(of: Workspace.root.absoluteString, with: "")
+//                        .split(separator: "/")
+//                        .joined(separator: "/"),
+//                     "filename": filename,
+//                     "start": ["line": start.line, "character": start.utf16index],
+//                     "end": ["line": end.line, "character": end.utf16index],
+//                     "content": content,
+//                    ]
+//                )
+//            } else {
+            let kind: String
+            switch highlight.kind {
+            case .text:
+                kind = "text"
+            case .read:
+                kind = "read"
+            case .write:
+                kind = "write"
+            case .none:
+                kind = "none"
+            }
+            response.append(
+                ["start": ["line": start.line, "character": start.utf16index],
+                 "end": ["line": end.line, "character": end.utf16index],
+                 "kind": kind,
+                ]
+            )
+//            }
         }
         return response
     }

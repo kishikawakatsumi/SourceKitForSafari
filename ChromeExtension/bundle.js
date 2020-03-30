@@ -23,6 +23,7 @@ const quickHelpTemplate = `
       <ul class="--sourcekit-for-safari nav nav-tabs p-2" role="tablist">
         <li class="nav-item tab-header-documentation"></li>
         <li class="nav-item tab-header-definition"></li>
+        <li class="nav-item tab-header-references"></li>
       </ul>
     </div>
     <div class="tab-content"></div>
@@ -31,10 +32,13 @@ const quickHelpTemplate = `
 `;
 
 let codeNavigation = null;
+let textDocument = null;
 
 function readLines(lines) {
+  textDocument = [];
   const contents = [];
   lines.forEach((line, index) => {
+    textDocument.push(line);
     contents.push(line.innerText.replace(/^[\r\n]+|[\r\n]+$/g, ""));
     readLine(line, index, 0);
   });
@@ -72,17 +76,44 @@ function readLine(line, lineIndex, columnIndex) {
   }
 }
 
+function highlightReferences(documentHighlights) {
+  documentHighlights.forEach(documentHighlight => {
+    const start = documentHighlight.start;
+    const end = documentHighlight.end;
+    if (start.line != end.line) {
+      return;
+    }
+    const line = textDocument[start.line];
+    let column = 0;
+    line.childNodes.forEach(node => {
+      let length = 0;
+      if (node.nodeName === "#text") {
+        length += node.nodeValue.length;
+      } else {
+        length += node.innerText.length;
+      }
+      if (column <= start.character && end.character < column + length) {
+        node.classList.add("--sourcekit-for-safari_document-highlight");
+        if (!node.matches(":hover")) {
+          node.style.setProperty("background-color", "#8cc4ff");
+        }
+      }
+      column += length;
+    });
+  });
+}
+
 function setupQuickHelp(element, popoverContent) {
   $(element).popover({
     html: true,
     content: popoverContent,
     trigger: "manual",
-    placement: "top",
+    placement: "bottom",
     modifiers: [
       {
         name: "flip",
         options: {
-          fallbackPlacements: ["bottom"]
+          fallbackPlacements: ["top"]
         }
       }
     ]
@@ -150,7 +181,8 @@ function dispatchMessage(messageName, userInfo) {
               request: response.request,
               value: response.value,
               line: userInfo.line,
-              character: userInfo.character
+              character: userInfo.character,
+              text: userInfo.text
             }
           },
           parsedUrl
@@ -405,6 +437,29 @@ function handleResponse(event, parsedUrl) {
             });
           })();
           break;
+        case "references":
+          break;
+        case "documentHighlight":
+          (() => {
+            const suffix = `-${event.message.line}-${event.message.character}`;
+            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+              if (
+                !element.dataset.documentHighlightRequestState ||
+                element.dataset.documentHighlight
+              ) {
+                return;
+              }
+
+              const value = event.message.value;
+              if (value) {
+                const highlights = value.documentHighlights;
+                highlightReferences(highlights);
+                element.dataset.documentHighlight = JSON.stringify(highlights);
+                element.dataset.hoverRequestState = "finished";
+              }
+            });
+          })();
+          break;
         default:
           break;
       }
@@ -481,8 +536,46 @@ const activate = () => {
         text: element.innerText
       });
     }
+    if (!element.dataset.referencesRequestState) {
+      element.dataset.referencesRequestState = `requesting-${+element.dataset
+        .lineNumber}:${+element.dataset.column}`;
+      dispatchMessage("references", {
+        resource: parsedUrl.resource,
+        slug: parsedUrl.full_name,
+        filepath: parsedUrl.filepath,
+        line: +element.dataset.lineNumber,
+        character: +element.dataset.column,
+        text: element.innerText
+      });
+    }
+    if (!element.dataset.documentHighlightRequestState) {
+      element.dataset.documentHighlightRequestState = `requesting-${+element
+        .dataset.lineNumber}:${+element.dataset.column}`;
+      dispatchMessage("documentHighlight", {
+        resource: parsedUrl.resource,
+        slug: parsedUrl.full_name,
+        filepath: parsedUrl.filepath,
+        line: +element.dataset.lineNumber,
+        character: +element.dataset.column,
+        text: element.innerText
+      });
+    } else {
+      if (element.dataset.documentHighlight) {
+        highlightReferences(JSON.parse(element.dataset.documentHighlight));
+      }
+    }
   };
   document.addEventListener("mouseover", onMouseover);
+
+  const onMouseoout = e => {
+    document
+      .querySelectorAll(".--sourcekit-for-safari_document-highlight")
+      .forEach(element => {
+        element.classList.remove("--sourcekit-for-safari_document-highlight");
+        element.style.removeProperty("background-color");
+      });
+  };
+  document.addEventListener("mouseout", onMouseoout);
 
   if (typeof safari !== "undefined") {
     safari.self.addEventListener("message", event => {
