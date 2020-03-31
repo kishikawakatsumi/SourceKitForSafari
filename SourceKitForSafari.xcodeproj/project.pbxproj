@@ -53,8 +53,6 @@
 		145E9A292414068B006DD651 /* SourceKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A282414068B006DD651 /* SourceKitService.swift */; };
 		145E9A3724146BA5006DD651 /* tippy.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3224146BA4006DD651 /* tippy.css */; };
 		145E9A3924146BA5006DD651 /* light-border.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3424146BA4006DD651 /* light-border.css */; };
-		145E9A3A24146BA5006DD651 /* light.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3524146BA5006DD651 /* light.css */; };
-		145E9A3D24146F97006DD651 /* github.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3B24146F97006DD651 /* github.css */; };
 		145E9A3E24146F97006DD651 /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3C24146F97006DD651 /* xcode.css */; };
 		145E9A462414B907006DD651 /* bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A452414B907006DD651 /* bundle.js */; };
 		145E9A482414DEBA006DD651 /* SourceKitServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */; };
@@ -167,8 +165,6 @@
 		145E9A2A24140884006DD651 /* SafariExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SafariExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		145E9A3224146BA4006DD651 /* tippy.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = tippy.css; sourceTree = "<group>"; };
 		145E9A3424146BA4006DD651 /* light-border.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "light-border.css"; sourceTree = "<group>"; };
-		145E9A3524146BA5006DD651 /* light.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = light.css; sourceTree = "<group>"; };
-		145E9A3B24146F97006DD651 /* github.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github.css; sourceTree = "<group>"; };
 		145E9A3C24146F97006DD651 /* xcode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = xcode.css; sourceTree = "<group>"; };
 		145E9A452414B907006DD651 /* bundle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bundle.js; sourceTree = "<group>"; };
 		145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceKitServiceProxy.swift; sourceTree = "<group>"; };
@@ -329,7 +325,6 @@
 			children = (
 				145E9A3224146BA4006DD651 /* tippy.css */,
 				145E9A3424146BA4006DD651 /* light-border.css */,
-				145E9A3524146BA5006DD651 /* light.css */,
 			);
 			path = tippyjs;
 			sourceTree = "<group>";
@@ -337,7 +332,6 @@
 		145E9A402414B7E7006DD651 /* highlightjs */ = {
 			isa = PBXGroup;
 			children = (
-				145E9A3B24146F97006DD651 /* github.css */,
 				145E9A3C24146F97006DD651 /* xcode.css */,
 			);
 			path = highlightjs;
@@ -497,7 +491,6 @@
 				144D1D7B242678BF00B7AC65 /* E@2x.png in Resources */,
 				144D1D80242678C000B7AC65 /* M.png in Resources */,
 				144D1D7C242678C000B7AC65 /* S@3x.png in Resources */,
-				145E9A3A24146BA5006DD651 /* light.css in Resources */,
 				144D1D82242678C000B7AC65 /* E@3x.png in Resources */,
 				144D1D8E242678C000B7AC65 /* P.png in Resources */,
 				144D1D8F242678C000B7AC65 /* F.png in Resources */,
@@ -517,7 +510,6 @@
 				144D1D7D242678C000B7AC65 /* I.png in Resources */,
 				144D1D8C242678C000B7AC65 /* S.png in Resources */,
 				14046101240BEE94004FE328 /* SafariExtensionViewController.xib in Resources */,
-				145E9A3D24146F97006DD651 /* github.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
