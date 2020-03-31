@@ -59,7 +59,7 @@ Highlights all references to the symbol scoped to this file.
 
 * Click the __Load Unpacked__ button and select the extension directory (`ChromeExtension` directory in the archive).
 
-<img src="https://user-images.githubusercontent.com/40610/77447864-801d1b00-6e33-11ea-87cc-1f31219bc5ab.png" width="300" />
+<img src="https://user-images.githubusercontent.com/40610/78083462-88a3c180-73f0-11ea-8cc9-7f7752d1d83a.png" width="300" />
 
 See also [Chrome extension development tutorial.](https://developer.chrome.com/extensions/getstarted)
 
@@ -84,11 +84,11 @@ SourceKit for Safari uses SourceKit-LSP that comes with Xcode 11.4 by default.
 ```
 If you want to use other SourceKit-LSP binary, click the toolbar icon and set its full path to the settings text field.
 
-<img src="https://user-images.githubusercontent.com/40610/77447951-9b882600-6e33-11ea-9f87-ac34ea44a8d4.png" width="600" />
+<img src="https://user-images.githubusercontent.com/40610/78082996-5180e080-73ef-11ea-8bf7-0034720489ec.png" width="600" />
 
-(for Chrome users, click the extension toolbar icon, then select `options` in the menu.)
+(for Chrome users)
 
-<img src="https://user-images.githubusercontent.com/40610/77390825-6ef3f000-6dda-11ea-9aad-099f31615a5d.png" width="400">
+<img src="https://user-images.githubusercontent.com/40610/78083215-cbb16500-73ef-11ea-92a4-5759c496b811.png" width="400">
 
 Hover over symbols in the source code; then, the documentation for that symbol a popup will show or turn it link to the definition (The first may take some time).
 
