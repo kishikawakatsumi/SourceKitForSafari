@@ -50,15 +50,7 @@ final class SafariExtensionViewController: SFSafariExtensionViewController {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-
-                let formatter = RelativeDateTimeFormatter()
-                formatter.dateTimeStyle = .named
-                
-                if let formattedValue = formatter.string(for: self.lastUpdate) {
-                    self.lastUpdateTextField.stringValue = formattedValue
-                } else {
-                    self.lastUpdateTextField.stringValue = ""
-                }
+                self.lastUpdateTextField.stringValue = DateFormat.string(for: self.lastUpdate)
             }
         }
     }

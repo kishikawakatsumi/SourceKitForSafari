@@ -111,9 +111,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     defer { semaphore.signal() }
 
                     if successfully {
-                        let formatter = RelativeDateTimeFormatter()
-                        formatter.dateTimeStyle = .named
-                        value["lastUpdate"] = formatter.string(for: response)
+                        value["lastUpdate"] = DateFormat.string(for: response)
                     }
                 }
                 semaphore.wait()
@@ -148,9 +146,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     defer { semaphore.signal() }
 
                     if successfully {
-                        let formatter = RelativeDateTimeFormatter()
-                        formatter.dateTimeStyle = .named
-                        value["lastUpdate"] = formatter.string(for: response)
+                        value["lastUpdate"] = DateFormat.string(for: response)
                     }
                 }
                 semaphore.wait()

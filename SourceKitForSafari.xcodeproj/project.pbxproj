@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		14019EDB24305738005397C5 /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
 		14019EDC24305769005397C5 /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
+		14019EFE243321A6005397C5 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EFD243321A6005397C5 /* DateFormat.swift */; };
+		14019EFF243321A6005397C5 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EFD243321A6005397C5 /* DateFormat.swift */; };
+		14019F01243321E2005397C5 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019F00243321E2005397C5 /* AppGroup.swift */; };
+		14019F02243321E2005397C5 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019F00243321E2005397C5 /* AppGroup.swift */; };
+		14019F03243321E2005397C5 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019F00243321E2005397C5 /* AppGroup.swift */; };
 		140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140460E2240BEE79004FE328 /* AppDelegate.swift */; };
 		140460E7240BEE7A004FE328 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 140460E6240BEE7A004FE328 /* Assets.xcassets */; };
 		140460EA240BEE7A004FE328 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 140460E8240BEE7A004FE328 /* Main.storyboard */; };
@@ -39,7 +44,6 @@
 		144D1D8D242678C000B7AC65 /* E.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D78242678BF00B7AC65 /* E.png */; };
 		144D1D8E242678C000B7AC65 /* P.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D79242678BF00B7AC65 /* P.png */; };
 		144D1D8F242678C000B7AC65 /* F.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D7A242678BF00B7AC65 /* F.png */; };
-		1459AAD9242F3C18002D6185 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14931110241D4EC400CF87D3 /* Settings.swift */; };
 		1459AADA242F3C19002D6185 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14931110241D4EC400CF87D3 /* Settings.swift */; };
 		1459AADC242F3C4C002D6185 /* SourceKitServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */; };
 		145B31A924295B3200660469 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 145B31A824295B3200660469 /* Swifter */; };
@@ -116,6 +120,8 @@
 
 /* Begin PBXFileReference section */
 		14019EDA24305738005397C5 /* parseGitHubURL().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "parseGitHubURL().swift"; sourceTree = "<group>"; };
+		14019EFD243321A6005397C5 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		14019F00243321E2005397C5 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		140460DF240BEE79004FE328 /* SourceKit for Safari.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SourceKit for Safari.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		140460E2240BEE79004FE328 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		140460E6240BEE7A004FE328 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -296,6 +302,8 @@
 				145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */,
 				14931110241D4EC400CF87D3 /* Settings.swift */,
 				14019EDA24305738005397C5 /* parseGitHubURL().swift */,
+				14019EFD243321A6005397C5 /* DateFormat.swift */,
+				14019F00243321E2005397C5 /* AppGroup.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -528,7 +536,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1459AADC242F3C4C002D6185 /* SourceKitServiceProxy.swift in Sources */,
+				14019F01243321E2005397C5 /* AppGroup.swift in Sources */,
 				14019EDB24305738005397C5 /* parseGitHubURL().swift in Sources */,
+				14019EFE243321A6005397C5 /* DateFormat.swift in Sources */,
 				1459AADA242F3C19002D6185 /* Settings.swift in Sources */,
 				140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */,
 			);
@@ -538,8 +548,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14019EFF243321A6005397C5 /* DateFormat.swift in Sources */,
 				14931111241D4EC400CF87D3 /* Settings.swift in Sources */,
 				145E9A482414DEBA006DD651 /* SourceKitServiceProxy.swift in Sources */,
+				14019F02243321E2005397C5 /* AppGroup.swift in Sources */,
 				14019EDC24305769005397C5 /* parseGitHubURL().swift in Sources */,
 				140460FE240BEE94004FE328 /* SafariExtensionViewController.swift in Sources */,
 				140460FC240BEE94004FE328 /* SafariExtensionHandler.swift in Sources */,
@@ -550,8 +562,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1459AAD9242F3C18002D6185 /* Settings.swift in Sources */,
 				145E9A292414068B006DD651 /* SourceKitService.swift in Sources */,
+				14019F03243321E2005397C5 /* AppGroup.swift in Sources */,
 				14931109241C30DB00CF87D3 /* LanguageServer.swift in Sources */,
 				1493110D241C310B00CF87D3 /* Workspace.swift in Sources */,
 				145E9A20241405F6006DD651 /* main.m in Sources */,
@@ -644,7 +656,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -698,7 +710,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
