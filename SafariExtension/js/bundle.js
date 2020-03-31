@@ -1,11 +1,19 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+function normalizedLocation() {
+  return document.location.href.replace(/#.*$/, "");
+}
+
+exports.normalizedLocation = normalizedLocation;
+
+},{}],2:[function(require,module,exports){
 var css = "/*!\n * Bootstrap Grid v4.4.1 (https://getbootstrap.com/)\n * Copyright 2011-2019 The Bootstrap Authors\n * Copyright 2011-2019 Twitter, Inc.\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)\n */\nhtml {\n  box-sizing: border-box;\n  -ms-overflow-style: scrollbar;\n}\n*,\n::after,\n::before {\n  box-sizing: inherit;\n}\n.container {\n  width: 100%;\n  padding-right: 15px;\n  padding-left: 15px;\n  margin-right: auto;\n  margin-left: auto;\n}\n@media (min-width:576px) {\n  .container {\n    max-width: 540px;\n  }\n}\n@media (min-width:768px) {\n  .container {\n    max-width: 720px;\n  }\n}\n@media (min-width:992px) {\n  .container {\n    max-width: 960px;\n  }\n}\n@media (min-width:1200px) {\n  .container {\n    max-width: 1140px;\n  }\n}\n.container-fluid,\n.container-lg,\n.container-md,\n.container-sm,\n.container-xl {\n  width: 100%;\n  padding-right: 15px;\n  padding-left: 15px;\n  margin-right: auto;\n  margin-left: auto;\n}\n@media (min-width:576px) {\n  .container,\n  .container-sm {\n    max-width: 540px;\n  }\n}\n@media (min-width:768px) {\n  .container,\n  .container-md,\n  .container-sm {\n    max-width: 720px;\n  }\n}\n@media (min-width:992px) {\n  .container,\n  .container-lg,\n  .container-md,\n  .container-sm {\n    max-width: 960px;\n  }\n}\n@media (min-width:1200px) {\n  .container,\n  .container-lg,\n  .container-md,\n  .container-sm,\n  .container-xl {\n    max-width: 1140px;\n  }\n}\n.row {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin-right: -15px;\n  margin-left: -15px;\n}\n.no-gutters {\n  margin-right: 0;\n  margin-left: 0;\n}\n.no-gutters>.col,\n.no-gutters>[class*=col-] {\n  padding-right: 0;\n  padding-left: 0;\n}\n.col,\n.col-1,\n.col-10,\n.col-11,\n.col-12,\n.col-2,\n.col-3,\n.col-4,\n.col-5,\n.col-6,\n.col-7,\n.col-8,\n.col-9,\n.col-auto,\n.col-lg,\n.col-lg-1,\n.col-lg-10,\n.col-lg-11,\n.col-lg-12,\n.col-lg-2,\n.col-lg-3,\n.col-lg-4,\n.col-lg-5,\n.col-lg-6,\n.col-lg-7,\n.col-lg-8,\n.col-lg-9,\n.col-lg-auto,\n.col-md,\n.col-md-1,\n.col-md-10,\n.col-md-11,\n.col-md-12,\n.col-md-2,\n.col-md-3,\n.col-md-4,\n.col-md-5,\n.col-md-6,\n.col-md-7,\n.col-md-8,\n.col-md-9,\n.col-md-auto,\n.col-sm,\n.col-sm-1,\n.col-sm-10,\n.col-sm-11,\n.col-sm-12,\n.col-sm-2,\n.col-sm-3,\n.col-sm-4,\n.col-sm-5,\n.col-sm-6,\n.col-sm-7,\n.col-sm-8,\n.col-sm-9,\n.col-sm-auto,\n.col-xl,\n.col-xl-1,\n.col-xl-10,\n.col-xl-11,\n.col-xl-12,\n.col-xl-2,\n.col-xl-3,\n.col-xl-4,\n.col-xl-5,\n.col-xl-6,\n.col-xl-7,\n.col-xl-8,\n.col-xl-9,\n.col-xl-auto {\n  position: relative;\n  width: 100%;\n  padding-right: 15px;\n  padding-left: 15px;\n}\n.col {\n  -ms-flex-preferred-size: 0;\n  flex-basis: 0;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  max-width: 100%;\n}\n.row-cols-1>* {\n  -ms-flex: 0 0 100%;\n  flex: 0 0 100%;\n  max-width: 100%;\n}\n.row-cols-2>* {\n  -ms-flex: 0 0 50%;\n  flex: 0 0 50%;\n  max-width: 50%;\n}\n.row-cols-3>* {\n  -ms-flex: 0 0 33.333333%;\n  flex: 0 0 33.333333%;\n  max-width: 33.333333%;\n}\n.row-cols-4>* {\n  -ms-flex: 0 0 25%;\n  flex: 0 0 25%;\n  max-width: 25%;\n}\n.row-cols-5>* {\n  -ms-flex: 0 0 20%;\n  flex: 0 0 20%;\n  max-width: 20%;\n}\n.row-cols-6>* {\n  -ms-flex: 0 0 16.666667%;\n  flex: 0 0 16.666667%;\n  max-width: 16.666667%;\n}\n.col-auto {\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  width: auto;\n  max-width: 100%;\n}\n.col-1 {\n  -ms-flex: 0 0 8.333333%;\n  flex: 0 0 8.333333%;\n  max-width: 8.333333%;\n}\n.col-2 {\n  -ms-flex: 0 0 16.666667%;\n  flex: 0 0 16.666667%;\n  max-width: 16.666667%;\n}\n.col-3 {\n  -ms-flex: 0 0 25%;\n  flex: 0 0 25%;\n  max-width: 25%;\n}\n.col-4 {\n  -ms-flex: 0 0 33.333333%;\n  flex: 0 0 33.333333%;\n  max-width: 33.333333%;\n}\n.col-5 {\n  -ms-flex: 0 0 41.666667%;\n  flex: 0 0 41.666667%;\n  max-width: 41.666667%;\n}\n.col-6 {\n  -ms-flex: 0 0 50%;\n  flex: 0 0 50%;\n  max-width: 50%;\n}\n.col-7 {\n  -ms-flex: 0 0 58.333333%;\n  flex: 0 0 58.333333%;\n  max-width: 58.333333%;\n}\n.col-8 {\n  -ms-flex: 0 0 66.666667%;\n  flex: 0 0 66.666667%;\n  max-width: 66.666667%;\n}\n.col-9 {\n  -ms-flex: 0 0 75%;\n  flex: 0 0 75%;\n  max-width: 75%;\n}\n.col-10 {\n  -ms-flex: 0 0 83.333333%;\n  flex: 0 0 83.333333%;\n  max-width: 83.333333%;\n}\n.col-11 {\n  -ms-flex: 0 0 91.666667%;\n  flex: 0 0 91.666667%;\n  max-width: 91.666667%;\n}\n.col-12 {\n  -ms-flex: 0 0 100%;\n  flex: 0 0 100%;\n  max-width: 100%;\n}\n.order-first {\n  -ms-flex-order: -1;\n  order: -1;\n}\n.order-last {\n  -ms-flex-order: 13;\n  order: 13;\n}\n.order-0 {\n  -ms-flex-order: 0;\n  order: 0;\n}\n.order-1 {\n  -ms-flex-order: 1;\n  order: 1;\n}\n.order-2 {\n  -ms-flex-order: 2;\n  order: 2;\n}\n.order-3 {\n  -ms-flex-order: 3;\n  order: 3;\n}\n.order-4 {\n  -ms-flex-order: 4;\n  order: 4;\n}\n.order-5 {\n  -ms-flex-order: 5;\n  order: 5;\n}\n.order-6 {\n  -ms-flex-order: 6;\n  order: 6;\n}\n.order-7 {\n  -ms-flex-order: 7;\n  order: 7;\n}\n.order-8 {\n  -ms-flex-order: 8;\n  order: 8;\n}\n.order-9 {\n  -ms-flex-order: 9;\n  order: 9;\n}\n.order-10 {\n  -ms-flex-order: 10;\n  order: 10;\n}\n.order-11 {\n  -ms-flex-order: 11;\n  order: 11;\n}\n.order-12 {\n  -ms-flex-order: 12;\n  order: 12;\n}\n.offset-1 {\n  margin-left: 8.333333%;\n}\n.offset-2 {\n  margin-left: 16.666667%;\n}\n.offset-3 {\n  margin-left: 25%;\n}\n.offset-4 {\n  margin-left: 33.333333%;\n}\n.offset-5 {\n  margin-left: 41.666667%;\n}\n.offset-6 {\n  margin-left: 50%;\n}\n.offset-7 {\n  margin-left: 58.333333%;\n}\n.offset-8 {\n  margin-left: 66.666667%;\n}\n.offset-9 {\n  margin-left: 75%;\n}\n.offset-10 {\n  margin-left: 83.333333%;\n}\n.offset-11 {\n  margin-left: 91.666667%;\n}\n@media (min-width:576px) {\n  .col-sm {\n    -ms-flex-preferred-size: 0;\n    flex-basis: 0;\n    -ms-flex-positive: 1;\n    flex-grow: 1;\n    max-width: 100%;\n  }\n\n  .row-cols-sm-1>* {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n\n  .row-cols-sm-2>* {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n\n  .row-cols-sm-3>* {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n\n  .row-cols-sm-4>* {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n\n  .row-cols-sm-5>* {\n    -ms-flex: 0 0 20%;\n    flex: 0 0 20%;\n    max-width: 20%;\n  }\n\n  .row-cols-sm-6>* {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n\n  .col-sm-auto {\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    width: auto;\n    max-width: 100%;\n  }\n\n  .col-sm-1 {\n    -ms-flex: 0 0 8.333333%;\n    flex: 0 0 8.333333%;\n    max-width: 8.333333%;\n  }\n\n  .col-sm-2 {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n\n  .col-sm-3 {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n\n  .col-sm-4 {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n\n  .col-sm-5 {\n    -ms-flex: 0 0 41.666667%;\n    flex: 0 0 41.666667%;\n    max-width: 41.666667%;\n  }\n\n  .col-sm-6 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n\n  .col-sm-7 {\n    -ms-flex: 0 0 58.333333%;\n    flex: 0 0 58.333333%;\n    max-width: 58.333333%;\n  }\n\n  .col-sm-8 {\n    -ms-flex: 0 0 66.666667%;\n    flex: 0 0 66.666667%;\n    max-width: 66.666667%;\n  }\n\n  .col-sm-9 {\n    -ms-flex: 0 0 75%;\n    flex: 0 0 75%;\n    max-width: 75%;\n  }\n\n  .col-sm-10 {\n    -ms-flex: 0 0 83.333333%;\n    flex: 0 0 83.333333%;\n    max-width: 83.333333%;\n  }\n\n  .col-sm-11 {\n    -ms-flex: 0 0 91.666667%;\n    flex: 0 0 91.666667%;\n    max-width: 91.666667%;\n  }\n\n  .col-sm-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n\n  .order-sm-first {\n    -ms-flex-order: -1;\n    order: -1;\n  }\n\n  .order-sm-last {\n    -ms-flex-order: 13;\n    order: 13;\n  }\n\n  .order-sm-0 {\n    -ms-flex-order: 0;\n    order: 0;\n  }\n\n  .order-sm-1 {\n    -ms-flex-order: 1;\n    order: 1;\n  }\n\n  .order-sm-2 {\n    -ms-flex-order: 2;\n    order: 2;\n  }\n\n  .order-sm-3 {\n    -ms-flex-order: 3;\n    order: 3;\n  }\n\n  .order-sm-4 {\n    -ms-flex-order: 4;\n    order: 4;\n  }\n\n  .order-sm-5 {\n    -ms-flex-order: 5;\n    order: 5;\n  }\n\n  .order-sm-6 {\n    -ms-flex-order: 6;\n    order: 6;\n  }\n\n  .order-sm-7 {\n    -ms-flex-order: 7;\n    order: 7;\n  }\n\n  .order-sm-8 {\n    -ms-flex-order: 8;\n    order: 8;\n  }\n\n  .order-sm-9 {\n    -ms-flex-order: 9;\n    order: 9;\n  }\n\n  .order-sm-10 {\n    -ms-flex-order: 10;\n    order: 10;\n  }\n\n  .order-sm-11 {\n    -ms-flex-order: 11;\n    order: 11;\n  }\n\n  .order-sm-12 {\n    -ms-flex-order: 12;\n    order: 12;\n  }\n\n  .offset-sm-0 {\n    margin-left: 0;\n  }\n\n  .offset-sm-1 {\n    margin-left: 8.333333%;\n  }\n\n  .offset-sm-2 {\n    margin-left: 16.666667%;\n  }\n\n  .offset-sm-3 {\n    margin-left: 25%;\n  }\n\n  .offset-sm-4 {\n    margin-left: 33.333333%;\n  }\n\n  .offset-sm-5 {\n    margin-left: 41.666667%;\n  }\n\n  .offset-sm-6 {\n    margin-left: 50%;\n  }\n\n  .offset-sm-7 {\n    margin-left: 58.333333%;\n  }\n\n  .offset-sm-8 {\n    margin-left: 66.666667%;\n  }\n\n  .offset-sm-9 {\n    margin-left: 75%;\n  }\n\n  .offset-sm-10 {\n    margin-left: 83.333333%;\n  }\n\n  .offset-sm-11 {\n    margin-left: 91.666667%;\n  }\n}\n@media (min-width:768px) {\n  .col-md {\n    -ms-flex-preferred-size: 0;\n    flex-basis: 0;\n    -ms-flex-positive: 1;\n    flex-grow: 1;\n    max-width: 100%;\n  }\n\n  .row-cols-md-1>* {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n\n  .row-cols-md-2>* {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n\n  .row-cols-md-3>* {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n\n  .row-cols-md-4>* {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n\n  .row-cols-md-5>* {\n    -ms-flex: 0 0 20%;\n    flex: 0 0 20%;\n    max-width: 20%;\n  }\n\n  .row-cols-md-6>* {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n\n  .col-md-auto {\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    width: auto;\n    max-width: 100%;\n  }\n\n  .col-md-1 {\n    -ms-flex: 0 0 8.333333%;\n    flex: 0 0 8.333333%;\n    max-width: 8.333333%;\n  }\n\n  .col-md-2 {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n\n  .col-md-3 {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n\n  .col-md-4 {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n\n  .col-md-5 {\n    -ms-flex: 0 0 41.666667%;\n    flex: 0 0 41.666667%;\n    max-width: 41.666667%;\n  }\n\n  .col-md-6 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n\n  .col-md-7 {\n    -ms-flex: 0 0 58.333333%;\n    flex: 0 0 58.333333%;\n    max-width: 58.333333%;\n  }\n\n  .col-md-8 {\n    -ms-flex: 0 0 66.666667%;\n    flex: 0 0 66.666667%;\n    max-width: 66.666667%;\n  }\n\n  .col-md-9 {\n    -ms-flex: 0 0 75%;\n    flex: 0 0 75%;\n    max-width: 75%;\n  }\n\n  .col-md-10 {\n    -ms-flex: 0 0 83.333333%;\n    flex: 0 0 83.333333%;\n    max-width: 83.333333%;\n  }\n\n  .col-md-11 {\n    -ms-flex: 0 0 91.666667%;\n    flex: 0 0 91.666667%;\n    max-width: 91.666667%;\n  }\n\n  .col-md-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n\n  .order-md-first {\n    -ms-flex-order: -1;\n    order: -1;\n  }\n\n  .order-md-last {\n    -ms-flex-order: 13;\n    order: 13;\n  }\n\n  .order-md-0 {\n    -ms-flex-order: 0;\n    order: 0;\n  }\n\n  .order-md-1 {\n    -ms-flex-order: 1;\n    order: 1;\n  }\n\n  .order-md-2 {\n    -ms-flex-order: 2;\n    order: 2;\n  }\n\n  .order-md-3 {\n    -ms-flex-order: 3;\n    order: 3;\n  }\n\n  .order-md-4 {\n    -ms-flex-order: 4;\n    order: 4;\n  }\n\n  .order-md-5 {\n    -ms-flex-order: 5;\n    order: 5;\n  }\n\n  .order-md-6 {\n    -ms-flex-order: 6;\n    order: 6;\n  }\n\n  .order-md-7 {\n    -ms-flex-order: 7;\n    order: 7;\n  }\n\n  .order-md-8 {\n    -ms-flex-order: 8;\n    order: 8;\n  }\n\n  .order-md-9 {\n    -ms-flex-order: 9;\n    order: 9;\n  }\n\n  .order-md-10 {\n    -ms-flex-order: 10;\n    order: 10;\n  }\n\n  .order-md-11 {\n    -ms-flex-order: 11;\n    order: 11;\n  }\n\n  .order-md-12 {\n    -ms-flex-order: 12;\n    order: 12;\n  }\n\n  .offset-md-0 {\n    margin-left: 0;\n  }\n\n  .offset-md-1 {\n    margin-left: 8.333333%;\n  }\n\n  .offset-md-2 {\n    margin-left: 16.666667%;\n  }\n\n  .offset-md-3 {\n    margin-left: 25%;\n  }\n\n  .offset-md-4 {\n    margin-left: 33.333333%;\n  }\n\n  .offset-md-5 {\n    margin-left: 41.666667%;\n  }\n\n  .offset-md-6 {\n    margin-left: 50%;\n  }\n\n  .offset-md-7 {\n    margin-left: 58.333333%;\n  }\n\n  .offset-md-8 {\n    margin-left: 66.666667%;\n  }\n\n  .offset-md-9 {\n    margin-left: 75%;\n  }\n\n  .offset-md-10 {\n    margin-left: 83.333333%;\n  }\n\n  .offset-md-11 {\n    margin-left: 91.666667%;\n  }\n}\n@media (min-width:992px) {\n  .col-lg {\n    -ms-flex-preferred-size: 0;\n    flex-basis: 0;\n    -ms-flex-positive: 1;\n    flex-grow: 1;\n    max-width: 100%;\n  }\n\n  .row-cols-lg-1>* {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n\n  .row-cols-lg-2>* {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n\n  .row-cols-lg-3>* {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n\n  .row-cols-lg-4>* {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n\n  .row-cols-lg-5>* {\n    -ms-flex: 0 0 20%;\n    flex: 0 0 20%;\n    max-width: 20%;\n  }\n\n  .row-cols-lg-6>* {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n\n  .col-lg-auto {\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    width: auto;\n    max-width: 100%;\n  }\n\n  .col-lg-1 {\n    -ms-flex: 0 0 8.333333%;\n    flex: 0 0 8.333333%;\n    max-width: 8.333333%;\n  }\n\n  .col-lg-2 {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n\n  .col-lg-3 {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n\n  .col-lg-4 {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n\n  .col-lg-5 {\n    -ms-flex: 0 0 41.666667%;\n    flex: 0 0 41.666667%;\n    max-width: 41.666667%;\n  }\n\n  .col-lg-6 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n\n  .col-lg-7 {\n    -ms-flex: 0 0 58.333333%;\n    flex: 0 0 58.333333%;\n    max-width: 58.333333%;\n  }\n\n  .col-lg-8 {\n    -ms-flex: 0 0 66.666667%;\n    flex: 0 0 66.666667%;\n    max-width: 66.666667%;\n  }\n\n  .col-lg-9 {\n    -ms-flex: 0 0 75%;\n    flex: 0 0 75%;\n    max-width: 75%;\n  }\n\n  .col-lg-10 {\n    -ms-flex: 0 0 83.333333%;\n    flex: 0 0 83.333333%;\n    max-width: 83.333333%;\n  }\n\n  .col-lg-11 {\n    -ms-flex: 0 0 91.666667%;\n    flex: 0 0 91.666667%;\n    max-width: 91.666667%;\n  }\n\n  .col-lg-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n\n  .order-lg-first {\n    -ms-flex-order: -1;\n    order: -1;\n  }\n\n  .order-lg-last {\n    -ms-flex-order: 13;\n    order: 13;\n  }\n\n  .order-lg-0 {\n    -ms-flex-order: 0;\n    order: 0;\n  }\n\n  .order-lg-1 {\n    -ms-flex-order: 1;\n    order: 1;\n  }\n\n  .order-lg-2 {\n    -ms-flex-order: 2;\n    order: 2;\n  }\n\n  .order-lg-3 {\n    -ms-flex-order: 3;\n    order: 3;\n  }\n\n  .order-lg-4 {\n    -ms-flex-order: 4;\n    order: 4;\n  }\n\n  .order-lg-5 {\n    -ms-flex-order: 5;\n    order: 5;\n  }\n\n  .order-lg-6 {\n    -ms-flex-order: 6;\n    order: 6;\n  }\n\n  .order-lg-7 {\n    -ms-flex-order: 7;\n    order: 7;\n  }\n\n  .order-lg-8 {\n    -ms-flex-order: 8;\n    order: 8;\n  }\n\n  .order-lg-9 {\n    -ms-flex-order: 9;\n    order: 9;\n  }\n\n  .order-lg-10 {\n    -ms-flex-order: 10;\n    order: 10;\n  }\n\n  .order-lg-11 {\n    -ms-flex-order: 11;\n    order: 11;\n  }\n\n  .order-lg-12 {\n    -ms-flex-order: 12;\n    order: 12;\n  }\n\n  .offset-lg-0 {\n    margin-left: 0;\n  }\n\n  .offset-lg-1 {\n    margin-left: 8.333333%;\n  }\n\n  .offset-lg-2 {\n    margin-left: 16.666667%;\n  }\n\n  .offset-lg-3 {\n    margin-left: 25%;\n  }\n\n  .offset-lg-4 {\n    margin-left: 33.333333%;\n  }\n\n  .offset-lg-5 {\n    margin-left: 41.666667%;\n  }\n\n  .offset-lg-6 {\n    margin-left: 50%;\n  }\n\n  .offset-lg-7 {\n    margin-left: 58.333333%;\n  }\n\n  .offset-lg-8 {\n    margin-left: 66.666667%;\n  }\n\n  .offset-lg-9 {\n    margin-left: 75%;\n  }\n\n  .offset-lg-10 {\n    margin-left: 83.333333%;\n  }\n\n  .offset-lg-11 {\n    margin-left: 91.666667%;\n  }\n}\n@media (min-width:1200px) {\n  .col-xl {\n    -ms-flex-preferred-size: 0;\n    flex-basis: 0;\n    -ms-flex-positive: 1;\n    flex-grow: 1;\n    max-width: 100%;\n  }\n\n  .row-cols-xl-1>* {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n\n  .row-cols-xl-2>* {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n\n  .row-cols-xl-3>* {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n\n  .row-cols-xl-4>* {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n\n  .row-cols-xl-5>* {\n    -ms-flex: 0 0 20%;\n    flex: 0 0 20%;\n    max-width: 20%;\n  }\n\n  .row-cols-xl-6>* {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n\n  .col-xl-auto {\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    width: auto;\n    max-width: 100%;\n  }\n\n  .col-xl-1 {\n    -ms-flex: 0 0 8.333333%;\n    flex: 0 0 8.333333%;\n    max-width: 8.333333%;\n  }\n\n  .col-xl-2 {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n\n  .col-xl-3 {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n\n  .col-xl-4 {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n\n  .col-xl-5 {\n    -ms-flex: 0 0 41.666667%;\n    flex: 0 0 41.666667%;\n    max-width: 41.666667%;\n  }\n\n  .col-xl-6 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n\n  .col-xl-7 {\n    -ms-flex: 0 0 58.333333%;\n    flex: 0 0 58.333333%;\n    max-width: 58.333333%;\n  }\n\n  .col-xl-8 {\n    -ms-flex: 0 0 66.666667%;\n    flex: 0 0 66.666667%;\n    max-width: 66.666667%;\n  }\n\n  .col-xl-9 {\n    -ms-flex: 0 0 75%;\n    flex: 0 0 75%;\n    max-width: 75%;\n  }\n\n  .col-xl-10 {\n    -ms-flex: 0 0 83.333333%;\n    flex: 0 0 83.333333%;\n    max-width: 83.333333%;\n  }\n\n  .col-xl-11 {\n    -ms-flex: 0 0 91.666667%;\n    flex: 0 0 91.666667%;\n    max-width: 91.666667%;\n  }\n\n  .col-xl-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n\n  .order-xl-first {\n    -ms-flex-order: -1;\n    order: -1;\n  }\n\n  .order-xl-last {\n    -ms-flex-order: 13;\n    order: 13;\n  }\n\n  .order-xl-0 {\n    -ms-flex-order: 0;\n    order: 0;\n  }\n\n  .order-xl-1 {\n    -ms-flex-order: 1;\n    order: 1;\n  }\n\n  .order-xl-2 {\n    -ms-flex-order: 2;\n    order: 2;\n  }\n\n  .order-xl-3 {\n    -ms-flex-order: 3;\n    order: 3;\n  }\n\n  .order-xl-4 {\n    -ms-flex-order: 4;\n    order: 4;\n  }\n\n  .order-xl-5 {\n    -ms-flex-order: 5;\n    order: 5;\n  }\n\n  .order-xl-6 {\n    -ms-flex-order: 6;\n    order: 6;\n  }\n\n  .order-xl-7 {\n    -ms-flex-order: 7;\n    order: 7;\n  }\n\n  .order-xl-8 {\n    -ms-flex-order: 8;\n    order: 8;\n  }\n\n  .order-xl-9 {\n    -ms-flex-order: 9;\n    order: 9;\n  }\n\n  .order-xl-10 {\n    -ms-flex-order: 10;\n    order: 10;\n  }\n\n  .order-xl-11 {\n    -ms-flex-order: 11;\n    order: 11;\n  }\n\n  .order-xl-12 {\n    -ms-flex-order: 12;\n    order: 12;\n  }\n\n  .offset-xl-0 {\n    margin-left: 0;\n  }\n\n  .offset-xl-1 {\n    margin-left: 8.333333%;\n  }\n\n  .offset-xl-2 {\n    margin-left: 16.666667%;\n  }\n\n  .offset-xl-3 {\n    margin-left: 25%;\n  }\n\n  .offset-xl-4 {\n    margin-left: 33.333333%;\n  }\n\n  .offset-xl-5 {\n    margin-left: 41.666667%;\n  }\n\n  .offset-xl-6 {\n    margin-left: 50%;\n  }\n\n  .offset-xl-7 {\n    margin-left: 58.333333%;\n  }\n\n  .offset-xl-8 {\n    margin-left: 66.666667%;\n  }\n\n  .offset-xl-9 {\n    margin-left: 75%;\n  }\n\n  .offset-xl-10 {\n    margin-left: 83.333333%;\n  }\n\n  .offset-xl-11 {\n    margin-left: 91.666667%;\n  }\n}\n.d-none {\n  display: none!important;\n}\n.d-inline {\n  display: inline!important;\n}\n.d-inline-block {\n  display: inline-block!important;\n}\n.d-block {\n  display: block!important;\n}\n.d-table {\n  display: table!important;\n}\n.d-table-row {\n  display: table-row!important;\n}\n.d-table-cell {\n  display: table-cell!important;\n}\n.d-flex {\n  display: -ms-flexbox!important;\n  display: flex!important;\n}\n.d-inline-flex {\n  display: -ms-inline-flexbox!important;\n  display: inline-flex!important;\n}\n@media (min-width:576px) {\n  .d-sm-none {\n    display: none!important;\n  }\n\n  .d-sm-inline {\n    display: inline!important;\n  }\n\n  .d-sm-inline-block {\n    display: inline-block!important;\n  }\n\n  .d-sm-block {\n    display: block!important;\n  }\n\n  .d-sm-table {\n    display: table!important;\n  }\n\n  .d-sm-table-row {\n    display: table-row!important;\n  }\n\n  .d-sm-table-cell {\n    display: table-cell!important;\n  }\n\n  .d-sm-flex {\n    display: -ms-flexbox!important;\n    display: flex!important;\n  }\n\n  .d-sm-inline-flex {\n    display: -ms-inline-flexbox!important;\n    display: inline-flex!important;\n  }\n}\n@media (min-width:768px) {\n  .d-md-none {\n    display: none!important;\n  }\n\n  .d-md-inline {\n    display: inline!important;\n  }\n\n  .d-md-inline-block {\n    display: inline-block!important;\n  }\n\n  .d-md-block {\n    display: block!important;\n  }\n\n  .d-md-table {\n    display: table!important;\n  }\n\n  .d-md-table-row {\n    display: table-row!important;\n  }\n\n  .d-md-table-cell {\n    display: table-cell!important;\n  }\n\n  .d-md-flex {\n    display: -ms-flexbox!important;\n    display: flex!important;\n  }\n\n  .d-md-inline-flex {\n    display: -ms-inline-flexbox!important;\n    display: inline-flex!important;\n  }\n}\n@media (min-width:992px) {\n  .d-lg-none {\n    display: none!important;\n  }\n\n  .d-lg-inline {\n    display: inline!important;\n  }\n\n  .d-lg-inline-block {\n    display: inline-block!important;\n  }\n\n  .d-lg-block {\n    display: block!important;\n  }\n\n  .d-lg-table {\n    display: table!important;\n  }\n\n  .d-lg-table-row {\n    display: table-row!important;\n  }\n\n  .d-lg-table-cell {\n    display: table-cell!important;\n  }\n\n  .d-lg-flex {\n    display: -ms-flexbox!important;\n    display: flex!important;\n  }\n\n  .d-lg-inline-flex {\n    display: -ms-inline-flexbox!important;\n    display: inline-flex!important;\n  }\n}\n@media (min-width:1200px) {\n  .d-xl-none {\n    display: none!important;\n  }\n\n  .d-xl-inline {\n    display: inline!important;\n  }\n\n  .d-xl-inline-block {\n    display: inline-block!important;\n  }\n\n  .d-xl-block {\n    display: block!important;\n  }\n\n  .d-xl-table {\n    display: table!important;\n  }\n\n  .d-xl-table-row {\n    display: table-row!important;\n  }\n\n  .d-xl-table-cell {\n    display: table-cell!important;\n  }\n\n  .d-xl-flex {\n    display: -ms-flexbox!important;\n    display: flex!important;\n  }\n\n  .d-xl-inline-flex {\n    display: -ms-inline-flexbox!important;\n    display: inline-flex!important;\n  }\n}\n@media print {\n  .d-print-none {\n    display: none!important;\n  }\n\n  .d-print-inline {\n    display: inline!important;\n  }\n\n  .d-print-inline-block {\n    display: inline-block!important;\n  }\n\n  .d-print-block {\n    display: block!important;\n  }\n\n  .d-print-table {\n    display: table!important;\n  }\n\n  .d-print-table-row {\n    display: table-row!important;\n  }\n\n  .d-print-table-cell {\n    display: table-cell!important;\n  }\n\n  .d-print-flex {\n    display: -ms-flexbox!important;\n    display: flex!important;\n  }\n\n  .d-print-inline-flex {\n    display: -ms-inline-flexbox!important;\n    display: inline-flex!important;\n  }\n}\n.flex-row {\n  -ms-flex-direction: row!important;\n  flex-direction: row!important;\n}\n.flex-column {\n  -ms-flex-direction: column!important;\n  flex-direction: column!important;\n}\n.flex-row-reverse {\n  -ms-flex-direction: row-reverse!important;\n  flex-direction: row-reverse!important;\n}\n.flex-column-reverse {\n  -ms-flex-direction: column-reverse!important;\n  flex-direction: column-reverse!important;\n}\n.flex-wrap {\n  -ms-flex-wrap: wrap!important;\n  flex-wrap: wrap!important;\n}\n.flex-nowrap {\n  -ms-flex-wrap: nowrap!important;\n  flex-wrap: nowrap!important;\n}\n.flex-wrap-reverse {\n  -ms-flex-wrap: wrap-reverse!important;\n  flex-wrap: wrap-reverse!important;\n}\n.flex-fill {\n  -ms-flex: 1 1 auto!important;\n  flex: 1 1 auto!important;\n}\n.flex-grow-0 {\n  -ms-flex-positive: 0!important;\n  flex-grow: 0!important;\n}\n.flex-grow-1 {\n  -ms-flex-positive: 1!important;\n  flex-grow: 1!important;\n}\n.flex-shrink-0 {\n  -ms-flex-negative: 0!important;\n  flex-shrink: 0!important;\n}\n.flex-shrink-1 {\n  -ms-flex-negative: 1!important;\n  flex-shrink: 1!important;\n}\n.justify-content-start {\n  -ms-flex-pack: start!important;\n  justify-content: flex-start!important;\n}\n.justify-content-end {\n  -ms-flex-pack: end!important;\n  justify-content: flex-end!important;\n}\n.justify-content-center {\n  -ms-flex-pack: center!important;\n  justify-content: center!important;\n}\n.justify-content-between {\n  -ms-flex-pack: justify!important;\n  justify-content: space-between!important;\n}\n.justify-content-around {\n  -ms-flex-pack: distribute!important;\n  justify-content: space-around!important;\n}\n.align-items-start {\n  -ms-flex-align: start!important;\n  align-items: flex-start!important;\n}\n.align-items-end {\n  -ms-flex-align: end!important;\n  align-items: flex-end!important;\n}\n.align-items-center {\n  -ms-flex-align: center!important;\n  align-items: center!important;\n}\n.align-items-baseline {\n  -ms-flex-align: baseline!important;\n  align-items: baseline!important;\n}\n.align-items-stretch {\n  -ms-flex-align: stretch!important;\n  align-items: stretch!important;\n}\n.align-content-start {\n  -ms-flex-line-pack: start!important;\n  align-content: flex-start!important;\n}\n.align-content-end {\n  -ms-flex-line-pack: end!important;\n  align-content: flex-end!important;\n}\n.align-content-center {\n  -ms-flex-line-pack: center!important;\n  align-content: center!important;\n}\n.align-content-between {\n  -ms-flex-line-pack: justify!important;\n  align-content: space-between!important;\n}\n.align-content-around {\n  -ms-flex-line-pack: distribute!important;\n  align-content: space-around!important;\n}\n.align-content-stretch {\n  -ms-flex-line-pack: stretch!important;\n  align-content: stretch!important;\n}\n.align-self-auto {\n  -ms-flex-item-align: auto!important;\n  align-self: auto!important;\n}\n.align-self-start {\n  -ms-flex-item-align: start!important;\n  align-self: flex-start!important;\n}\n.align-self-end {\n  -ms-flex-item-align: end!important;\n  align-self: flex-end!important;\n}\n.align-self-center {\n  -ms-flex-item-align: center!important;\n  align-self: center!important;\n}\n.align-self-baseline {\n  -ms-flex-item-align: baseline!important;\n  align-self: baseline!important;\n}\n.align-self-stretch {\n  -ms-flex-item-align: stretch!important;\n  align-self: stretch!important;\n}\n@media (min-width:576px) {\n  .flex-sm-row {\n    -ms-flex-direction: row!important;\n    flex-direction: row!important;\n  }\n\n  .flex-sm-column {\n    -ms-flex-direction: column!important;\n    flex-direction: column!important;\n  }\n\n  .flex-sm-row-reverse {\n    -ms-flex-direction: row-reverse!important;\n    flex-direction: row-reverse!important;\n  }\n\n  .flex-sm-column-reverse {\n    -ms-flex-direction: column-reverse!important;\n    flex-direction: column-reverse!important;\n  }\n\n  .flex-sm-wrap {\n    -ms-flex-wrap: wrap!important;\n    flex-wrap: wrap!important;\n  }\n\n  .flex-sm-nowrap {\n    -ms-flex-wrap: nowrap!important;\n    flex-wrap: nowrap!important;\n  }\n\n  .flex-sm-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse!important;\n    flex-wrap: wrap-reverse!important;\n  }\n\n  .flex-sm-fill {\n    -ms-flex: 1 1 auto!important;\n    flex: 1 1 auto!important;\n  }\n\n  .flex-sm-grow-0 {\n    -ms-flex-positive: 0!important;\n    flex-grow: 0!important;\n  }\n\n  .flex-sm-grow-1 {\n    -ms-flex-positive: 1!important;\n    flex-grow: 1!important;\n  }\n\n  .flex-sm-shrink-0 {\n    -ms-flex-negative: 0!important;\n    flex-shrink: 0!important;\n  }\n\n  .flex-sm-shrink-1 {\n    -ms-flex-negative: 1!important;\n    flex-shrink: 1!important;\n  }\n\n  .justify-content-sm-start {\n    -ms-flex-pack: start!important;\n    justify-content: flex-start!important;\n  }\n\n  .justify-content-sm-end {\n    -ms-flex-pack: end!important;\n    justify-content: flex-end!important;\n  }\n\n  .justify-content-sm-center {\n    -ms-flex-pack: center!important;\n    justify-content: center!important;\n  }\n\n  .justify-content-sm-between {\n    -ms-flex-pack: justify!important;\n    justify-content: space-between!important;\n  }\n\n  .justify-content-sm-around {\n    -ms-flex-pack: distribute!important;\n    justify-content: space-around!important;\n  }\n\n  .align-items-sm-start {\n    -ms-flex-align: start!important;\n    align-items: flex-start!important;\n  }\n\n  .align-items-sm-end {\n    -ms-flex-align: end!important;\n    align-items: flex-end!important;\n  }\n\n  .align-items-sm-center {\n    -ms-flex-align: center!important;\n    align-items: center!important;\n  }\n\n  .align-items-sm-baseline {\n    -ms-flex-align: baseline!important;\n    align-items: baseline!important;\n  }\n\n  .align-items-sm-stretch {\n    -ms-flex-align: stretch!important;\n    align-items: stretch!important;\n  }\n\n  .align-content-sm-start {\n    -ms-flex-line-pack: start!important;\n    align-content: flex-start!important;\n  }\n\n  .align-content-sm-end {\n    -ms-flex-line-pack: end!important;\n    align-content: flex-end!important;\n  }\n\n  .align-content-sm-center {\n    -ms-flex-line-pack: center!important;\n    align-content: center!important;\n  }\n\n  .align-content-sm-between {\n    -ms-flex-line-pack: justify!important;\n    align-content: space-between!important;\n  }\n\n  .align-content-sm-around {\n    -ms-flex-line-pack: distribute!important;\n    align-content: space-around!important;\n  }\n\n  .align-content-sm-stretch {\n    -ms-flex-line-pack: stretch!important;\n    align-content: stretch!important;\n  }\n\n  .align-self-sm-auto {\n    -ms-flex-item-align: auto!important;\n    align-self: auto!important;\n  }\n\n  .align-self-sm-start {\n    -ms-flex-item-align: start!important;\n    align-self: flex-start!important;\n  }\n\n  .align-self-sm-end {\n    -ms-flex-item-align: end!important;\n    align-self: flex-end!important;\n  }\n\n  .align-self-sm-center {\n    -ms-flex-item-align: center!important;\n    align-self: center!important;\n  }\n\n  .align-self-sm-baseline {\n    -ms-flex-item-align: baseline!important;\n    align-self: baseline!important;\n  }\n\n  .align-self-sm-stretch {\n    -ms-flex-item-align: stretch!important;\n    align-self: stretch!important;\n  }\n}\n@media (min-width:768px) {\n  .flex-md-row {\n    -ms-flex-direction: row!important;\n    flex-direction: row!important;\n  }\n\n  .flex-md-column {\n    -ms-flex-direction: column!important;\n    flex-direction: column!important;\n  }\n\n  .flex-md-row-reverse {\n    -ms-flex-direction: row-reverse!important;\n    flex-direction: row-reverse!important;\n  }\n\n  .flex-md-column-reverse {\n    -ms-flex-direction: column-reverse!important;\n    flex-direction: column-reverse!important;\n  }\n\n  .flex-md-wrap {\n    -ms-flex-wrap: wrap!important;\n    flex-wrap: wrap!important;\n  }\n\n  .flex-md-nowrap {\n    -ms-flex-wrap: nowrap!important;\n    flex-wrap: nowrap!important;\n  }\n\n  .flex-md-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse!important;\n    flex-wrap: wrap-reverse!important;\n  }\n\n  .flex-md-fill {\n    -ms-flex: 1 1 auto!important;\n    flex: 1 1 auto!important;\n  }\n\n  .flex-md-grow-0 {\n    -ms-flex-positive: 0!important;\n    flex-grow: 0!important;\n  }\n\n  .flex-md-grow-1 {\n    -ms-flex-positive: 1!important;\n    flex-grow: 1!important;\n  }\n\n  .flex-md-shrink-0 {\n    -ms-flex-negative: 0!important;\n    flex-shrink: 0!important;\n  }\n\n  .flex-md-shrink-1 {\n    -ms-flex-negative: 1!important;\n    flex-shrink: 1!important;\n  }\n\n  .justify-content-md-start {\n    -ms-flex-pack: start!important;\n    justify-content: flex-start!important;\n  }\n\n  .justify-content-md-end {\n    -ms-flex-pack: end!important;\n    justify-content: flex-end!important;\n  }\n\n  .justify-content-md-center {\n    -ms-flex-pack: center!important;\n    justify-content: center!important;\n  }\n\n  .justify-content-md-between {\n    -ms-flex-pack: justify!important;\n    justify-content: space-between!important;\n  }\n\n  .justify-content-md-around {\n    -ms-flex-pack: distribute!important;\n    justify-content: space-around!important;\n  }\n\n  .align-items-md-start {\n    -ms-flex-align: start!important;\n    align-items: flex-start!important;\n  }\n\n  .align-items-md-end {\n    -ms-flex-align: end!important;\n    align-items: flex-end!important;\n  }\n\n  .align-items-md-center {\n    -ms-flex-align: center!important;\n    align-items: center!important;\n  }\n\n  .align-items-md-baseline {\n    -ms-flex-align: baseline!important;\n    align-items: baseline!important;\n  }\n\n  .align-items-md-stretch {\n    -ms-flex-align: stretch!important;\n    align-items: stretch!important;\n  }\n\n  .align-content-md-start {\n    -ms-flex-line-pack: start!important;\n    align-content: flex-start!important;\n  }\n\n  .align-content-md-end {\n    -ms-flex-line-pack: end!important;\n    align-content: flex-end!important;\n  }\n\n  .align-content-md-center {\n    -ms-flex-line-pack: center!important;\n    align-content: center!important;\n  }\n\n  .align-content-md-between {\n    -ms-flex-line-pack: justify!important;\n    align-content: space-between!important;\n  }\n\n  .align-content-md-around {\n    -ms-flex-line-pack: distribute!important;\n    align-content: space-around!important;\n  }\n\n  .align-content-md-stretch {\n    -ms-flex-line-pack: stretch!important;\n    align-content: stretch!important;\n  }\n\n  .align-self-md-auto {\n    -ms-flex-item-align: auto!important;\n    align-self: auto!important;\n  }\n\n  .align-self-md-start {\n    -ms-flex-item-align: start!important;\n    align-self: flex-start!important;\n  }\n\n  .align-self-md-end {\n    -ms-flex-item-align: end!important;\n    align-self: flex-end!important;\n  }\n\n  .align-self-md-center {\n    -ms-flex-item-align: center!important;\n    align-self: center!important;\n  }\n\n  .align-self-md-baseline {\n    -ms-flex-item-align: baseline!important;\n    align-self: baseline!important;\n  }\n\n  .align-self-md-stretch {\n    -ms-flex-item-align: stretch!important;\n    align-self: stretch!important;\n  }\n}\n@media (min-width:992px) {\n  .flex-lg-row {\n    -ms-flex-direction: row!important;\n    flex-direction: row!important;\n  }\n\n  .flex-lg-column {\n    -ms-flex-direction: column!important;\n    flex-direction: column!important;\n  }\n\n  .flex-lg-row-reverse {\n    -ms-flex-direction: row-reverse!important;\n    flex-direction: row-reverse!important;\n  }\n\n  .flex-lg-column-reverse {\n    -ms-flex-direction: column-reverse!important;\n    flex-direction: column-reverse!important;\n  }\n\n  .flex-lg-wrap {\n    -ms-flex-wrap: wrap!important;\n    flex-wrap: wrap!important;\n  }\n\n  .flex-lg-nowrap {\n    -ms-flex-wrap: nowrap!important;\n    flex-wrap: nowrap!important;\n  }\n\n  .flex-lg-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse!important;\n    flex-wrap: wrap-reverse!important;\n  }\n\n  .flex-lg-fill {\n    -ms-flex: 1 1 auto!important;\n    flex: 1 1 auto!important;\n  }\n\n  .flex-lg-grow-0 {\n    -ms-flex-positive: 0!important;\n    flex-grow: 0!important;\n  }\n\n  .flex-lg-grow-1 {\n    -ms-flex-positive: 1!important;\n    flex-grow: 1!important;\n  }\n\n  .flex-lg-shrink-0 {\n    -ms-flex-negative: 0!important;\n    flex-shrink: 0!important;\n  }\n\n  .flex-lg-shrink-1 {\n    -ms-flex-negative: 1!important;\n    flex-shrink: 1!important;\n  }\n\n  .justify-content-lg-start {\n    -ms-flex-pack: start!important;\n    justify-content: flex-start!important;\n  }\n\n  .justify-content-lg-end {\n    -ms-flex-pack: end!important;\n    justify-content: flex-end!important;\n  }\n\n  .justify-content-lg-center {\n    -ms-flex-pack: center!important;\n    justify-content: center!important;\n  }\n\n  .justify-content-lg-between {\n    -ms-flex-pack: justify!important;\n    justify-content: space-between!important;\n  }\n\n  .justify-content-lg-around {\n    -ms-flex-pack: distribute!important;\n    justify-content: space-around!important;\n  }\n\n  .align-items-lg-start {\n    -ms-flex-align: start!important;\n    align-items: flex-start!important;\n  }\n\n  .align-items-lg-end {\n    -ms-flex-align: end!important;\n    align-items: flex-end!important;\n  }\n\n  .align-items-lg-center {\n    -ms-flex-align: center!important;\n    align-items: center!important;\n  }\n\n  .align-items-lg-baseline {\n    -ms-flex-align: baseline!important;\n    align-items: baseline!important;\n  }\n\n  .align-items-lg-stretch {\n    -ms-flex-align: stretch!important;\n    align-items: stretch!important;\n  }\n\n  .align-content-lg-start {\n    -ms-flex-line-pack: start!important;\n    align-content: flex-start!important;\n  }\n\n  .align-content-lg-end {\n    -ms-flex-line-pack: end!important;\n    align-content: flex-end!important;\n  }\n\n  .align-content-lg-center {\n    -ms-flex-line-pack: center!important;\n    align-content: center!important;\n  }\n\n  .align-content-lg-between {\n    -ms-flex-line-pack: justify!important;\n    align-content: space-between!important;\n  }\n\n  .align-content-lg-around {\n    -ms-flex-line-pack: distribute!important;\n    align-content: space-around!important;\n  }\n\n  .align-content-lg-stretch {\n    -ms-flex-line-pack: stretch!important;\n    align-content: stretch!important;\n  }\n\n  .align-self-lg-auto {\n    -ms-flex-item-align: auto!important;\n    align-self: auto!important;\n  }\n\n  .align-self-lg-start {\n    -ms-flex-item-align: start!important;\n    align-self: flex-start!important;\n  }\n\n  .align-self-lg-end {\n    -ms-flex-item-align: end!important;\n    align-self: flex-end!important;\n  }\n\n  .align-self-lg-center {\n    -ms-flex-item-align: center!important;\n    align-self: center!important;\n  }\n\n  .align-self-lg-baseline {\n    -ms-flex-item-align: baseline!important;\n    align-self: baseline!important;\n  }\n\n  .align-self-lg-stretch {\n    -ms-flex-item-align: stretch!important;\n    align-self: stretch!important;\n  }\n}\n@media (min-width:1200px) {\n  .flex-xl-row {\n    -ms-flex-direction: row!important;\n    flex-direction: row!important;\n  }\n\n  .flex-xl-column {\n    -ms-flex-direction: column!important;\n    flex-direction: column!important;\n  }\n\n  .flex-xl-row-reverse {\n    -ms-flex-direction: row-reverse!important;\n    flex-direction: row-reverse!important;\n  }\n\n  .flex-xl-column-reverse {\n    -ms-flex-direction: column-reverse!important;\n    flex-direction: column-reverse!important;\n  }\n\n  .flex-xl-wrap {\n    -ms-flex-wrap: wrap!important;\n    flex-wrap: wrap!important;\n  }\n\n  .flex-xl-nowrap {\n    -ms-flex-wrap: nowrap!important;\n    flex-wrap: nowrap!important;\n  }\n\n  .flex-xl-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse!important;\n    flex-wrap: wrap-reverse!important;\n  }\n\n  .flex-xl-fill {\n    -ms-flex: 1 1 auto!important;\n    flex: 1 1 auto!important;\n  }\n\n  .flex-xl-grow-0 {\n    -ms-flex-positive: 0!important;\n    flex-grow: 0!important;\n  }\n\n  .flex-xl-grow-1 {\n    -ms-flex-positive: 1!important;\n    flex-grow: 1!important;\n  }\n\n  .flex-xl-shrink-0 {\n    -ms-flex-negative: 0!important;\n    flex-shrink: 0!important;\n  }\n\n  .flex-xl-shrink-1 {\n    -ms-flex-negative: 1!important;\n    flex-shrink: 1!important;\n  }\n\n  .justify-content-xl-start {\n    -ms-flex-pack: start!important;\n    justify-content: flex-start!important;\n  }\n\n  .justify-content-xl-end {\n    -ms-flex-pack: end!important;\n    justify-content: flex-end!important;\n  }\n\n  .justify-content-xl-center {\n    -ms-flex-pack: center!important;\n    justify-content: center!important;\n  }\n\n  .justify-content-xl-between {\n    -ms-flex-pack: justify!important;\n    justify-content: space-between!important;\n  }\n\n  .justify-content-xl-around {\n    -ms-flex-pack: distribute!important;\n    justify-content: space-around!important;\n  }\n\n  .align-items-xl-start {\n    -ms-flex-align: start!important;\n    align-items: flex-start!important;\n  }\n\n  .align-items-xl-end {\n    -ms-flex-align: end!important;\n    align-items: flex-end!important;\n  }\n\n  .align-items-xl-center {\n    -ms-flex-align: center!important;\n    align-items: center!important;\n  }\n\n  .align-items-xl-baseline {\n    -ms-flex-align: baseline!important;\n    align-items: baseline!important;\n  }\n\n  .align-items-xl-stretch {\n    -ms-flex-align: stretch!important;\n    align-items: stretch!important;\n  }\n\n  .align-content-xl-start {\n    -ms-flex-line-pack: start!important;\n    align-content: flex-start!important;\n  }\n\n  .align-content-xl-end {\n    -ms-flex-line-pack: end!important;\n    align-content: flex-end!important;\n  }\n\n  .align-content-xl-center {\n    -ms-flex-line-pack: center!important;\n    align-content: center!important;\n  }\n\n  .align-content-xl-between {\n    -ms-flex-line-pack: justify!important;\n    align-content: space-between!important;\n  }\n\n  .align-content-xl-around {\n    -ms-flex-line-pack: distribute!important;\n    align-content: space-around!important;\n  }\n\n  .align-content-xl-stretch {\n    -ms-flex-line-pack: stretch!important;\n    align-content: stretch!important;\n  }\n\n  .align-self-xl-auto {\n    -ms-flex-item-align: auto!important;\n    align-self: auto!important;\n  }\n\n  .align-self-xl-start {\n    -ms-flex-item-align: start!important;\n    align-self: flex-start!important;\n  }\n\n  .align-self-xl-end {\n    -ms-flex-item-align: end!important;\n    align-self: flex-end!important;\n  }\n\n  .align-self-xl-center {\n    -ms-flex-item-align: center!important;\n    align-self: center!important;\n  }\n\n  .align-self-xl-baseline {\n    -ms-flex-item-align: baseline!important;\n    align-self: baseline!important;\n  }\n\n  .align-self-xl-stretch {\n    -ms-flex-item-align: stretch!important;\n    align-self: stretch!important;\n  }\n}\n.m-0 {\n  margin: 0!important;\n}\n.mt-0,\n.my-0 {\n  margin-top: 0!important;\n}\n.mr-0,\n.mx-0 {\n  margin-right: 0!important;\n}\n.mb-0,\n.my-0 {\n  margin-bottom: 0!important;\n}\n.ml-0,\n.mx-0 {\n  margin-left: 0!important;\n}\n.m-1 {\n  margin: .25rem!important;\n}\n.mt-1,\n.my-1 {\n  margin-top: .25rem!important;\n}\n.mr-1,\n.mx-1 {\n  margin-right: .25rem!important;\n}\n.mb-1,\n.my-1 {\n  margin-bottom: .25rem!important;\n}\n.ml-1,\n.mx-1 {\n  margin-left: .25rem!important;\n}\n.m-2 {\n  margin: .5rem!important;\n}\n.mt-2,\n.my-2 {\n  margin-top: .5rem!important;\n}\n.mr-2,\n.mx-2 {\n  margin-right: .5rem!important;\n}\n.mb-2,\n.my-2 {\n  margin-bottom: .5rem!important;\n}\n.ml-2,\n.mx-2 {\n  margin-left: .5rem!important;\n}\n.m-3 {\n  margin: 1rem!important;\n}\n.mt-3,\n.my-3 {\n  margin-top: 1rem!important;\n}\n.mr-3,\n.mx-3 {\n  margin-right: 1rem!important;\n}\n.mb-3,\n.my-3 {\n  margin-bottom: 1rem!important;\n}\n.ml-3,\n.mx-3 {\n  margin-left: 1rem!important;\n}\n.m-4 {\n  margin: 1.5rem!important;\n}\n.mt-4,\n.my-4 {\n  margin-top: 1.5rem!important;\n}\n.mr-4,\n.mx-4 {\n  margin-right: 1.5rem!important;\n}\n.mb-4,\n.my-4 {\n  margin-bottom: 1.5rem!important;\n}\n.ml-4,\n.mx-4 {\n  margin-left: 1.5rem!important;\n}\n.m-5 {\n  margin: 3rem!important;\n}\n.mt-5,\n.my-5 {\n  margin-top: 3rem!important;\n}\n.mr-5,\n.mx-5 {\n  margin-right: 3rem!important;\n}\n.mb-5,\n.my-5 {\n  margin-bottom: 3rem!important;\n}\n.ml-5,\n.mx-5 {\n  margin-left: 3rem!important;\n}\n.p-0 {\n  padding: 0!important;\n}\n.pt-0,\n.py-0 {\n  padding-top: 0!important;\n}\n.pr-0,\n.px-0 {\n  padding-right: 0!important;\n}\n.pb-0,\n.py-0 {\n  padding-bottom: 0!important;\n}\n.pl-0,\n.px-0 {\n  padding-left: 0!important;\n}\n.p-1 {\n  padding: .25rem!important;\n}\n.pt-1,\n.py-1 {\n  padding-top: .25rem!important;\n}\n.pr-1,\n.px-1 {\n  padding-right: .25rem!important;\n}\n.pb-1,\n.py-1 {\n  padding-bottom: .25rem!important;\n}\n.pl-1,\n.px-1 {\n  padding-left: .25rem!important;\n}\n.p-2 {\n  padding: .5rem!important;\n}\n.pt-2,\n.py-2 {\n  padding-top: .5rem!important;\n}\n.pr-2,\n.px-2 {\n  padding-right: .5rem!important;\n}\n.pb-2,\n.py-2 {\n  padding-bottom: .5rem!important;\n}\n.pl-2,\n.px-2 {\n  padding-left: .5rem!important;\n}\n.p-3 {\n  padding: 1rem!important;\n}\n.pt-3,\n.py-3 {\n  padding-top: 1rem!important;\n}\n.pr-3,\n.px-3 {\n  padding-right: 1rem!important;\n}\n.pb-3,\n.py-3 {\n  padding-bottom: 1rem!important;\n}\n.pl-3,\n.px-3 {\n  padding-left: 1rem!important;\n}\n.p-4 {\n  padding: 1.5rem!important;\n}\n.pt-4,\n.py-4 {\n  padding-top: 1.5rem!important;\n}\n.pr-4,\n.px-4 {\n  padding-right: 1.5rem!important;\n}\n.pb-4,\n.py-4 {\n  padding-bottom: 1.5rem!important;\n}\n.pl-4,\n.px-4 {\n  padding-left: 1.5rem!important;\n}\n.p-5 {\n  padding: 3rem!important;\n}\n.pt-5,\n.py-5 {\n  padding-top: 3rem!important;\n}\n.pr-5,\n.px-5 {\n  padding-right: 3rem!important;\n}\n.pb-5,\n.py-5 {\n  padding-bottom: 3rem!important;\n}\n.pl-5,\n.px-5 {\n  padding-left: 3rem!important;\n}\n.m-n1 {\n  margin: -.25rem!important;\n}\n.mt-n1,\n.my-n1 {\n  margin-top: -.25rem!important;\n}\n.mr-n1,\n.mx-n1 {\n  margin-right: -.25rem!important;\n}\n.mb-n1,\n.my-n1 {\n  margin-bottom: -.25rem!important;\n}\n.ml-n1,\n.mx-n1 {\n  margin-left: -.25rem!important;\n}\n.m-n2 {\n  margin: -.5rem!important;\n}\n.mt-n2,\n.my-n2 {\n  margin-top: -.5rem!important;\n}\n.mr-n2,\n.mx-n2 {\n  margin-right: -.5rem!important;\n}\n.mb-n2,\n.my-n2 {\n  margin-bottom: -.5rem!important;\n}\n.ml-n2,\n.mx-n2 {\n  margin-left: -.5rem!important;\n}\n.m-n3 {\n  margin: -1rem!important;\n}\n.mt-n3,\n.my-n3 {\n  margin-top: -1rem!important;\n}\n.mr-n3,\n.mx-n3 {\n  margin-right: -1rem!important;\n}\n.mb-n3,\n.my-n3 {\n  margin-bottom: -1rem!important;\n}\n.ml-n3,\n.mx-n3 {\n  margin-left: -1rem!important;\n}\n.m-n4 {\n  margin: -1.5rem!important;\n}\n.mt-n4,\n.my-n4 {\n  margin-top: -1.5rem!important;\n}\n.mr-n4,\n.mx-n4 {\n  margin-right: -1.5rem!important;\n}\n.mb-n4,\n.my-n4 {\n  margin-bottom: -1.5rem!important;\n}\n.ml-n4,\n.mx-n4 {\n  margin-left: -1.5rem!important;\n}\n.m-n5 {\n  margin: -3rem!important;\n}\n.mt-n5,\n.my-n5 {\n  margin-top: -3rem!important;\n}\n.mr-n5,\n.mx-n5 {\n  margin-right: -3rem!important;\n}\n.mb-n5,\n.my-n5 {\n  margin-bottom: -3rem!important;\n}\n.ml-n5,\n.mx-n5 {\n  margin-left: -3rem!important;\n}\n.m-auto {\n  margin: auto!important;\n}\n.mt-auto,\n.my-auto {\n  margin-top: auto!important;\n}\n.mr-auto,\n.mx-auto {\n  margin-right: auto!important;\n}\n.mb-auto,\n.my-auto {\n  margin-bottom: auto!important;\n}\n.ml-auto,\n.mx-auto {\n  margin-left: auto!important;\n}\n@media (min-width:576px) {\n  .m-sm-0 {\n    margin: 0!important;\n  }\n\n  .mt-sm-0,\n  .my-sm-0 {\n    margin-top: 0!important;\n  }\n\n  .mr-sm-0,\n  .mx-sm-0 {\n    margin-right: 0!important;\n  }\n\n  .mb-sm-0,\n  .my-sm-0 {\n    margin-bottom: 0!important;\n  }\n\n  .ml-sm-0,\n  .mx-sm-0 {\n    margin-left: 0!important;\n  }\n\n  .m-sm-1 {\n    margin: .25rem!important;\n  }\n\n  .mt-sm-1,\n  .my-sm-1 {\n    margin-top: .25rem!important;\n  }\n\n  .mr-sm-1,\n  .mx-sm-1 {\n    margin-right: .25rem!important;\n  }\n\n  .mb-sm-1,\n  .my-sm-1 {\n    margin-bottom: .25rem!important;\n  }\n\n  .ml-sm-1,\n  .mx-sm-1 {\n    margin-left: .25rem!important;\n  }\n\n  .m-sm-2 {\n    margin: .5rem!important;\n  }\n\n  .mt-sm-2,\n  .my-sm-2 {\n    margin-top: .5rem!important;\n  }\n\n  .mr-sm-2,\n  .mx-sm-2 {\n    margin-right: .5rem!important;\n  }\n\n  .mb-sm-2,\n  .my-sm-2 {\n    margin-bottom: .5rem!important;\n  }\n\n  .ml-sm-2,\n  .mx-sm-2 {\n    margin-left: .5rem!important;\n  }\n\n  .m-sm-3 {\n    margin: 1rem!important;\n  }\n\n  .mt-sm-3,\n  .my-sm-3 {\n    margin-top: 1rem!important;\n  }\n\n  .mr-sm-3,\n  .mx-sm-3 {\n    margin-right: 1rem!important;\n  }\n\n  .mb-sm-3,\n  .my-sm-3 {\n    margin-bottom: 1rem!important;\n  }\n\n  .ml-sm-3,\n  .mx-sm-3 {\n    margin-left: 1rem!important;\n  }\n\n  .m-sm-4 {\n    margin: 1.5rem!important;\n  }\n\n  .mt-sm-4,\n  .my-sm-4 {\n    margin-top: 1.5rem!important;\n  }\n\n  .mr-sm-4,\n  .mx-sm-4 {\n    margin-right: 1.5rem!important;\n  }\n\n  .mb-sm-4,\n  .my-sm-4 {\n    margin-bottom: 1.5rem!important;\n  }\n\n  .ml-sm-4,\n  .mx-sm-4 {\n    margin-left: 1.5rem!important;\n  }\n\n  .m-sm-5 {\n    margin: 3rem!important;\n  }\n\n  .mt-sm-5,\n  .my-sm-5 {\n    margin-top: 3rem!important;\n  }\n\n  .mr-sm-5,\n  .mx-sm-5 {\n    margin-right: 3rem!important;\n  }\n\n  .mb-sm-5,\n  .my-sm-5 {\n    margin-bottom: 3rem!important;\n  }\n\n  .ml-sm-5,\n  .mx-sm-5 {\n    margin-left: 3rem!important;\n  }\n\n  .p-sm-0 {\n    padding: 0!important;\n  }\n\n  .pt-sm-0,\n  .py-sm-0 {\n    padding-top: 0!important;\n  }\n\n  .pr-sm-0,\n  .px-sm-0 {\n    padding-right: 0!important;\n  }\n\n  .pb-sm-0,\n  .py-sm-0 {\n    padding-bottom: 0!important;\n  }\n\n  .pl-sm-0,\n  .px-sm-0 {\n    padding-left: 0!important;\n  }\n\n  .p-sm-1 {\n    padding: .25rem!important;\n  }\n\n  .pt-sm-1,\n  .py-sm-1 {\n    padding-top: .25rem!important;\n  }\n\n  .pr-sm-1,\n  .px-sm-1 {\n    padding-right: .25rem!important;\n  }\n\n  .pb-sm-1,\n  .py-sm-1 {\n    padding-bottom: .25rem!important;\n  }\n\n  .pl-sm-1,\n  .px-sm-1 {\n    padding-left: .25rem!important;\n  }\n\n  .p-sm-2 {\n    padding: .5rem!important;\n  }\n\n  .pt-sm-2,\n  .py-sm-2 {\n    padding-top: .5rem!important;\n  }\n\n  .pr-sm-2,\n  .px-sm-2 {\n    padding-right: .5rem!important;\n  }\n\n  .pb-sm-2,\n  .py-sm-2 {\n    padding-bottom: .5rem!important;\n  }\n\n  .pl-sm-2,\n  .px-sm-2 {\n    padding-left: .5rem!important;\n  }\n\n  .p-sm-3 {\n    padding: 1rem!important;\n  }\n\n  .pt-sm-3,\n  .py-sm-3 {\n    padding-top: 1rem!important;\n  }\n\n  .pr-sm-3,\n  .px-sm-3 {\n    padding-right: 1rem!important;\n  }\n\n  .pb-sm-3,\n  .py-sm-3 {\n    padding-bottom: 1rem!important;\n  }\n\n  .pl-sm-3,\n  .px-sm-3 {\n    padding-left: 1rem!important;\n  }\n\n  .p-sm-4 {\n    padding: 1.5rem!important;\n  }\n\n  .pt-sm-4,\n  .py-sm-4 {\n    padding-top: 1.5rem!important;\n  }\n\n  .pr-sm-4,\n  .px-sm-4 {\n    padding-right: 1.5rem!important;\n  }\n\n  .pb-sm-4,\n  .py-sm-4 {\n    padding-bottom: 1.5rem!important;\n  }\n\n  .pl-sm-4,\n  .px-sm-4 {\n    padding-left: 1.5rem!important;\n  }\n\n  .p-sm-5 {\n    padding: 3rem!important;\n  }\n\n  .pt-sm-5,\n  .py-sm-5 {\n    padding-top: 3rem!important;\n  }\n\n  .pr-sm-5,\n  .px-sm-5 {\n    padding-right: 3rem!important;\n  }\n\n  .pb-sm-5,\n  .py-sm-5 {\n    padding-bottom: 3rem!important;\n  }\n\n  .pl-sm-5,\n  .px-sm-5 {\n    padding-left: 3rem!important;\n  }\n\n  .m-sm-n1 {\n    margin: -.25rem!important;\n  }\n\n  .mt-sm-n1,\n  .my-sm-n1 {\n    margin-top: -.25rem!important;\n  }\n\n  .mr-sm-n1,\n  .mx-sm-n1 {\n    margin-right: -.25rem!important;\n  }\n\n  .mb-sm-n1,\n  .my-sm-n1 {\n    margin-bottom: -.25rem!important;\n  }\n\n  .ml-sm-n1,\n  .mx-sm-n1 {\n    margin-left: -.25rem!important;\n  }\n\n  .m-sm-n2 {\n    margin: -.5rem!important;\n  }\n\n  .mt-sm-n2,\n  .my-sm-n2 {\n    margin-top: -.5rem!important;\n  }\n\n  .mr-sm-n2,\n  .mx-sm-n2 {\n    margin-right: -.5rem!important;\n  }\n\n  .mb-sm-n2,\n  .my-sm-n2 {\n    margin-bottom: -.5rem!important;\n  }\n\n  .ml-sm-n2,\n  .mx-sm-n2 {\n    margin-left: -.5rem!important;\n  }\n\n  .m-sm-n3 {\n    margin: -1rem!important;\n  }\n\n  .mt-sm-n3,\n  .my-sm-n3 {\n    margin-top: -1rem!important;\n  }\n\n  .mr-sm-n3,\n  .mx-sm-n3 {\n    margin-right: -1rem!important;\n  }\n\n  .mb-sm-n3,\n  .my-sm-n3 {\n    margin-bottom: -1rem!important;\n  }\n\n  .ml-sm-n3,\n  .mx-sm-n3 {\n    margin-left: -1rem!important;\n  }\n\n  .m-sm-n4 {\n    margin: -1.5rem!important;\n  }\n\n  .mt-sm-n4,\n  .my-sm-n4 {\n    margin-top: -1.5rem!important;\n  }\n\n  .mr-sm-n4,\n  .mx-sm-n4 {\n    margin-right: -1.5rem!important;\n  }\n\n  .mb-sm-n4,\n  .my-sm-n4 {\n    margin-bottom: -1.5rem!important;\n  }\n\n  .ml-sm-n4,\n  .mx-sm-n4 {\n    margin-left: -1.5rem!important;\n  }\n\n  .m-sm-n5 {\n    margin: -3rem!important;\n  }\n\n  .mt-sm-n5,\n  .my-sm-n5 {\n    margin-top: -3rem!important;\n  }\n\n  .mr-sm-n5,\n  .mx-sm-n5 {\n    margin-right: -3rem!important;\n  }\n\n  .mb-sm-n5,\n  .my-sm-n5 {\n    margin-bottom: -3rem!important;\n  }\n\n  .ml-sm-n5,\n  .mx-sm-n5 {\n    margin-left: -3rem!important;\n  }\n\n  .m-sm-auto {\n    margin: auto!important;\n  }\n\n  .mt-sm-auto,\n  .my-sm-auto {\n    margin-top: auto!important;\n  }\n\n  .mr-sm-auto,\n  .mx-sm-auto {\n    margin-right: auto!important;\n  }\n\n  .mb-sm-auto,\n  .my-sm-auto {\n    margin-bottom: auto!important;\n  }\n\n  .ml-sm-auto,\n  .mx-sm-auto {\n    margin-left: auto!important;\n  }\n}\n@media (min-width:768px) {\n  .m-md-0 {\n    margin: 0!important;\n  }\n\n  .mt-md-0,\n  .my-md-0 {\n    margin-top: 0!important;\n  }\n\n  .mr-md-0,\n  .mx-md-0 {\n    margin-right: 0!important;\n  }\n\n  .mb-md-0,\n  .my-md-0 {\n    margin-bottom: 0!important;\n  }\n\n  .ml-md-0,\n  .mx-md-0 {\n    margin-left: 0!important;\n  }\n\n  .m-md-1 {\n    margin: .25rem!important;\n  }\n\n  .mt-md-1,\n  .my-md-1 {\n    margin-top: .25rem!important;\n  }\n\n  .mr-md-1,\n  .mx-md-1 {\n    margin-right: .25rem!important;\n  }\n\n  .mb-md-1,\n  .my-md-1 {\n    margin-bottom: .25rem!important;\n  }\n\n  .ml-md-1,\n  .mx-md-1 {\n    margin-left: .25rem!important;\n  }\n\n  .m-md-2 {\n    margin: .5rem!important;\n  }\n\n  .mt-md-2,\n  .my-md-2 {\n    margin-top: .5rem!important;\n  }\n\n  .mr-md-2,\n  .mx-md-2 {\n    margin-right: .5rem!important;\n  }\n\n  .mb-md-2,\n  .my-md-2 {\n    margin-bottom: .5rem!important;\n  }\n\n  .ml-md-2,\n  .mx-md-2 {\n    margin-left: .5rem!important;\n  }\n\n  .m-md-3 {\n    margin: 1rem!important;\n  }\n\n  .mt-md-3,\n  .my-md-3 {\n    margin-top: 1rem!important;\n  }\n\n  .mr-md-3,\n  .mx-md-3 {\n    margin-right: 1rem!important;\n  }\n\n  .mb-md-3,\n  .my-md-3 {\n    margin-bottom: 1rem!important;\n  }\n\n  .ml-md-3,\n  .mx-md-3 {\n    margin-left: 1rem!important;\n  }\n\n  .m-md-4 {\n    margin: 1.5rem!important;\n  }\n\n  .mt-md-4,\n  .my-md-4 {\n    margin-top: 1.5rem!important;\n  }\n\n  .mr-md-4,\n  .mx-md-4 {\n    margin-right: 1.5rem!important;\n  }\n\n  .mb-md-4,\n  .my-md-4 {\n    margin-bottom: 1.5rem!important;\n  }\n\n  .ml-md-4,\n  .mx-md-4 {\n    margin-left: 1.5rem!important;\n  }\n\n  .m-md-5 {\n    margin: 3rem!important;\n  }\n\n  .mt-md-5,\n  .my-md-5 {\n    margin-top: 3rem!important;\n  }\n\n  .mr-md-5,\n  .mx-md-5 {\n    margin-right: 3rem!important;\n  }\n\n  .mb-md-5,\n  .my-md-5 {\n    margin-bottom: 3rem!important;\n  }\n\n  .ml-md-5,\n  .mx-md-5 {\n    margin-left: 3rem!important;\n  }\n\n  .p-md-0 {\n    padding: 0!important;\n  }\n\n  .pt-md-0,\n  .py-md-0 {\n    padding-top: 0!important;\n  }\n\n  .pr-md-0,\n  .px-md-0 {\n    padding-right: 0!important;\n  }\n\n  .pb-md-0,\n  .py-md-0 {\n    padding-bottom: 0!important;\n  }\n\n  .pl-md-0,\n  .px-md-0 {\n    padding-left: 0!important;\n  }\n\n  .p-md-1 {\n    padding: .25rem!important;\n  }\n\n  .pt-md-1,\n  .py-md-1 {\n    padding-top: .25rem!important;\n  }\n\n  .pr-md-1,\n  .px-md-1 {\n    padding-right: .25rem!important;\n  }\n\n  .pb-md-1,\n  .py-md-1 {\n    padding-bottom: .25rem!important;\n  }\n\n  .pl-md-1,\n  .px-md-1 {\n    padding-left: .25rem!important;\n  }\n\n  .p-md-2 {\n    padding: .5rem!important;\n  }\n\n  .pt-md-2,\n  .py-md-2 {\n    padding-top: .5rem!important;\n  }\n\n  .pr-md-2,\n  .px-md-2 {\n    padding-right: .5rem!important;\n  }\n\n  .pb-md-2,\n  .py-md-2 {\n    padding-bottom: .5rem!important;\n  }\n\n  .pl-md-2,\n  .px-md-2 {\n    padding-left: .5rem!important;\n  }\n\n  .p-md-3 {\n    padding: 1rem!important;\n  }\n\n  .pt-md-3,\n  .py-md-3 {\n    padding-top: 1rem!important;\n  }\n\n  .pr-md-3,\n  .px-md-3 {\n    padding-right: 1rem!important;\n  }\n\n  .pb-md-3,\n  .py-md-3 {\n    padding-bottom: 1rem!important;\n  }\n\n  .pl-md-3,\n  .px-md-3 {\n    padding-left: 1rem!important;\n  }\n\n  .p-md-4 {\n    padding: 1.5rem!important;\n  }\n\n  .pt-md-4,\n  .py-md-4 {\n    padding-top: 1.5rem!important;\n  }\n\n  .pr-md-4,\n  .px-md-4 {\n    padding-right: 1.5rem!important;\n  }\n\n  .pb-md-4,\n  .py-md-4 {\n    padding-bottom: 1.5rem!important;\n  }\n\n  .pl-md-4,\n  .px-md-4 {\n    padding-left: 1.5rem!important;\n  }\n\n  .p-md-5 {\n    padding: 3rem!important;\n  }\n\n  .pt-md-5,\n  .py-md-5 {\n    padding-top: 3rem!important;\n  }\n\n  .pr-md-5,\n  .px-md-5 {\n    padding-right: 3rem!important;\n  }\n\n  .pb-md-5,\n  .py-md-5 {\n    padding-bottom: 3rem!important;\n  }\n\n  .pl-md-5,\n  .px-md-5 {\n    padding-left: 3rem!important;\n  }\n\n  .m-md-n1 {\n    margin: -.25rem!important;\n  }\n\n  .mt-md-n1,\n  .my-md-n1 {\n    margin-top: -.25rem!important;\n  }\n\n  .mr-md-n1,\n  .mx-md-n1 {\n    margin-right: -.25rem!important;\n  }\n\n  .mb-md-n1,\n  .my-md-n1 {\n    margin-bottom: -.25rem!important;\n  }\n\n  .ml-md-n1,\n  .mx-md-n1 {\n    margin-left: -.25rem!important;\n  }\n\n  .m-md-n2 {\n    margin: -.5rem!important;\n  }\n\n  .mt-md-n2,\n  .my-md-n2 {\n    margin-top: -.5rem!important;\n  }\n\n  .mr-md-n2,\n  .mx-md-n2 {\n    margin-right: -.5rem!important;\n  }\n\n  .mb-md-n2,\n  .my-md-n2 {\n    margin-bottom: -.5rem!important;\n  }\n\n  .ml-md-n2,\n  .mx-md-n2 {\n    margin-left: -.5rem!important;\n  }\n\n  .m-md-n3 {\n    margin: -1rem!important;\n  }\n\n  .mt-md-n3,\n  .my-md-n3 {\n    margin-top: -1rem!important;\n  }\n\n  .mr-md-n3,\n  .mx-md-n3 {\n    margin-right: -1rem!important;\n  }\n\n  .mb-md-n3,\n  .my-md-n3 {\n    margin-bottom: -1rem!important;\n  }\n\n  .ml-md-n3,\n  .mx-md-n3 {\n    margin-left: -1rem!important;\n  }\n\n  .m-md-n4 {\n    margin: -1.5rem!important;\n  }\n\n  .mt-md-n4,\n  .my-md-n4 {\n    margin-top: -1.5rem!important;\n  }\n\n  .mr-md-n4,\n  .mx-md-n4 {\n    margin-right: -1.5rem!important;\n  }\n\n  .mb-md-n4,\n  .my-md-n4 {\n    margin-bottom: -1.5rem!important;\n  }\n\n  .ml-md-n4,\n  .mx-md-n4 {\n    margin-left: -1.5rem!important;\n  }\n\n  .m-md-n5 {\n    margin: -3rem!important;\n  }\n\n  .mt-md-n5,\n  .my-md-n5 {\n    margin-top: -3rem!important;\n  }\n\n  .mr-md-n5,\n  .mx-md-n5 {\n    margin-right: -3rem!important;\n  }\n\n  .mb-md-n5,\n  .my-md-n5 {\n    margin-bottom: -3rem!important;\n  }\n\n  .ml-md-n5,\n  .mx-md-n5 {\n    margin-left: -3rem!important;\n  }\n\n  .m-md-auto {\n    margin: auto!important;\n  }\n\n  .mt-md-auto,\n  .my-md-auto {\n    margin-top: auto!important;\n  }\n\n  .mr-md-auto,\n  .mx-md-auto {\n    margin-right: auto!important;\n  }\n\n  .mb-md-auto,\n  .my-md-auto {\n    margin-bottom: auto!important;\n  }\n\n  .ml-md-auto,\n  .mx-md-auto {\n    margin-left: auto!important;\n  }\n}\n@media (min-width:992px) {\n  .m-lg-0 {\n    margin: 0!important;\n  }\n\n  .mt-lg-0,\n  .my-lg-0 {\n    margin-top: 0!important;\n  }\n\n  .mr-lg-0,\n  .mx-lg-0 {\n    margin-right: 0!important;\n  }\n\n  .mb-lg-0,\n  .my-lg-0 {\n    margin-bottom: 0!important;\n  }\n\n  .ml-lg-0,\n  .mx-lg-0 {\n    margin-left: 0!important;\n  }\n\n  .m-lg-1 {\n    margin: .25rem!important;\n  }\n\n  .mt-lg-1,\n  .my-lg-1 {\n    margin-top: .25rem!important;\n  }\n\n  .mr-lg-1,\n  .mx-lg-1 {\n    margin-right: .25rem!important;\n  }\n\n  .mb-lg-1,\n  .my-lg-1 {\n    margin-bottom: .25rem!important;\n  }\n\n  .ml-lg-1,\n  .mx-lg-1 {\n    margin-left: .25rem!important;\n  }\n\n  .m-lg-2 {\n    margin: .5rem!important;\n  }\n\n  .mt-lg-2,\n  .my-lg-2 {\n    margin-top: .5rem!important;\n  }\n\n  .mr-lg-2,\n  .mx-lg-2 {\n    margin-right: .5rem!important;\n  }\n\n  .mb-lg-2,\n  .my-lg-2 {\n    margin-bottom: .5rem!important;\n  }\n\n  .ml-lg-2,\n  .mx-lg-2 {\n    margin-left: .5rem!important;\n  }\n\n  .m-lg-3 {\n    margin: 1rem!important;\n  }\n\n  .mt-lg-3,\n  .my-lg-3 {\n    margin-top: 1rem!important;\n  }\n\n  .mr-lg-3,\n  .mx-lg-3 {\n    margin-right: 1rem!important;\n  }\n\n  .mb-lg-3,\n  .my-lg-3 {\n    margin-bottom: 1rem!important;\n  }\n\n  .ml-lg-3,\n  .mx-lg-3 {\n    margin-left: 1rem!important;\n  }\n\n  .m-lg-4 {\n    margin: 1.5rem!important;\n  }\n\n  .mt-lg-4,\n  .my-lg-4 {\n    margin-top: 1.5rem!important;\n  }\n\n  .mr-lg-4,\n  .mx-lg-4 {\n    margin-right: 1.5rem!important;\n  }\n\n  .mb-lg-4,\n  .my-lg-4 {\n    margin-bottom: 1.5rem!important;\n  }\n\n  .ml-lg-4,\n  .mx-lg-4 {\n    margin-left: 1.5rem!important;\n  }\n\n  .m-lg-5 {\n    margin: 3rem!important;\n  }\n\n  .mt-lg-5,\n  .my-lg-5 {\n    margin-top: 3rem!important;\n  }\n\n  .mr-lg-5,\n  .mx-lg-5 {\n    margin-right: 3rem!important;\n  }\n\n  .mb-lg-5,\n  .my-lg-5 {\n    margin-bottom: 3rem!important;\n  }\n\n  .ml-lg-5,\n  .mx-lg-5 {\n    margin-left: 3rem!important;\n  }\n\n  .p-lg-0 {\n    padding: 0!important;\n  }\n\n  .pt-lg-0,\n  .py-lg-0 {\n    padding-top: 0!important;\n  }\n\n  .pr-lg-0,\n  .px-lg-0 {\n    padding-right: 0!important;\n  }\n\n  .pb-lg-0,\n  .py-lg-0 {\n    padding-bottom: 0!important;\n  }\n\n  .pl-lg-0,\n  .px-lg-0 {\n    padding-left: 0!important;\n  }\n\n  .p-lg-1 {\n    padding: .25rem!important;\n  }\n\n  .pt-lg-1,\n  .py-lg-1 {\n    padding-top: .25rem!important;\n  }\n\n  .pr-lg-1,\n  .px-lg-1 {\n    padding-right: .25rem!important;\n  }\n\n  .pb-lg-1,\n  .py-lg-1 {\n    padding-bottom: .25rem!important;\n  }\n\n  .pl-lg-1,\n  .px-lg-1 {\n    padding-left: .25rem!important;\n  }\n\n  .p-lg-2 {\n    padding: .5rem!important;\n  }\n\n  .pt-lg-2,\n  .py-lg-2 {\n    padding-top: .5rem!important;\n  }\n\n  .pr-lg-2,\n  .px-lg-2 {\n    padding-right: .5rem!important;\n  }\n\n  .pb-lg-2,\n  .py-lg-2 {\n    padding-bottom: .5rem!important;\n  }\n\n  .pl-lg-2,\n  .px-lg-2 {\n    padding-left: .5rem!important;\n  }\n\n  .p-lg-3 {\n    padding: 1rem!important;\n  }\n\n  .pt-lg-3,\n  .py-lg-3 {\n    padding-top: 1rem!important;\n  }\n\n  .pr-lg-3,\n  .px-lg-3 {\n    padding-right: 1rem!important;\n  }\n\n  .pb-lg-3,\n  .py-lg-3 {\n    padding-bottom: 1rem!important;\n  }\n\n  .pl-lg-3,\n  .px-lg-3 {\n    padding-left: 1rem!important;\n  }\n\n  .p-lg-4 {\n    padding: 1.5rem!important;\n  }\n\n  .pt-lg-4,\n  .py-lg-4 {\n    padding-top: 1.5rem!important;\n  }\n\n  .pr-lg-4,\n  .px-lg-4 {\n    padding-right: 1.5rem!important;\n  }\n\n  .pb-lg-4,\n  .py-lg-4 {\n    padding-bottom: 1.5rem!important;\n  }\n\n  .pl-lg-4,\n  .px-lg-4 {\n    padding-left: 1.5rem!important;\n  }\n\n  .p-lg-5 {\n    padding: 3rem!important;\n  }\n\n  .pt-lg-5,\n  .py-lg-5 {\n    padding-top: 3rem!important;\n  }\n\n  .pr-lg-5,\n  .px-lg-5 {\n    padding-right: 3rem!important;\n  }\n\n  .pb-lg-5,\n  .py-lg-5 {\n    padding-bottom: 3rem!important;\n  }\n\n  .pl-lg-5,\n  .px-lg-5 {\n    padding-left: 3rem!important;\n  }\n\n  .m-lg-n1 {\n    margin: -.25rem!important;\n  }\n\n  .mt-lg-n1,\n  .my-lg-n1 {\n    margin-top: -.25rem!important;\n  }\n\n  .mr-lg-n1,\n  .mx-lg-n1 {\n    margin-right: -.25rem!important;\n  }\n\n  .mb-lg-n1,\n  .my-lg-n1 {\n    margin-bottom: -.25rem!important;\n  }\n\n  .ml-lg-n1,\n  .mx-lg-n1 {\n    margin-left: -.25rem!important;\n  }\n\n  .m-lg-n2 {\n    margin: -.5rem!important;\n  }\n\n  .mt-lg-n2,\n  .my-lg-n2 {\n    margin-top: -.5rem!important;\n  }\n\n  .mr-lg-n2,\n  .mx-lg-n2 {\n    margin-right: -.5rem!important;\n  }\n\n  .mb-lg-n2,\n  .my-lg-n2 {\n    margin-bottom: -.5rem!important;\n  }\n\n  .ml-lg-n2,\n  .mx-lg-n2 {\n    margin-left: -.5rem!important;\n  }\n\n  .m-lg-n3 {\n    margin: -1rem!important;\n  }\n\n  .mt-lg-n3,\n  .my-lg-n3 {\n    margin-top: -1rem!important;\n  }\n\n  .mr-lg-n3,\n  .mx-lg-n3 {\n    margin-right: -1rem!important;\n  }\n\n  .mb-lg-n3,\n  .my-lg-n3 {\n    margin-bottom: -1rem!important;\n  }\n\n  .ml-lg-n3,\n  .mx-lg-n3 {\n    margin-left: -1rem!important;\n  }\n\n  .m-lg-n4 {\n    margin: -1.5rem!important;\n  }\n\n  .mt-lg-n4,\n  .my-lg-n4 {\n    margin-top: -1.5rem!important;\n  }\n\n  .mr-lg-n4,\n  .mx-lg-n4 {\n    margin-right: -1.5rem!important;\n  }\n\n  .mb-lg-n4,\n  .my-lg-n4 {\n    margin-bottom: -1.5rem!important;\n  }\n\n  .ml-lg-n4,\n  .mx-lg-n4 {\n    margin-left: -1.5rem!important;\n  }\n\n  .m-lg-n5 {\n    margin: -3rem!important;\n  }\n\n  .mt-lg-n5,\n  .my-lg-n5 {\n    margin-top: -3rem!important;\n  }\n\n  .mr-lg-n5,\n  .mx-lg-n5 {\n    margin-right: -3rem!important;\n  }\n\n  .mb-lg-n5,\n  .my-lg-n5 {\n    margin-bottom: -3rem!important;\n  }\n\n  .ml-lg-n5,\n  .mx-lg-n5 {\n    margin-left: -3rem!important;\n  }\n\n  .m-lg-auto {\n    margin: auto!important;\n  }\n\n  .mt-lg-auto,\n  .my-lg-auto {\n    margin-top: auto!important;\n  }\n\n  .mr-lg-auto,\n  .mx-lg-auto {\n    margin-right: auto!important;\n  }\n\n  .mb-lg-auto,\n  .my-lg-auto {\n    margin-bottom: auto!important;\n  }\n\n  .ml-lg-auto,\n  .mx-lg-auto {\n    margin-left: auto!important;\n  }\n}\n@media (min-width:1200px) {\n  .m-xl-0 {\n    margin: 0!important;\n  }\n\n  .mt-xl-0,\n  .my-xl-0 {\n    margin-top: 0!important;\n  }\n\n  .mr-xl-0,\n  .mx-xl-0 {\n    margin-right: 0!important;\n  }\n\n  .mb-xl-0,\n  .my-xl-0 {\n    margin-bottom: 0!important;\n  }\n\n  .ml-xl-0,\n  .mx-xl-0 {\n    margin-left: 0!important;\n  }\n\n  .m-xl-1 {\n    margin: .25rem!important;\n  }\n\n  .mt-xl-1,\n  .my-xl-1 {\n    margin-top: .25rem!important;\n  }\n\n  .mr-xl-1,\n  .mx-xl-1 {\n    margin-right: .25rem!important;\n  }\n\n  .mb-xl-1,\n  .my-xl-1 {\n    margin-bottom: .25rem!important;\n  }\n\n  .ml-xl-1,\n  .mx-xl-1 {\n    margin-left: .25rem!important;\n  }\n\n  .m-xl-2 {\n    margin: .5rem!important;\n  }\n\n  .mt-xl-2,\n  .my-xl-2 {\n    margin-top: .5rem!important;\n  }\n\n  .mr-xl-2,\n  .mx-xl-2 {\n    margin-right: .5rem!important;\n  }\n\n  .mb-xl-2,\n  .my-xl-2 {\n    margin-bottom: .5rem!important;\n  }\n\n  .ml-xl-2,\n  .mx-xl-2 {\n    margin-left: .5rem!important;\n  }\n\n  .m-xl-3 {\n    margin: 1rem!important;\n  }\n\n  .mt-xl-3,\n  .my-xl-3 {\n    margin-top: 1rem!important;\n  }\n\n  .mr-xl-3,\n  .mx-xl-3 {\n    margin-right: 1rem!important;\n  }\n\n  .mb-xl-3,\n  .my-xl-3 {\n    margin-bottom: 1rem!important;\n  }\n\n  .ml-xl-3,\n  .mx-xl-3 {\n    margin-left: 1rem!important;\n  }\n\n  .m-xl-4 {\n    margin: 1.5rem!important;\n  }\n\n  .mt-xl-4,\n  .my-xl-4 {\n    margin-top: 1.5rem!important;\n  }\n\n  .mr-xl-4,\n  .mx-xl-4 {\n    margin-right: 1.5rem!important;\n  }\n\n  .mb-xl-4,\n  .my-xl-4 {\n    margin-bottom: 1.5rem!important;\n  }\n\n  .ml-xl-4,\n  .mx-xl-4 {\n    margin-left: 1.5rem!important;\n  }\n\n  .m-xl-5 {\n    margin: 3rem!important;\n  }\n\n  .mt-xl-5,\n  .my-xl-5 {\n    margin-top: 3rem!important;\n  }\n\n  .mr-xl-5,\n  .mx-xl-5 {\n    margin-right: 3rem!important;\n  }\n\n  .mb-xl-5,\n  .my-xl-5 {\n    margin-bottom: 3rem!important;\n  }\n\n  .ml-xl-5,\n  .mx-xl-5 {\n    margin-left: 3rem!important;\n  }\n\n  .p-xl-0 {\n    padding: 0!important;\n  }\n\n  .pt-xl-0,\n  .py-xl-0 {\n    padding-top: 0!important;\n  }\n\n  .pr-xl-0,\n  .px-xl-0 {\n    padding-right: 0!important;\n  }\n\n  .pb-xl-0,\n  .py-xl-0 {\n    padding-bottom: 0!important;\n  }\n\n  .pl-xl-0,\n  .px-xl-0 {\n    padding-left: 0!important;\n  }\n\n  .p-xl-1 {\n    padding: .25rem!important;\n  }\n\n  .pt-xl-1,\n  .py-xl-1 {\n    padding-top: .25rem!important;\n  }\n\n  .pr-xl-1,\n  .px-xl-1 {\n    padding-right: .25rem!important;\n  }\n\n  .pb-xl-1,\n  .py-xl-1 {\n    padding-bottom: .25rem!important;\n  }\n\n  .pl-xl-1,\n  .px-xl-1 {\n    padding-left: .25rem!important;\n  }\n\n  .p-xl-2 {\n    padding: .5rem!important;\n  }\n\n  .pt-xl-2,\n  .py-xl-2 {\n    padding-top: .5rem!important;\n  }\n\n  .pr-xl-2,\n  .px-xl-2 {\n    padding-right: .5rem!important;\n  }\n\n  .pb-xl-2,\n  .py-xl-2 {\n    padding-bottom: .5rem!important;\n  }\n\n  .pl-xl-2,\n  .px-xl-2 {\n    padding-left: .5rem!important;\n  }\n\n  .p-xl-3 {\n    padding: 1rem!important;\n  }\n\n  .pt-xl-3,\n  .py-xl-3 {\n    padding-top: 1rem!important;\n  }\n\n  .pr-xl-3,\n  .px-xl-3 {\n    padding-right: 1rem!important;\n  }\n\n  .pb-xl-3,\n  .py-xl-3 {\n    padding-bottom: 1rem!important;\n  }\n\n  .pl-xl-3,\n  .px-xl-3 {\n    padding-left: 1rem!important;\n  }\n\n  .p-xl-4 {\n    padding: 1.5rem!important;\n  }\n\n  .pt-xl-4,\n  .py-xl-4 {\n    padding-top: 1.5rem!important;\n  }\n\n  .pr-xl-4,\n  .px-xl-4 {\n    padding-right: 1.5rem!important;\n  }\n\n  .pb-xl-4,\n  .py-xl-4 {\n    padding-bottom: 1.5rem!important;\n  }\n\n  .pl-xl-4,\n  .px-xl-4 {\n    padding-left: 1.5rem!important;\n  }\n\n  .p-xl-5 {\n    padding: 3rem!important;\n  }\n\n  .pt-xl-5,\n  .py-xl-5 {\n    padding-top: 3rem!important;\n  }\n\n  .pr-xl-5,\n  .px-xl-5 {\n    padding-right: 3rem!important;\n  }\n\n  .pb-xl-5,\n  .py-xl-5 {\n    padding-bottom: 3rem!important;\n  }\n\n  .pl-xl-5,\n  .px-xl-5 {\n    padding-left: 3rem!important;\n  }\n\n  .m-xl-n1 {\n    margin: -.25rem!important;\n  }\n\n  .mt-xl-n1,\n  .my-xl-n1 {\n    margin-top: -.25rem!important;\n  }\n\n  .mr-xl-n1,\n  .mx-xl-n1 {\n    margin-right: -.25rem!important;\n  }\n\n  .mb-xl-n1,\n  .my-xl-n1 {\n    margin-bottom: -.25rem!important;\n  }\n\n  .ml-xl-n1,\n  .mx-xl-n1 {\n    margin-left: -.25rem!important;\n  }\n\n  .m-xl-n2 {\n    margin: -.5rem!important;\n  }\n\n  .mt-xl-n2,\n  .my-xl-n2 {\n    margin-top: -.5rem!important;\n  }\n\n  .mr-xl-n2,\n  .mx-xl-n2 {\n    margin-right: -.5rem!important;\n  }\n\n  .mb-xl-n2,\n  .my-xl-n2 {\n    margin-bottom: -.5rem!important;\n  }\n\n  .ml-xl-n2,\n  .mx-xl-n2 {\n    margin-left: -.5rem!important;\n  }\n\n  .m-xl-n3 {\n    margin: -1rem!important;\n  }\n\n  .mt-xl-n3,\n  .my-xl-n3 {\n    margin-top: -1rem!important;\n  }\n\n  .mr-xl-n3,\n  .mx-xl-n3 {\n    margin-right: -1rem!important;\n  }\n\n  .mb-xl-n3,\n  .my-xl-n3 {\n    margin-bottom: -1rem!important;\n  }\n\n  .ml-xl-n3,\n  .mx-xl-n3 {\n    margin-left: -1rem!important;\n  }\n\n  .m-xl-n4 {\n    margin: -1.5rem!important;\n  }\n\n  .mt-xl-n4,\n  .my-xl-n4 {\n    margin-top: -1.5rem!important;\n  }\n\n  .mr-xl-n4,\n  .mx-xl-n4 {\n    margin-right: -1.5rem!important;\n  }\n\n  .mb-xl-n4,\n  .my-xl-n4 {\n    margin-bottom: -1.5rem!important;\n  }\n\n  .ml-xl-n4,\n  .mx-xl-n4 {\n    margin-left: -1.5rem!important;\n  }\n\n  .m-xl-n5 {\n    margin: -3rem!important;\n  }\n\n  .mt-xl-n5,\n  .my-xl-n5 {\n    margin-top: -3rem!important;\n  }\n\n  .mr-xl-n5,\n  .mx-xl-n5 {\n    margin-right: -3rem!important;\n  }\n\n  .mb-xl-n5,\n  .my-xl-n5 {\n    margin-bottom: -3rem!important;\n  }\n\n  .ml-xl-n5,\n  .mx-xl-n5 {\n    margin-left: -3rem!important;\n  }\n\n  .m-xl-auto {\n    margin: auto!important;\n  }\n\n  .mt-xl-auto,\n  .my-xl-auto {\n    margin-top: auto!important;\n  }\n\n  .mr-xl-auto,\n  .mx-xl-auto {\n    margin-right: auto!important;\n  }\n\n  .mb-xl-auto,\n  .my-xl-auto {\n    margin-bottom: auto!important;\n  }\n\n  .ml-xl-auto,\n  .mx-xl-auto {\n    margin-left: auto!important;\n  }\n}\n/*# sourceMappingURL=bootstrap-grid.min.css.map */\n/* Import from `bootstrap.css` manually. Because it conflicts GitHub's CSS */\n.col-12 {\n  position: relative;\n  width: 100%;\n  padding-right: 0;\n  padding-left: 0;\n}\n.nav {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  padding-left: 0;\n  margin-bottom: 0;\n  list-style: none;\n}\n.nav-link {\n  display: block;\n  padding: 0.5rem 1rem;\n}\n.nav-link:hover,\n.nav-link:focus {\n  text-decoration: none;\n}\n.nav-link.disabled {\n  color: #6c757d;\n  pointer-events: none;\n  cursor: default;\n}\n.nav-tabs .nav-item {\n  margin-bottom: -1px;\n}\n.nav-justified .nav-item {\n  -ms-flex-preferred-size: 0;\n  flex-basis: 0;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  text-align: center;\n}\n.tab-content > .tab-pane {\n  display: none;\n}\n.tab-content > .active {\n  display: block;\n}\n.popover {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1060;\n  display: block;\n  max-width: 276px;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto,\n    \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\",\n    \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";\n  font-style: normal;\n  font-weight: 400;\n  line-height: 1.5;\n  text-align: left;\n  text-align: start;\n  text-decoration: none;\n  text-shadow: none;\n  text-transform: none;\n  letter-spacing: normal;\n  word-break: normal;\n  word-spacing: normal;\n  white-space: normal;\n  line-break: auto;\n  font-size: 0.875rem;\n  word-wrap: break-word;\n  background-color: #fff;\n  background-clip: padding-box;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  border-radius: 0.3rem;\n}\n.popover .arrow {\n  position: absolute;\n  display: block;\n  width: 1rem;\n  height: 0.5rem;\n  margin: 0 0.3rem;\n}\n.popover .arrow::before,\n.popover .arrow::after {\n  position: absolute;\n  display: block;\n  content: \"\";\n  border-color: transparent;\n  border-style: solid;\n}\n.bs-popover-top,\n.bs-popover-auto[x-placement^=\"top\"] {\n  margin-bottom: 0.5rem;\n}\n.bs-popover-top > .arrow,\n.bs-popover-auto[x-placement^=\"top\"] > .arrow {\n  bottom: calc(-0.5rem - 1px);\n}\n.bs-popover-top > .arrow::before,\n.bs-popover-auto[x-placement^=\"top\"] > .arrow::before {\n  bottom: 0;\n  border-width: 0.5rem 0.5rem 0;\n  border-top-color: rgba(0, 0, 0, 0.25);\n}\n.bs-popover-top > .arrow::after,\n.bs-popover-auto[x-placement^=\"top\"] > .arrow::after {\n  bottom: 1px;\n  border-width: 0.5rem 0.5rem 0;\n  border-top-color: #fff;\n}\n.bs-popover-right,\n.bs-popover-auto[x-placement^=\"right\"] {\n  margin-left: 0.5rem;\n}\n.bs-popover-right > .arrow,\n.bs-popover-auto[x-placement^=\"right\"] > .arrow {\n  left: calc(-0.5rem - 1px);\n  width: 0.5rem;\n  height: 1rem;\n  margin: 0.3rem 0;\n}\n.bs-popover-right > .arrow::before,\n.bs-popover-auto[x-placement^=\"right\"] > .arrow::before {\n  left: 0;\n  border-width: 0.5rem 0.5rem 0.5rem 0;\n  border-right-color: rgba(0, 0, 0, 0.25);\n}\n.bs-popover-right > .arrow::after,\n.bs-popover-auto[x-placement^=\"right\"] > .arrow::after {\n  left: 1px;\n  border-width: 0.5rem 0.5rem 0.5rem 0;\n  border-right-color: #fff;\n}\n.bs-popover-bottom,\n.bs-popover-auto[x-placement^=\"bottom\"] {\n  margin-top: 0.5rem;\n}\n.bs-popover-bottom > .arrow,\n.bs-popover-auto[x-placement^=\"bottom\"] > .arrow {\n  top: calc(-0.5rem - 1px);\n}\n.bs-popover-bottom > .arrow::before,\n.bs-popover-auto[x-placement^=\"bottom\"] > .arrow::before {\n  top: 0;\n  border-width: 0 0.5rem 0.5rem 0.5rem;\n  border-bottom-color: rgba(0, 0, 0, 0.25);\n}\n.bs-popover-bottom > .arrow::after,\n.bs-popover-auto[x-placement^=\"bottom\"] > .arrow::after {\n  top: 1px;\n  border-width: 0 0.5rem 0.5rem 0.5rem;\n  border-bottom-color: #fff;\n}\n.bs-popover-bottom .popover-header::before,\n.bs-popover-auto[x-placement^=\"bottom\"] .popover-header::before {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  display: block;\n  width: 1rem;\n  margin-left: -0.5rem;\n  content: \"\";\n  border-bottom: 1px solid #f7f7f7;\n}\n.bs-popover-left,\n.bs-popover-auto[x-placement^=\"left\"] {\n  margin-right: 0.5rem;\n}\n.bs-popover-left > .arrow,\n.bs-popover-auto[x-placement^=\"left\"] > .arrow {\n  right: calc(-0.5rem - 1px);\n  width: 0.5rem;\n  height: 1rem;\n  margin: 0.3rem 0;\n}\n.bs-popover-left > .arrow::before,\n.bs-popover-auto[x-placement^=\"left\"] > .arrow::before {\n  right: 0;\n  border-width: 0.5rem 0 0.5rem 0.5rem;\n  border-left-color: rgba(0, 0, 0, 0.25);\n}\n.bs-popover-left > .arrow::after,\n.bs-popover-auto[x-placement^=\"left\"] > .arrow::after {\n  right: 1px;\n  border-width: 0.5rem 0 0.5rem 0.5rem;\n  border-left-color: #fff;\n}\n.popover-header {\n  padding: 0.5rem 0.75rem;\n  margin-bottom: 0;\n  font-size: 1rem;\n  background-color: #f7f7f7;\n  border-bottom: 1px solid #ebebeb;\n  border-top-left-radius: calc(0.3rem - 1px);\n  border-top-right-radius: calc(0.3rem - 1px);\n}\n.popover-header:empty {\n  display: none;\n}\n.popover-body {\n  padding: 0.5rem 0.75rem;\n  color: #212529;\n}\n.popover {\n  min-width: 600px;\n  max-width: 800px;\n}\n.tab-pane {\n  max-height: 200px;\n}\n.popover-body {\n  padding: 0;\n}\n.nav-tabs {\n  border-bottom: none;\n}\n.nav-link {\n  font-size: 12px;\n}\n.nav-tabs .nav-link {\n  color: #586069;\n  border: none;\n  margin: 0 4px 0 0;\n  padding: 0 8px 4px;\n}\n.nav-tabs .nav-link:hover {\n  border-bottom: 2px solid #e2e4e8;\n}\n.nav-tabs .nav-link.active {\n  color: #24292e;\n  font-weight: 600;\n  border: none;\n  border-bottom: 2px solid #e36209;\n}\n.nav-tabs .nav-link.active:hover {\n  border-bottom: 2px solid #e36209;\n}\n.list-group {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  padding-left: 0;\n  margin-bottom: 0;\n}\n.list-group-item-action {\n  width: 100%;\n  color: #495057;\n  text-align: inherit;\n}\n.list-group-item-action:hover,\n.list-group-item-action:focus {\n  z-index: 1;\n  color: #495057;\n  text-decoration: none;\n  background-color: #f8f9fa;\n}\n.list-group-item-action:active {\n  color: #212529;\n  background-color: #e9ecef;\n}\n.list-group-item {\n  position: relative;\n  display: block;\n  padding: 0.75rem 1.25rem;\n  background-color: #fff;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n}\n.list-group-item:first-child {\n  border-top-left-radius: 0.25rem;\n  border-top-right-radius: 0.25rem;\n}\n.list-group-item:last-child {\n  border-bottom-right-radius: 0.25rem;\n  border-bottom-left-radius: 0.25rem;\n}\n.list-group-item.disabled,\n.list-group-item:disabled {\n  color: #6c757d;\n  pointer-events: none;\n  background-color: #fff;\n}\n.list-group-item.active {\n  z-index: 2;\n  color: #fff;\n  background-color: #007bff;\n  border-color: #007bff;\n}\n.list-group-item + .list-group-item {\n  border-top-width: 0;\n}\n.list-group-item + .list-group-item.active {\n  margin-top: -1px;\n  border-top-width: 1px;\n}\n.collapse:not(.show) {\n  display: none;\n}\n.collapsing {\n  position: relative;\n  height: 0;\n  overflow: hidden;\n  transition: height 0.35s ease;\n}\n/* SourceKit for Safari */\npre > code {\n  font-size: 12px;\n}\n.--sourcekit-for-safari_documentation-container {\n  padding: 4px 16px;\n}\n.--sourcekit-for-safari_documentation {\n  font-size: 12px;\n}\n.--sourcekit-for-safari_documentation > h1 {\n  font-size: 16px;\n}\n.--sourcekit-for-safari_documentation > h3 {\n  font-size: 14px;\n}\n.--sourcekit-for-safari_symbol-navigation .list-group-item {\n  padding: 4px 2px;\n  margin-bottom: 0;\n  border: none;\n  line-height: 1em;\n}\n"; (require("browserify-css").createStyle(css, { "href": "index.css" }, { "insertAt": "bottom" })); module.exports = css;
-},{"browserify-css":5}],2:[function(require,module,exports){
+},{"browserify-css":6}],3:[function(require,module,exports){
 window.jQuery = $ = require("jquery");
 require("bootstrap");
 
-const tippy = require("tippy.js");
 const marked = require("marked");
+const GitUrlParse = require("git-url-parse");
+
 const hljs = require("highlight.js");
 marked.setOptions({
   highlight: function(code) {
@@ -13,153 +21,10 @@ marked.setOptions({
   }
 });
 
-const GitUrlParse = require("git-url-parse");
-
-const quickHelpElements = {};
-const quickHelpTemplate = `
-<div class="--sourcekit-for-safari　row">
-  <div class="col-12">
-    <div>
-      <ul class="--sourcekit-for-safari nav nav-tabs p-2" role="tablist">
-        <li class="nav-item tab-header-documentation"></li>
-        <li class="nav-item tab-header-definition"></li>
-        <li class="nav-item tab-header-references"></li>
-      </ul>
-    </div>
-    <div class="tab-content"></div>
-  </div>
-</div>
-`;
-
-let codeNavigation = null;
-let textDocument = null;
-
-function readLines(lines) {
-  textDocument = [];
-  const contents = [];
-  lines.forEach((line, index) => {
-    textDocument.push(line);
-    contents.push(line.innerText.replace(/^[\r\n]+|[\r\n]+$/g, ""));
-    readLine(line, index, 0);
-  });
-  return contents.join("\n");
-}
-
-function readLine(line, lineIndex, columnIndex) {
-  let nodes = line.childNodes;
-  for (var i = 0; i < nodes.length; i++) {
-    const node = nodes[i];
-    if (node.nodeName === "#text") {
-      if (!node.nodeValue.trim()) {
-        columnIndex += node.nodeValue.length;
-        continue;
-      }
-      var element = document.createElement("span");
-      element.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
-      element.dataset.lineNumber = lineIndex;
-      element.dataset.column = columnIndex;
-      element.dataset.parentClassList = `${node.parentNode.classList}`;
-      element.innerText = node.nodeValue;
-      node.parentNode.insertBefore(element, node);
-      node.parentNode.removeChild(node);
-
-      columnIndex += node.nodeValue.length;
-    } else {
-      node.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
-      node.dataset.lineNumber = lineIndex;
-      node.dataset.column = columnIndex;
-      if (node.childNodes.length > 0) {
-        readLine(node, lineIndex, columnIndex);
-        columnIndex += node.innerText.length;
-      }
-    }
-  }
-}
-
-function highlightReferences(documentHighlights) {
-  documentHighlights.forEach(documentHighlight => {
-    const start = documentHighlight.start;
-    const end = documentHighlight.end;
-    if (start.line != end.line) {
-      return;
-    }
-    const line = textDocument[start.line];
-    let column = 0;
-    line.childNodes.forEach(node => {
-      let length = 0;
-      if (node.nodeName === "#text") {
-        length += node.nodeValue.length;
-      } else {
-        length += node.innerText.length;
-      }
-      if (column <= start.character && end.character < column + length) {
-        node.classList.add("--sourcekit-for-safari_document-highlight");
-        if (!node.matches(":hover")) {
-          node.style.setProperty("background-color", "#8cc4ff");
-        }
-      }
-      column += length;
-    });
-  });
-}
-
-function setupQuickHelp(element, popoverContent) {
-  $(element).popover({
-    html: true,
-    content: popoverContent,
-    trigger: "manual",
-    placement: "bottom",
-    modifiers: [
-      {
-        name: "flip",
-        options: {
-          fallbackPlacements: ["top"]
-        }
-      }
-    ]
-  });
-  $(element).on("click", event => {
-    event.stopPropagation();
-    $(".--sourcekit-for-safari_quickhelp")
-      .not(element)
-      .popover("hide");
-    $(element).popover("toggle");
-  });
-  $(document).on("click", ".popover", event => {
-    event.stopPropagation();
-  });
-  $(document).off("click", "html");
-  $(document).on("click", "html", () => {
-    hideAllQuickHelpPopovers();
-  });
-  $(element).on("shown.bs.popover", () => {
-    document.querySelectorAll(".nav-link").forEach(nav => {
-      nav.dataset.toggle = "tab";
-    });
-    document
-      .querySelectorAll(".--sourcekit-for-safari_jump-to-definition")
-      .forEach(link => {
-        $(link).on("click", () => {
-          hideAllQuickHelpPopovers();
-        });
-      });
-  });
-}
-
-function setupQuickHelpContent(suffix) {
-  return (() => {
-    const id = `quickhelp${suffix}`;
-    const quickHelp = quickHelpElements[id];
-    const popover = quickHelp ? $(quickHelp) : $(quickHelpTemplate);
-    popover.attr("id", id);
-    quickHelpElements[id] = popover;
-    return popover;
-  })();
-}
-
-function hideAllQuickHelpPopovers() {
-  $(".--sourcekit-for-safari_quickhelp").popover("hide");
-}
+const { readLines, highlightReferences } = require("./parser");
+const { setupQuickHelp, setupQuickHelpContent } = require("./quickhelp");
+const { symbolNavigator } = require("./symbol_navigator");
+const { normalizedLocation } = require("./helper");
 
 function dispatchMessage(messageName, userInfo) {
   if (typeof safari !== "undefined") {
@@ -198,11 +63,6 @@ function handleResponse(event, parsedUrl) {
       switch (event.message.request) {
         case "documentSymbol":
           (() => {
-            if (codeNavigation) {
-              codeNavigation.destroy();
-              codeNavigation = null;
-            }
-
             const value = event.message.value;
             if (value && Array.isArray(value)) {
               const symbols = value.filter(documentSymbol => {
@@ -212,87 +72,7 @@ function handleResponse(event, parsedUrl) {
                 return;
               }
 
-              const navigationContainer = document.createElement("div");
-              navigationContainer.classList.add(
-                "--sourcekit-for-safari_symbol-navigation",
-                "overflow-auto"
-              );
-
-              const navigationList = document.createElement("div");
-              navigationList.classList.add("list-group", "col-12");
-
-              const blobCodeInner = document.querySelector(".blob-code-inner");
-              const style = getComputedStyle(blobCodeInner);
-              navigationList.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize};`;
-
-              navigationContainer.appendChild(navigationList);
-
-              const navigationHeader = document.createElement("a");
-              navigationHeader.href =
-                "#--sourcekit-for-safari_symbol-navigation-items";
-              navigationHeader.classList.add(
-                "list-group-item",
-                "list-group-item-action"
-              );
-              navigationHeader.dataset.toggle = "collapse";
-              navigationHeader.innerHTML = "Symbol Navigator ▾";
-              navigationHeader.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize}; font-weight: bold;`;
-              navigationList.appendChild(navigationHeader);
-
-              const navigationItemContainer = document.createElement("div");
-              navigationItemContainer.classList.add("collapse", "show");
-              navigationItemContainer.id =
-                "--sourcekit-for-safari_symbol-navigation-items";
-              navigationList.appendChild(navigationItemContainer);
-
-              symbols.forEach(documentSymbol => {
-                if (!isNaN(documentSymbol.kind)) {
-                  return;
-                }
-
-                const symbolLetter = documentSymbol.kind
-                  .slice(0, 1)
-                  .toUpperCase();
-                const imageSource = (() => {
-                  if (typeof safari !== "undefined") {
-                    return `${safari.extension.baseURI}${symbolLetter}`;
-                  } else {
-                    return chrome.extension.getURL(`images/${symbolLetter}`);
-                  }
-                })();
-                const supportedSymbols = ["S", "C", "I", "P", "M", "F", "E"];
-                const indentationStyle = `style="margin-left: ${10 *
-                  documentSymbol.indent}px;"`;
-                const icon = supportedSymbols.includes(symbolLetter)
-                  ? `<img srcset="${imageSource}.png, ${imageSource}@2x.png 2x, ${imageSource}@3x.png 3x" width="16" height="16" align="center" ${indentationStyle} />`
-                  : symbolLetter;
-
-                const navigationItem = document.createElement("a");
-                navigationItem.classList.add(
-                  "list-group-item",
-                  "list-group-item-action",
-                  "text-nowrap"
-                );
-                navigationItem.href = `${parsedUrl.href}#L${documentSymbol.start
-                  .line + 1}`;
-                navigationItem.innerHTML = `${icon} ${documentSymbol.name}`;
-                navigationItem.style.cssText = "white-space: nowrap;";
-                navigationItemContainer.appendChild(navigationItem);
-              });
-
-              codeNavigation = tippy(document.querySelector(".blob-wrapper"), {
-                content: navigationContainer,
-                interactive: true,
-                arrow: false,
-                animation: false,
-                duration: 0,
-                placement: "right-start",
-                offset: [0, -100],
-                theme: "light-border",
-                trigger: "manual",
-                hideOnClick: false
-              });
-              codeNavigation.show();
+              symbolNavigator(symbols, parsedUrl.href).show();
             }
           })();
           break;
@@ -584,15 +364,11 @@ const activate = () => {
   }
 };
 
-function normalizedLocation() {
-  return document.location.href.replace(/#.*$/, "");
-}
-
 let href = normalizedLocation();
 window.onload = () => {
   let body = document.querySelector("body"),
     observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
+      mutations.forEach(() => {
         const newLocation = normalizedLocation();
         if (href != newLocation) {
           href = newLocation;
@@ -620,7 +396,7 @@ if (typeof safari !== "undefined") {
   activate();
 }
 
-},{"./index.css":1,"bootstrap":4,"git-url-parse":7,"highlight.js":9,"jquery":196,"marked":205,"tippy.js":217}],3:[function(require,module,exports){
+},{"./helper":1,"./index.css":2,"./parser":221,"./quickhelp":222,"./symbol_navigator":223,"bootstrap":5,"git-url-parse":8,"highlight.js":10,"jquery":197,"marked":206}],4:[function(require,module,exports){
 (function (process){
 /**
  * @popperjs/core v2.1.0 - MIT License
@@ -2358,7 +2134,7 @@ exports.popperGenerator = popperGenerator;
 
 
 }).call(this,require('_process'))
-},{"_process":211}],4:[function(require,module,exports){
+},{"_process":212}],5:[function(require,module,exports){
 /*!
   * Bootstrap v4.4.1 (https://getbootstrap.com/)
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
@@ -6881,7 +6657,7 @@ exports.popperGenerator = popperGenerator;
 })));
 
 
-},{"jquery":196,"popper.js":210}],5:[function(require,module,exports){
+},{"jquery":197,"popper.js":211}],6:[function(require,module,exports){
 'use strict';
 // For more information about browser field, check out the browser field at https://github.com/substack/browserify-handbook#browser-field.
 
@@ -6958,7 +6734,7 @@ module.exports = {
     }
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 
 // Dependencies
@@ -7012,7 +6788,7 @@ function gitUp(input) {
 }
 
 module.exports = gitUp;
-},{"is-ssh":195,"parse-url":209}],7:[function(require,module,exports){
+},{"is-ssh":196,"parse-url":210}],8:[function(require,module,exports){
 "use strict";
 
 var gitUp = require("git-up");
@@ -7240,7 +7016,7 @@ function buildToken(obj) {
 }
 
 module.exports = gitUrlParse;
-},{"git-up":6}],8:[function(require,module,exports){
+},{"git-up":7}],9:[function(require,module,exports){
 /*
 Syntax highlighting with language autodetection.
 https://highlightjs.org/
@@ -8399,7 +8175,7 @@ https://highlightjs.org/
   return hljs;
 }));
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 var hljs = require('./highlight');
 
 hljs.registerLanguage('1c', require('./languages/1c'));
@@ -8589,7 +8365,7 @@ hljs.registerLanguage('xquery', require('./languages/xquery'));
 hljs.registerLanguage('zephir', require('./languages/zephir'));
 
 module.exports = hljs;
-},{"./highlight":8,"./languages/1c":10,"./languages/abnf":11,"./languages/accesslog":12,"./languages/actionscript":13,"./languages/ada":14,"./languages/angelscript":15,"./languages/apache":16,"./languages/applescript":17,"./languages/arcade":18,"./languages/arduino":19,"./languages/armasm":20,"./languages/asciidoc":21,"./languages/aspectj":22,"./languages/autohotkey":23,"./languages/autoit":24,"./languages/avrasm":25,"./languages/awk":26,"./languages/axapta":27,"./languages/bash":28,"./languages/basic":29,"./languages/bnf":30,"./languages/brainfuck":31,"./languages/cal":32,"./languages/capnproto":33,"./languages/ceylon":34,"./languages/clean":35,"./languages/clojure":37,"./languages/clojure-repl":36,"./languages/cmake":38,"./languages/coffeescript":39,"./languages/coq":40,"./languages/cos":41,"./languages/cpp":42,"./languages/crmsh":43,"./languages/crystal":44,"./languages/cs":45,"./languages/csp":46,"./languages/css":47,"./languages/d":48,"./languages/dart":49,"./languages/delphi":50,"./languages/diff":51,"./languages/django":52,"./languages/dns":53,"./languages/dockerfile":54,"./languages/dos":55,"./languages/dsconfig":56,"./languages/dts":57,"./languages/dust":58,"./languages/ebnf":59,"./languages/elixir":60,"./languages/elm":61,"./languages/erb":62,"./languages/erlang":64,"./languages/erlang-repl":63,"./languages/excel":65,"./languages/fix":66,"./languages/flix":67,"./languages/fortran":68,"./languages/fsharp":69,"./languages/gams":70,"./languages/gauss":71,"./languages/gcode":72,"./languages/gherkin":73,"./languages/glsl":74,"./languages/gml":75,"./languages/go":76,"./languages/golo":77,"./languages/gradle":78,"./languages/groovy":79,"./languages/haml":80,"./languages/handlebars":81,"./languages/haskell":82,"./languages/haxe":83,"./languages/hsp":84,"./languages/htmlbars":85,"./languages/http":86,"./languages/hy":87,"./languages/inform7":88,"./languages/ini":89,"./languages/irpf90":90,"./languages/isbl":91,"./languages/java":92,"./languages/javascript":93,"./languages/jboss-cli":94,"./languages/json":95,"./languages/julia":97,"./languages/julia-repl":96,"./languages/kotlin":98,"./languages/lasso":99,"./languages/ldif":100,"./languages/leaf":101,"./languages/less":102,"./languages/lisp":103,"./languages/livecodeserver":104,"./languages/livescript":105,"./languages/llvm":106,"./languages/lsl":107,"./languages/lua":108,"./languages/makefile":109,"./languages/markdown":110,"./languages/mathematica":111,"./languages/matlab":112,"./languages/maxima":113,"./languages/mel":114,"./languages/mercury":115,"./languages/mipsasm":116,"./languages/mizar":117,"./languages/mojolicious":118,"./languages/monkey":119,"./languages/moonscript":120,"./languages/n1ql":121,"./languages/nginx":122,"./languages/nimrod":123,"./languages/nix":124,"./languages/nsis":125,"./languages/objectivec":126,"./languages/ocaml":127,"./languages/openscad":128,"./languages/oxygene":129,"./languages/parser3":130,"./languages/perl":131,"./languages/pf":132,"./languages/pgsql":133,"./languages/php":134,"./languages/plaintext":135,"./languages/pony":136,"./languages/powershell":137,"./languages/processing":138,"./languages/profile":139,"./languages/prolog":140,"./languages/properties":141,"./languages/protobuf":142,"./languages/puppet":143,"./languages/purebasic":144,"./languages/python":145,"./languages/q":146,"./languages/qml":147,"./languages/r":148,"./languages/reasonml":149,"./languages/rib":150,"./languages/roboconf":151,"./languages/routeros":152,"./languages/rsl":153,"./languages/ruby":154,"./languages/ruleslanguage":155,"./languages/rust":156,"./languages/sas":157,"./languages/scala":158,"./languages/scheme":159,"./languages/scilab":160,"./languages/scss":161,"./languages/shell":162,"./languages/smali":163,"./languages/smalltalk":164,"./languages/sml":165,"./languages/sqf":166,"./languages/sql":167,"./languages/stan":168,"./languages/stata":169,"./languages/step21":170,"./languages/stylus":171,"./languages/subunit":172,"./languages/swift":173,"./languages/taggerscript":174,"./languages/tap":175,"./languages/tcl":176,"./languages/tex":177,"./languages/thrift":178,"./languages/tp":179,"./languages/twig":180,"./languages/typescript":181,"./languages/vala":182,"./languages/vbnet":183,"./languages/vbscript":185,"./languages/vbscript-html":184,"./languages/verilog":186,"./languages/vhdl":187,"./languages/vim":188,"./languages/x86asm":189,"./languages/xl":190,"./languages/xml":191,"./languages/xquery":192,"./languages/yaml":193,"./languages/zephir":194}],10:[function(require,module,exports){
+},{"./highlight":9,"./languages/1c":11,"./languages/abnf":12,"./languages/accesslog":13,"./languages/actionscript":14,"./languages/ada":15,"./languages/angelscript":16,"./languages/apache":17,"./languages/applescript":18,"./languages/arcade":19,"./languages/arduino":20,"./languages/armasm":21,"./languages/asciidoc":22,"./languages/aspectj":23,"./languages/autohotkey":24,"./languages/autoit":25,"./languages/avrasm":26,"./languages/awk":27,"./languages/axapta":28,"./languages/bash":29,"./languages/basic":30,"./languages/bnf":31,"./languages/brainfuck":32,"./languages/cal":33,"./languages/capnproto":34,"./languages/ceylon":35,"./languages/clean":36,"./languages/clojure":38,"./languages/clojure-repl":37,"./languages/cmake":39,"./languages/coffeescript":40,"./languages/coq":41,"./languages/cos":42,"./languages/cpp":43,"./languages/crmsh":44,"./languages/crystal":45,"./languages/cs":46,"./languages/csp":47,"./languages/css":48,"./languages/d":49,"./languages/dart":50,"./languages/delphi":51,"./languages/diff":52,"./languages/django":53,"./languages/dns":54,"./languages/dockerfile":55,"./languages/dos":56,"./languages/dsconfig":57,"./languages/dts":58,"./languages/dust":59,"./languages/ebnf":60,"./languages/elixir":61,"./languages/elm":62,"./languages/erb":63,"./languages/erlang":65,"./languages/erlang-repl":64,"./languages/excel":66,"./languages/fix":67,"./languages/flix":68,"./languages/fortran":69,"./languages/fsharp":70,"./languages/gams":71,"./languages/gauss":72,"./languages/gcode":73,"./languages/gherkin":74,"./languages/glsl":75,"./languages/gml":76,"./languages/go":77,"./languages/golo":78,"./languages/gradle":79,"./languages/groovy":80,"./languages/haml":81,"./languages/handlebars":82,"./languages/haskell":83,"./languages/haxe":84,"./languages/hsp":85,"./languages/htmlbars":86,"./languages/http":87,"./languages/hy":88,"./languages/inform7":89,"./languages/ini":90,"./languages/irpf90":91,"./languages/isbl":92,"./languages/java":93,"./languages/javascript":94,"./languages/jboss-cli":95,"./languages/json":96,"./languages/julia":98,"./languages/julia-repl":97,"./languages/kotlin":99,"./languages/lasso":100,"./languages/ldif":101,"./languages/leaf":102,"./languages/less":103,"./languages/lisp":104,"./languages/livecodeserver":105,"./languages/livescript":106,"./languages/llvm":107,"./languages/lsl":108,"./languages/lua":109,"./languages/makefile":110,"./languages/markdown":111,"./languages/mathematica":112,"./languages/matlab":113,"./languages/maxima":114,"./languages/mel":115,"./languages/mercury":116,"./languages/mipsasm":117,"./languages/mizar":118,"./languages/mojolicious":119,"./languages/monkey":120,"./languages/moonscript":121,"./languages/n1ql":122,"./languages/nginx":123,"./languages/nimrod":124,"./languages/nix":125,"./languages/nsis":126,"./languages/objectivec":127,"./languages/ocaml":128,"./languages/openscad":129,"./languages/oxygene":130,"./languages/parser3":131,"./languages/perl":132,"./languages/pf":133,"./languages/pgsql":134,"./languages/php":135,"./languages/plaintext":136,"./languages/pony":137,"./languages/powershell":138,"./languages/processing":139,"./languages/profile":140,"./languages/prolog":141,"./languages/properties":142,"./languages/protobuf":143,"./languages/puppet":144,"./languages/purebasic":145,"./languages/python":146,"./languages/q":147,"./languages/qml":148,"./languages/r":149,"./languages/reasonml":150,"./languages/rib":151,"./languages/roboconf":152,"./languages/routeros":153,"./languages/rsl":154,"./languages/ruby":155,"./languages/ruleslanguage":156,"./languages/rust":157,"./languages/sas":158,"./languages/scala":159,"./languages/scheme":160,"./languages/scilab":161,"./languages/scss":162,"./languages/shell":163,"./languages/smali":164,"./languages/smalltalk":165,"./languages/sml":166,"./languages/sqf":167,"./languages/sql":168,"./languages/stan":169,"./languages/stata":170,"./languages/step21":171,"./languages/stylus":172,"./languages/subunit":173,"./languages/swift":174,"./languages/taggerscript":175,"./languages/tap":176,"./languages/tcl":177,"./languages/tex":178,"./languages/thrift":179,"./languages/tp":180,"./languages/twig":181,"./languages/typescript":182,"./languages/vala":183,"./languages/vbnet":184,"./languages/vbscript":186,"./languages/vbscript-html":185,"./languages/verilog":187,"./languages/vhdl":188,"./languages/vim":189,"./languages/x86asm":190,"./languages/xl":191,"./languages/xml":192,"./languages/xquery":193,"./languages/yaml":194,"./languages/zephir":195}],11:[function(require,module,exports){
 module.exports = function(hljs){
 
   // общий паттерн для определения идентификаторов
@@ -9099,7 +8875,7 @@ module.exports = function(hljs){
     ]  
   }
 };
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = function(hljs) {
     var regexes = {
         ruleDeclaration: "^[a-zA-Z][a-zA-Z0-9-]*",
@@ -9167,7 +8943,7 @@ module.exports = function(hljs) {
       ]
     };
 };
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = function(hljs) {
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
   var HTTP_VERBS = [
@@ -9232,7 +9008,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z_$][a-zA-Z0-9_$]*';
   var IDENT_FUNC_RETURN_TYPE_RE = '([*]|[a-zA-Z_$][a-zA-Z0-9_$]*)';
@@ -9306,7 +9082,7 @@ module.exports = function(hljs) {
     illegal: /#/
   };
 };
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = // We try to support full Ada2012
 //
 // We highlight all appearances of types, keywords, literals (string, char, number, bool)
@@ -9479,7 +9255,7 @@ function(hljs) {
         ]
     };
 };
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = function(hljs) {
   var builtInTypeMode = {
     className: 'built_in',
@@ -9586,7 +9362,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = function(hljs) {
   var NUMBER = {className: 'number', begin: '[\\$%]\\d+'};
   return {
@@ -9632,7 +9408,7 @@ module.exports = function(hljs) {
     illegal: /\S/
   };
 };
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = function(hljs) {
   var STRING = hljs.inherit(hljs.QUOTE_STRING_MODE, {illegal: ''});
   var PARAMS = {
@@ -9718,7 +9494,7 @@ module.exports = function(hljs) {
     illegal: '//|->|=>|\\[\\['
   };
 };
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[A-Za-z_][0-9A-Za-z_]*';
   var KEYWORDS = {
@@ -9856,7 +9632,7 @@ module.exports = function(hljs) {
     illegal: /#(?!!)/
   };
 };
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = function(hljs) {
 
 	var ARDUINO_KW = {
@@ -9955,7 +9731,7 @@ module.exports = function(hljs) {
 
   return ARDUINO;
 };
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = function(hljs) {
     //local labels: %?[FB]?[AT]?\d{1,2}\w+
   return {
@@ -10047,7 +9823,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['adoc'],
@@ -10235,7 +10011,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = function (hljs) {
   var KEYWORDS =
     'false synchronized int abstract float private char boolean static null if const ' +
@@ -10380,7 +10156,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = function(hljs) {
   var BACKTICK_ESCAPE = {
     begin: '`[\\s\\S]'
@@ -10438,7 +10214,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 module.exports = function(hljs) {
     var KEYWORDS = 'ByRef Case Const ContinueCase ContinueLoop ' +
         'Default Dim Do Else ElseIf EndFunc EndIf EndSelect ' +
@@ -10574,7 +10350,7 @@ module.exports = function(hljs) {
         ]
     }
 };
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -10636,7 +10412,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     className: 'variable',
@@ -10689,7 +10465,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: 'false int abstract private char boolean static null if for true ' +
@@ -10720,7 +10496,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR = {
     className: 'variable',
@@ -10801,7 +10577,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -10852,7 +10628,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 module.exports = function(hljs){
   return {
     contains: [
@@ -10881,7 +10657,7 @@ module.exports = function(hljs){
     ]
   };
 };
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 module.exports = function(hljs){
   var LITERAL = {
     className: 'literal',
@@ -10918,7 +10694,7 @@ module.exports = function(hljs){
     ]
   };
 };
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS =
     'div mod in and or not xor asserterror begin case do downto else end exit for if of repeat then to ' +
@@ -10998,7 +10774,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['capnp'],
@@ -11047,7 +10823,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 module.exports = function(hljs) {
   // 2.3. Identifiers and keywords
   var KEYWORDS =
@@ -11114,7 +10890,7 @@ module.exports = function(hljs) {
     ].concat(EXPRESSIONS)
   };
 };
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['clean','icl','dcl'],
@@ -11141,7 +10917,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -11156,7 +10932,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 module.exports = function(hljs) {
   var keywords = {
     'builtin-name':
@@ -11252,7 +11028,7 @@ module.exports = function(hljs) {
     contains: [LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, LITERAL]
   }
 };
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['cmake.in'],
@@ -11305,7 +11081,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -11451,7 +11227,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -11518,7 +11294,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 module.exports = function cos (hljs) {
 
   var STRINGS = {
@@ -11642,7 +11418,7 @@ module.exports = function cos (hljs) {
     ]
   };
 };
-},{}],42:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 module.exports = function(hljs) {
   function optional(s) {
     return '(?:' + s + ')?';
@@ -11861,7 +11637,7 @@ module.exports = function(hljs) {
     }
   };
 };
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 module.exports = function(hljs) {
   var RESOURCES = 'primitive rsc_template';
 
@@ -11955,7 +11731,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 module.exports = function(hljs) {
   var INT_SUFFIX = '(_*[ui](8|16|32|64|128))?';
   var FLOAT_SUFFIX = '(_*f(32|64))?';
@@ -12143,7 +11919,7 @@ module.exports = function(hljs) {
     contains: CRYSTAL_DEFAULT_CONTAINS
   };
 };
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -12328,7 +12104,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: false,
@@ -12350,7 +12126,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 module.exports = function(hljs) {
   var FUNCTION_LIKE = {
     begin: /[\w-]+\(/, returnBegin: true,
@@ -12476,7 +12252,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],48:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 module.exports = /**
  * Known issues:
  *
@@ -12734,7 +12510,7 @@ function(hljs) {
     ]
   };
 };
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 module.exports = function(hljs) {
   var SUBST = {
     className: 'subst',
@@ -12857,7 +12633,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],50:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS =
     'exports register file shl array record property for mod while set ally label uses raise not ' +
@@ -12926,7 +12702,7 @@ module.exports = function(hljs) {
     ].concat(COMMENT_MODES)
   };
 };
-},{}],51:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['patch'],
@@ -12966,7 +12742,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],52:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 module.exports = function(hljs) {
   var FILTER = {
     begin: /\|[A-Za-z]+:?/,
@@ -13030,7 +12806,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],53:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['bind', 'zone'],
@@ -13059,7 +12835,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['docker'],
@@ -13081,7 +12857,7 @@ module.exports = function(hljs) {
     illegal: '</'
   }
 };
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT = hljs.COMMENT(
     /^\s*@?rem\b/, /$/,
@@ -13133,7 +12909,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 module.exports = function(hljs) {
   var QUOTED_PROPERTY = {
     className: 'string',
@@ -13180,7 +12956,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 module.exports = function(hljs) {
   var STRINGS = {
     className: 'string',
@@ -13304,7 +13080,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 module.exports = function(hljs) {
   var EXPRESSION_KEYWORDS = 'if eq ne lt lte gt gte select default math sep';
   return {
@@ -13336,7 +13112,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],59:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 module.exports = function(hljs) {
     var commentMode = hljs.COMMENT(/\(\*/, /\*\)/);
 
@@ -13376,7 +13152,7 @@ module.exports = function(hljs) {
         ]
     };
 };
-},{}],60:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 module.exports = function(hljs) {
   var ELIXIR_IDENT_RE = '[a-zA-Z_][a-zA-Z0-9_.]*(\\!|\\?)?';
   var ELIXIR_METHOD_RE = '[a-zA-Z_]\\w*[!?=]?|[-+~]\\@|<<|>>|=~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~`|]|\\[\\]=?';
@@ -13540,7 +13316,7 @@ module.exports = function(hljs) {
     contains: ELIXIR_DEFAULT_CONTAINS
   };
 };
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT = {
     variants: [
@@ -13630,7 +13406,7 @@ module.exports = function(hljs) {
     illegal: /;/
   };
 };
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml',
@@ -13645,7 +13421,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -13691,7 +13467,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],64:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 module.exports = function(hljs) {
   var BASIC_ATOM_RE = '[a-z\'][a-zA-Z0-9_\']*';
   var FUNCTION_NAME_RE = '(' + BASIC_ATOM_RE + ':' + BASIC_ATOM_RE + '|' + BASIC_ATOM_RE + ')';
@@ -13837,7 +13613,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],65:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['xlsx', 'xls'],
@@ -13885,7 +13661,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -13914,7 +13690,7 @@ module.exports = function(hljs) {
     case_insensitive: true
   };
 };
-},{}],67:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 module.exports = function (hljs) {
 
     var CHAR = {
@@ -13959,7 +13735,7 @@ module.exports = function (hljs) {
         ]
     };
 };
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 module.exports = function(hljs) {
   var PARAMS = {
     className: 'params',
@@ -14030,7 +13806,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],69:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 module.exports = function(hljs) {
   var TYPEPARAM = {
     begin: '<', end: '>',
@@ -14089,7 +13865,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 module.exports = function (hljs) {
   var KEYWORDS = {
     'keyword':
@@ -14243,7 +14019,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:  'bool break call callexe checkinterrupt clear clearg closeall cls comlog compile ' +
@@ -14534,7 +14310,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 module.exports = function(hljs) {
     var GCODE_IDENT_RE = '[A-Z_][A-Z0-9_.]*';
     var GCODE_CLOSE_RE = '\\%';
@@ -14601,7 +14377,7 @@ module.exports = function(hljs) {
         ].concat(GCODE_CODE)
     };
 };
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 module.exports = function (hljs) {
   return {
     aliases: ['feature'],
@@ -14638,7 +14414,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],74:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -14755,7 +14531,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],75:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 module.exports = function(hljs) {
   var GML_KEYWORDS = {
     keyword: 'begin end if then else while do for break continue with until ' +
@@ -15628,7 +15404,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],76:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 module.exports = function(hljs) {
   var GO_KEYWORDS = {
     keyword:
@@ -15682,7 +15458,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],77:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 module.exports = function(hljs) {
     return {
       keywords: {
@@ -15705,7 +15481,7 @@ module.exports = function(hljs) {
       ]
     }
 };
-},{}],78:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -15740,7 +15516,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],79:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 module.exports = function(hljs) {
     return {
         keywords: {
@@ -15834,7 +15610,7 @@ module.exports = function(hljs) {
         illegal: /#|<\//
     }
 };
-},{}],80:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 module.exports = // TODO support filter tags like :javascript, support inline HTML
 function(hljs) {
   return {
@@ -15941,7 +15717,7 @@ function(hljs) {
     ]
   };
 };
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 module.exports = function (hljs) {
   var BUILT_INS = {'builtin-name': 'each in with if else unless bindattr action collection debugger log outlet template unbound view yield lookup'};
 
@@ -16016,7 +15792,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],82:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT = {
     variants: [
@@ -16138,7 +15914,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],83:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z_$][a-zA-Z0-9_$]*';
   var IDENT_FUNC_RETURN_TYPE_RE = '([*]|[a-zA-Z_$][a-zA-Z0-9_$]*)';
@@ -16250,7 +16026,7 @@ module.exports = function(hljs) {
     illegal: /<\//
   };
 };
-},{}],84:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -16296,7 +16072,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],85:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILT_INS = 'action collection component concat debugger each each-in else get hash if input link-to loc log mut outlet partial query-params render textarea unbound unless with yield view';
 
@@ -16367,7 +16143,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],86:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 module.exports = function(hljs) {
   var VERSION = 'HTTP/[0-9\\.]+';
   return {
@@ -16408,7 +16184,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],87:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 module.exports = function(hljs) {
   var keywords = {
     'builtin-name':
@@ -16510,7 +16286,7 @@ module.exports = function(hljs) {
     contains: [SHEBANG, LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, LITERAL]
   }
 };
-},{}],88:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 module.exports = function(hljs) {
   var START_BRACKET = '\\[';
   var END_BRACKET = '\\]';
@@ -16567,7 +16343,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],89:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 module.exports = function(hljs) {
   var NUMBERS = {
     className: 'number',
@@ -16644,7 +16420,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],90:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 module.exports = function(hljs) {
   var PARAMS = {
     className: 'params',
@@ -16720,7 +16496,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],91:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 module.exports = function(hljs) {
   // Определение идентификаторов
   var UNDERSCORE_IDENT_RE = "[A-Za-zА-Яа-яёЁ_!][A-Za-zА-Яа-яёЁ_0-9]*";
@@ -19893,7 +19669,7 @@ module.exports = function(hljs) {
     ],
   };
 };
-},{}],92:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 module.exports = function(hljs) {
   var JAVA_IDENT_RE = '[\u00C0-\u02B8a-zA-Z_$][\u00C0-\u02B8a-zA-Z_$0-9]*';
   var GENERIC_IDENT_RE = JAVA_IDENT_RE + '(<' + JAVA_IDENT_RE + '(\\s*,\\s*' + JAVA_IDENT_RE + ')*>)?';
@@ -20001,7 +19777,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],93:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 module.exports = function(hljs) {
   var FRAGMENT = {
     begin: '<>',
@@ -20243,7 +20019,7 @@ module.exports = function(hljs) {
     illegal: /#(?!!)/
   };
 };
-},{}],94:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 module.exports = function (hljs) {
   var PARAM = {
     begin: /[\w-]+ *=/, returnBegin: true,
@@ -20290,7 +20066,7 @@ module.exports = function (hljs) {
     ]
   }
 };
-},{}],95:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 module.exports = function(hljs) {
   var LITERALS = {literal: 'true false null'};
   var ALLOWED_COMMENTS = [
@@ -20334,7 +20110,7 @@ module.exports = function(hljs) {
     illegal: '\\S'
   };
 };
-},{}],96:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -20358,7 +20134,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],97:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 module.exports = function(hljs) {
   // Since there are numerous special names in Julia, it is too much trouble
   // to maintain them by hand. Hence these names (i.e. keywords, literals and
@@ -20520,7 +20296,7 @@ module.exports = function(hljs) {
 
   return DEFAULT;
 };
-},{}],98:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -20737,7 +20513,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],99:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 module.exports = function(hljs) {
   var LASSO_IDENT_RE = '[a-zA-Z_][\\w.]*';
   var LASSO_ANGLE_RE = '<\\?(lasso(script)?|=)';
@@ -20900,7 +20676,7 @@ module.exports = function(hljs) {
     ].concat(LASSO_CODE)
   };
 };
-},{}],100:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -20923,7 +20699,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 module.exports = function (hljs) {
   return {
     contains: [
@@ -20963,7 +20739,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE        = '[\\w-]+'; // yes, Less identifiers may begin with a digit
   var INTERP_IDENT_RE = '(' + IDENT_RE + '|@{' + IDENT_RE + '})';
@@ -21103,7 +20879,7 @@ module.exports = function(hljs) {
     contains: RULES
   };
 };
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 module.exports = function(hljs) {
   var LISP_IDENT_RE = '[a-zA-Z_\\-\\+\\*\\/\\<\\=\\>\\&\\#][a-zA-Z0-9_\\-\\+\\*\\/\\<\\=\\>\\&\\#!]*';
   var MEC_RE = '\\|[^]*?\\|';
@@ -21206,7 +20982,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],104:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     className: 'variable',
@@ -21367,7 +21143,7 @@ module.exports = function(hljs) {
     illegal: ';$|^\\[|^=|&|{'
   };
 };
-},{}],105:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -21521,7 +21297,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],106:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 module.exports = function(hljs) {
   var identifier = '([-a-zA-Z$._][\\w\\-$.]*)';
   return {
@@ -21610,7 +21386,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],107:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 module.exports = function(hljs) {
 
     var LSL_STRING_ESCAPE_CHARS = {
@@ -21694,7 +21470,7 @@ module.exports = function(hljs) {
         ]
     };
 };
-},{}],108:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 module.exports = function(hljs) {
   var OPENING_LONG_BRACKET = '\\[=*\\[';
   var CLOSING_LONG_BRACKET = '\\]=*\\]';
@@ -21760,7 +21536,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],109:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 module.exports = function(hljs) {
   /* Variables: simple (eg $(var)) and special (eg $@) */
   var VARIABLE = {
@@ -21833,7 +21609,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],110:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['md', 'mkdown', 'mkd'],
@@ -21941,7 +21717,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],111:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['mma', 'wl'],
@@ -21990,7 +21766,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],112:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 module.exports = /*
   Formal syntax is not published, helpful link:
   https://github.com/kornilova-l/matlab-IntelliJ-plugin/blob/master/src/main/grammar/Matlab.bnf
@@ -22086,7 +21862,7 @@ function(hljs) {
     ]
   };
 };
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = 'if then else elseif for thru do while unless step in and or not';
   var LITERALS = 'true false unknown inf minf ind und %e %i %pi %phi %gamma';
@@ -22492,7 +22268,7 @@ module.exports = function(hljs) {
     illegal: /@/
   }
 };
-},{}],114:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -22717,7 +22493,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],115:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -22801,7 +22577,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],116:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 module.exports = function(hljs) {
     //local labels: %?[FB]?[AT]?\d{1,2}\w+
   return {
@@ -22888,7 +22664,7 @@ module.exports = function(hljs) {
     illegal: '\/'
   };
 };
-},{}],117:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -22907,7 +22683,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],118:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml',
@@ -22932,7 +22708,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],119:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 module.exports = function(hljs) {
   var NUMBER = {
     className: 'number', relevance: 0,
@@ -23007,7 +22783,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],120:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -23119,7 +22895,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],121:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -23188,7 +22964,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],122:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR = {
     className: 'variable',
@@ -23281,7 +23057,7 @@ module.exports = function(hljs) {
     illegal: '[^\\s\\}]'
   };
 };
-},{}],123:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['nim'],
@@ -23336,7 +23112,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],124:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 module.exports = function(hljs) {
   var NIX_KEYWORDS = {
     keyword:
@@ -23385,7 +23161,7 @@ module.exports = function(hljs) {
     contains: EXPRESSIONS
   };
 };
-},{}],125:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 module.exports = function(hljs) {
   var CONSTANTS = {
     className: 'variable',
@@ -23491,7 +23267,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],126:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 module.exports = function(hljs) {
   var API_CLASS = {
     className: 'built_in',
@@ -23587,7 +23363,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],127:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 module.exports = function(hljs) {
   /* missing support for heredoc-like string (OCaml 4.0.2+) */
   return {
@@ -23658,7 +23434,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],128:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 module.exports = function(hljs) {
 	var SPECIAL_VARS = {
 		className: 'keyword',
@@ -23715,7 +23491,7 @@ module.exports = function(hljs) {
 		]
 	}
 };
-},{}],129:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 module.exports = function(hljs) {
   var OXYGENE_KEYWORDS = 'abstract add and array as asc aspect assembly async begin break block by case class concat const copy constructor continue '+
     'create default delegate desc distinct div do downto dynamic each else empty end ensure enum equals event except exit extension external false '+
@@ -23785,7 +23561,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],130:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 module.exports = function(hljs) {
   var CURLY_SUBCOMMENT = hljs.COMMENT(
     '{',
@@ -23833,7 +23609,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],131:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 module.exports = function(hljs) {
   var PERL_KEYWORDS = 'getpwent getservent quotemeta msgrcv scalar kill dbmclose undef lc ' +
     'ma syswrite tr send umask sysopen shmwrite vec qx utime local oct semctl localtime ' +
@@ -23990,7 +23766,7 @@ module.exports = function(hljs) {
     contains: PERL_DEFAULT_CONTAINS
   };
 };
-},{}],132:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 module.exports = function(hljs) {
   var MACRO = {
     className: 'variable',
@@ -24042,7 +23818,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],133:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT_MODE = hljs.COMMENT('--', '$');
   var UNQUOTED_IDENT = '[a-zA-Z_][a-zA-Z_0-9$]*';
@@ -24530,7 +24306,7 @@ module.exports = function(hljs) {
         ]
   };
 };
-},{}],134:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     begin: '\\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'
@@ -24657,13 +24433,13 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],135:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 module.exports = function(hljs) {
     return {
         disableAutodetect: true
     };
 };
-},{}],136:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -24738,7 +24514,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],137:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 module.exports = function(hljs){
 
   var TYPES =
@@ -24981,7 +24757,7 @@ module.exports = function(hljs){
     )
   };
 };
-},{}],138:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -25029,7 +24805,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],139:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -25059,7 +24835,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],140:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var ATOM = {
@@ -25147,7 +24923,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],141:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 module.exports = function(hljs) {
 
   // whitespaces: space, tab, formfeed
@@ -25217,7 +24993,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],142:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -25253,7 +25029,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],143:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var PUPPET_KEYWORDS = {
@@ -25368,7 +25144,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],144:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 module.exports = // Base deafult colors in PB IDE: background: #FFFFDF; foreground: #000000;
 
 function(hljs) {
@@ -25453,7 +25229,7 @@ function(hljs) {
            PureBasic language file for GeSHi:
            -- https://github.com/easybook/geshi/blob/master/geshi/purebasic.php
 */;
-},{}],145:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -25577,7 +25353,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],146:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 module.exports = function(hljs) {
   var Q_KEYWORDS = {
   keyword:
@@ -25600,7 +25376,7 @@ module.exports = function(hljs) {
      ]
   };
 };
-},{}],147:[function(require,module,exports){
+},{}],148:[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
       keyword:
@@ -25769,7 +25545,7 @@ module.exports = function(hljs) {
     illegal: /#/
   };
 };
-},{}],148:[function(require,module,exports){
+},{}],149:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*';
 
@@ -25839,7 +25615,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],149:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 module.exports = function(hljs) {
   function orReValues(ops){
     return ops
@@ -26139,7 +25915,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],150:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -26166,7 +25942,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],151:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENTIFIER = '[a-zA-Z-_][^\\n{]+\\{';
 
@@ -26233,7 +26009,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],152:[function(require,module,exports){
+},{}],153:[function(require,module,exports){
 module.exports = // Colors from RouterOS terminal:
 //   green        - #0E9A00
 //   teal         - #0C9A9A
@@ -26392,7 +26168,7 @@ function(hljs) {
     ]
   };
 };
-},{}],153:[function(require,module,exports){
+},{}],154:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -26428,7 +26204,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],154:[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 module.exports = function(hljs) {
   var RUBY_METHOD_RE = '[a-zA-Z_]\\w*[!?=]?|[-+~]\\@|<<|>>|=~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~`|]|\\[\\]=?';
   var RUBY_KEYWORDS = {
@@ -26613,7 +26389,7 @@ module.exports = function(hljs) {
     contains: COMMENT_MODES.concat(IRB_DEFAULT).concat(RUBY_DEFAULT_CONTAINS)
   };
 };
-},{}],155:[function(require,module,exports){
+},{}],156:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -26674,7 +26450,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],156:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 module.exports = function(hljs) {
   var NUM_SUFFIX = '([ui](8|16|32|64|128|size)|f(32|64))\?';
   var KEYWORDS =
@@ -26782,7 +26558,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],157:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 module.exports = function(hljs) {
 
     // Data step and PROC SQL statements
@@ -26908,7 +26684,7 @@ module.exports = function(hljs) {
         ]
     };
 };
-},{}],158:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var ANNOTATION = { className: 'meta', begin: '@[A-Za-z]+' };
@@ -27023,7 +26799,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],159:[function(require,module,exports){
+},{}],160:[function(require,module,exports){
 module.exports = function(hljs) {
   var SCHEME_IDENT_RE = '[^\\(\\)\\[\\]\\{\\}",\'`;#|\\\\\\s]+';
   var SCHEME_SIMPLE_NUMBER_RE = '(\\-|\\+)?\\d+([./]\\d+)?';
@@ -27167,7 +26943,7 @@ module.exports = function(hljs) {
     contains: [SHEBANG, NUMBER, STRING, QUOTED_IDENT, QUOTED_LIST, LIST].concat(COMMENT_MODES)
   };
 };
-},{}],160:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var COMMON_CONTAINS = [
@@ -27221,7 +26997,7 @@ module.exports = function(hljs) {
     ].concat(COMMON_CONTAINS)
   };
 };
-},{}],161:[function(require,module,exports){
+},{}],162:[function(require,module,exports){
 module.exports = function(hljs) {
   var AT_IDENTIFIER = '@[a-z-]+' // @font-face
   var AT_MODIFIERS = "and or not only"
@@ -27336,7 +27112,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],162:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['console'],
@@ -27351,7 +27127,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],163:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 module.exports = function(hljs) {
   var smali_instr_low_prio = ['add', 'and', 'cmp', 'cmpg', 'cmpl', 'const', 'div', 'double', 'float', 'goto', 'if', 'int', 'long', 'move', 'mul', 'neg', 'new', 'nop', 'not', 'or', 'rem', 'return', 'shl', 'shr', 'sput', 'sub', 'throw', 'ushr', 'xor'];
   var smali_instr_high_prio = ['aget', 'aput', 'array', 'check', 'execute', 'fill', 'filled', 'goto/16', 'goto/32', 'iget', 'instance', 'invoke', 'iput', 'monitor', 'packed', 'sget', 'sparse'];
@@ -27407,7 +27183,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],164:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR_IDENT_RE = '[a-z][a-zA-Z0-9_]*';
   var CHAR = {
@@ -27457,7 +27233,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],165:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['ml'],
@@ -27523,7 +27299,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],166:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 module.exports = function(hljs) {
   // In SQF, a variable start with _
   var VARIABLE = {
@@ -27950,7 +27726,7 @@ module.exports = function(hljs) {
     illegal: /#|^\$ /
   };
 };
-},{}],167:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT_MODE = hljs.COMMENT('--', '$');
   return {
@@ -28111,7 +27887,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],168:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 module.exports = function(hljs) {
   // variable names cannot conflict with block identifiers
   var BLOCKS = [
@@ -28331,7 +28107,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],169:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 module.exports = /*
   This is a fork and modification of Drew McDonald's file (https://github.com/drewmcdonald/stata-highlighting). I have also included a list of builtin commands from https://bugs.kde.org/show_bug.cgi?id=135646.
 */
@@ -28373,7 +28149,7 @@ function(hljs) {
     ]
   };
 };
-},{}],170:[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 module.exports = function(hljs) {
   var STEP21_IDENT_RE = '[A-Z_][A-Z0-9_.]*';
   var STEP21_KEYWORDS = {
@@ -28420,7 +28196,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],171:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var VARIABLE = {
@@ -28865,7 +28641,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],172:[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 module.exports = function(hljs) {
   var DETAILS = {
     className: 'string',
@@ -28899,7 +28675,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],173:[function(require,module,exports){
+},{}],174:[function(require,module,exports){
 module.exports = function(hljs) {
   var SWIFT_KEYWORDS = {
       keyword: '#available #colorLiteral #column #else #elseif #endif #file ' +
@@ -29030,7 +28806,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],174:[function(require,module,exports){
+},{}],175:[function(require,module,exports){
 module.exports = function(hljs) {
 
   var COMMENT = {
@@ -29074,7 +28850,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],175:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -29110,7 +28886,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],176:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['tk'],
@@ -29170,7 +28946,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],177:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMAND = {
     className: 'tag',
@@ -29232,7 +29008,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],178:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILT_IN_TYPES = 'bool byte i16 i32 i64 double string binary';
   return {
@@ -29267,7 +29043,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],179:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 module.exports = function(hljs) {
   var TPID = {
     className: 'number',
@@ -29351,7 +29127,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],180:[function(require,module,exports){
+},{}],181:[function(require,module,exports){
 module.exports = function(hljs) {
   var PARAMS = {
     className: 'params',
@@ -29417,7 +29193,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],181:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 module.exports = function(hljs) {
   var JS_IDENT_RE = '[A-Za-z$_][0-9A-Za-z$_]*';
   var KEYWORDS = {
@@ -29623,7 +29399,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],182:[function(require,module,exports){
+},{}],183:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -29673,7 +29449,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],183:[function(require,module,exports){
+},{}],184:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['vb'],
@@ -29729,7 +29505,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],184:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml',
@@ -29741,7 +29517,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],185:[function(require,module,exports){
+},{}],186:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['vbs'],
@@ -29780,7 +29556,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],186:[function(require,module,exports){
+},{}],187:[function(require,module,exports){
 module.exports = function(hljs) {
   var SV_KEYWORDS = {
     keyword:
@@ -29879,7 +29655,7 @@ module.exports = function(hljs) {
     ]
   }; // return
 };
-},{}],187:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 module.exports = function(hljs) {
   // Regular expression for VHDL numeric literals.
 
@@ -29940,7 +29716,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],188:[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     lexemes: /[!#@\w]+/,
@@ -30050,7 +29826,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],189:[function(require,module,exports){
+},{}],190:[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -30186,7 +29962,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],190:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILTIN_MODULES =
     'ObjectLoader Animate MovieCredits Slides Filters Shading Materials LensFlare Mapping VLCAudioVideo ' +
@@ -30259,7 +30035,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],191:[function(require,module,exports){
+},{}],192:[function(require,module,exports){
 module.exports = function(hljs) {
   var XML_IDENT_RE = '[A-Za-z0-9\\._:-]+';
   var XML_ENTITIES = {
@@ -30405,7 +30181,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],192:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 module.exports = function(hljs) {
   // see https://www.w3.org/TR/xquery/#id-terminal-delimitation
   var KEYWORDS = 'module schema namespace boundary-space preserve no-preserve strip default collation base-uri ordering context decimal-format decimal-separator copy-namespaces empty-sequence except exponent-separator external grouping-separator inherit no-inherit lax minus-sign per-mille percent schema-attribute schema-element strict unordered zero-digit ' +
@@ -30575,7 +30351,7 @@ module.exports = function(hljs) {
     contains: CONTAINS
   };
 };
-},{}],193:[function(require,module,exports){
+},{}],194:[function(require,module,exports){
 module.exports = function(hljs) {
   var LITERALS = 'true false yes no null';
 
@@ -30675,7 +30451,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],194:[function(require,module,exports){
+},{}],195:[function(require,module,exports){
 module.exports = function(hljs) {
   var STRING = {
     className: 'string',
@@ -30782,7 +30558,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],195:[function(require,module,exports){
+},{}],196:[function(require,module,exports){
 "use strict";
 
 // Dependencies
@@ -30818,7 +30594,7 @@ function isSsh(input) {
 }
 
 module.exports = isSsh;
-},{"protocols":212}],196:[function(require,module,exports){
+},{"protocols":213}],197:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.4.1
  * https://jquery.com/
@@ -41418,7 +41194,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],197:[function(require,module,exports){
+},{}],198:[function(require,module,exports){
 const Renderer = require('./Renderer.js');
 const { defaults } = require('./defaults.js');
 const { inline } = require('./rules.js');
@@ -41713,7 +41489,7 @@ module.exports = class InlineLexer {
   }
 };
 
-},{"./Renderer.js":200,"./defaults.js":203,"./helpers.js":204,"./rules.js":206}],198:[function(require,module,exports){
+},{"./Renderer.js":201,"./defaults.js":204,"./helpers.js":205,"./rules.js":207}],199:[function(require,module,exports){
 const { defaults } = require('./defaults.js');
 const { block } = require('./rules.js');
 const {
@@ -42117,7 +41893,7 @@ module.exports = class Lexer {
   };
 };
 
-},{"./defaults.js":203,"./helpers.js":204,"./rules.js":206}],199:[function(require,module,exports){
+},{"./defaults.js":204,"./helpers.js":205,"./rules.js":207}],200:[function(require,module,exports){
 const Renderer = require('./Renderer.js');
 const Slugger = require('./Slugger.js');
 const InlineLexer = require('./InlineLexer.js');
@@ -42325,7 +42101,7 @@ module.exports = class Parser {
   };
 };
 
-},{"./InlineLexer.js":197,"./Renderer.js":200,"./Slugger.js":201,"./TextRenderer.js":202,"./defaults.js":203,"./helpers.js":204}],200:[function(require,module,exports){
+},{"./InlineLexer.js":198,"./Renderer.js":201,"./Slugger.js":202,"./TextRenderer.js":203,"./defaults.js":204,"./helpers.js":205}],201:[function(require,module,exports){
 const { defaults } = require('./defaults.js');
 const {
   cleanUrl,
@@ -42491,7 +42267,7 @@ module.exports = class Renderer {
   };
 };
 
-},{"./defaults.js":203,"./helpers.js":204}],201:[function(require,module,exports){
+},{"./defaults.js":204,"./helpers.js":205}],202:[function(require,module,exports){
 /**
  * Slugger generates header id
  */
@@ -42523,7 +42299,7 @@ module.exports = class Slugger {
   };
 };
 
-},{}],202:[function(require,module,exports){
+},{}],203:[function(require,module,exports){
 /**
  * TextRenderer
  * returns only the textual part of the token
@@ -42563,7 +42339,7 @@ module.exports = class TextRenderer {
   }
 };
 
-},{}],203:[function(require,module,exports){
+},{}],204:[function(require,module,exports){
 function getDefaults() {
   return {
     baseUrl: null,
@@ -42595,7 +42371,7 @@ module.exports = {
   changeDefaults
 };
 
-},{}],204:[function(require,module,exports){
+},{}],205:[function(require,module,exports){
 /**
  * Helpers
  */
@@ -42840,7 +42616,7 @@ module.exports = {
   checkSanitizeDeprecation
 };
 
-},{}],205:[function(require,module,exports){
+},{}],206:[function(require,module,exports){
 const Lexer = require('./Lexer.js');
 const Parser = require('./Parser.js');
 const Renderer = require('./Renderer.js');
@@ -42992,7 +42768,7 @@ marked.parse = marked;
 
 module.exports = marked;
 
-},{"./InlineLexer.js":197,"./Lexer.js":198,"./Parser.js":199,"./Renderer.js":200,"./Slugger.js":201,"./TextRenderer.js":202,"./defaults.js":203,"./helpers.js":204}],206:[function(require,module,exports){
+},{"./InlineLexer.js":198,"./Lexer.js":199,"./Parser.js":200,"./Renderer.js":201,"./Slugger.js":202,"./TextRenderer.js":203,"./defaults.js":204,"./helpers.js":205}],207:[function(require,module,exports){
 const {
   noopTest,
   edit,
@@ -43234,7 +43010,7 @@ module.exports = {
   inline
 };
 
-},{"./helpers.js":204}],207:[function(require,module,exports){
+},{"./helpers.js":205}],208:[function(require,module,exports){
 'use strict';
 // TODO: Use the `URL` global when targeting Node.js 10
 const URLParser = typeof URL === 'undefined' ? require('url').URL : URL;
@@ -43375,7 +43151,7 @@ module.exports = (urlString, opts) => {
 	return urlString;
 };
 
-},{"url":218}],208:[function(require,module,exports){
+},{"url":219}],209:[function(require,module,exports){
 "use strict";
 
 // Dependencies
@@ -43509,7 +43285,7 @@ function parsePath(url) {
 }
 
 module.exports = parsePath;
-},{"is-ssh":195,"protocols":212,"querystring":216}],209:[function(require,module,exports){
+},{"is-ssh":196,"protocols":213,"querystring":217}],210:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -43565,7 +43341,7 @@ function parseUrl(url) {
 }
 
 module.exports = parseUrl;
-},{"normalize-url":207,"parse-path":208}],210:[function(require,module,exports){
+},{"normalize-url":208,"parse-path":209}],211:[function(require,module,exports){
 (function (global){
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
@@ -46193,7 +45969,7 @@ return Popper;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],211:[function(require,module,exports){
+},{}],212:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -46379,7 +46155,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],212:[function(require,module,exports){
+},{}],213:[function(require,module,exports){
 "use strict";
 
 /**
@@ -46407,7 +46183,7 @@ module.exports = function protocols(input, first) {
 
     return splits;
 };
-},{}],213:[function(require,module,exports){
+},{}],214:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -46944,7 +46720,7 @@ module.exports = function protocols(input, first) {
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],214:[function(require,module,exports){
+},{}],215:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -47030,7 +46806,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],215:[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -47117,13 +46893,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],216:[function(require,module,exports){
+},{}],217:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":214,"./encode":215}],217:[function(require,module,exports){
+},{"./decode":215,"./encode":216}],218:[function(require,module,exports){
 /**!
 * tippy.js v6.0.3
 * (c) 2017-2020 atomiks
@@ -49262,7 +49038,7 @@ exports.encode = exports.stringify = require('./encode');
 })));
 
 
-},{"@popperjs/core":3}],218:[function(require,module,exports){
+},{"@popperjs/core":4}],219:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -49996,7 +49772,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":219,"punycode":213,"querystring":216}],219:[function(require,module,exports){
+},{"./util":220,"punycode":214,"querystring":217}],220:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -50014,4 +49790,247 @@ module.exports = {
   }
 };
 
-},{}]},{},[2]);
+},{}],221:[function(require,module,exports){
+let textDocument = null;
+
+function readLines(lines) {
+  textDocument = [];
+  const contents = [];
+  lines.forEach((line, index) => {
+    textDocument.push(line);
+    contents.push(line.innerText.replace(/^[\r\n]+|[\r\n]+$/g, ""));
+    readLine(line, index, 0);
+  });
+  return contents.join("\n");
+}
+
+function readLine(line, lineIndex, columnIndex) {
+  let nodes = line.childNodes;
+  for (var i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    if (node.nodeName === "#text") {
+      if (!node.nodeValue.trim()) {
+        columnIndex += node.nodeValue.length;
+        continue;
+      }
+      var element = document.createElement("span");
+      element.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
+      element.dataset.lineNumber = lineIndex;
+      element.dataset.column = columnIndex;
+      element.dataset.parentClassList = `${node.parentNode.classList}`;
+      element.innerText = node.nodeValue;
+      node.parentNode.insertBefore(element, node);
+      node.parentNode.removeChild(node);
+
+      columnIndex += node.nodeValue.length;
+    } else {
+      node.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
+      node.dataset.lineNumber = lineIndex;
+      node.dataset.column = columnIndex;
+      if (node.childNodes.length > 0) {
+        readLine(node, lineIndex, columnIndex);
+        columnIndex += node.innerText.length;
+      }
+    }
+  }
+}
+
+function highlightReferences(documentHighlights) {
+  documentHighlights.forEach(documentHighlight => {
+    const start = documentHighlight.start;
+    const end = documentHighlight.end;
+    if (start.line != end.line) {
+      return;
+    }
+    const line = textDocument[start.line];
+    let column = 0;
+    line.childNodes.forEach(node => {
+      let length = 0;
+      if (node.nodeName === "#text") {
+        length += node.nodeValue.length;
+      } else {
+        length += node.innerText.length;
+      }
+      if (column <= start.character && end.character < column + length) {
+        node.classList.add("--sourcekit-for-safari_document-highlight");
+        if (!node.matches(":hover")) {
+          node.style.setProperty("background-color", "#8cc4ff");
+        }
+      }
+      column += length;
+    });
+  });
+}
+
+exports.readLines = readLines;
+exports.highlightReferences = highlightReferences;
+
+},{}],222:[function(require,module,exports){
+const $ = require("jquery");
+
+const quickHelpElements = {};
+const quickHelpTemplate = `
+<div class="--sourcekit-for-safari　row">
+  <div class="col-12">
+    <div>
+      <ul class="--sourcekit-for-safari nav nav-tabs p-2" role="tablist">
+        <li class="nav-item tab-header-documentation"></li>
+        <li class="nav-item tab-header-definition"></li>
+        <li class="nav-item tab-header-references"></li>
+      </ul>
+    </div>
+    <div class="tab-content"></div>
+  </div>
+</div>
+`;
+
+function setupQuickHelp(element, popoverContent) {
+  $(element).popover({
+    html: true,
+    content: popoverContent,
+    trigger: "manual",
+    placement: "bottom",
+    modifiers: [
+      {
+        name: "flip",
+        options: {
+          fallbackPlacements: ["top"]
+        }
+      }
+    ]
+  });
+  $(element).on("click", event => {
+    event.stopPropagation();
+    $(".--sourcekit-for-safari_quickhelp")
+      .not(element)
+      .popover("hide");
+    $(element).popover("toggle");
+  });
+  $(document).on("click", ".popover", event => {
+    event.stopPropagation();
+  });
+  $(document).off("click", "html");
+  $(document).on("click", "html", () => {
+    hideAllQuickHelpPopovers();
+  });
+  $(element).on("shown.bs.popover", () => {
+    document.querySelectorAll(".nav-link").forEach(nav => {
+      nav.dataset.toggle = "tab";
+    });
+    document
+      .querySelectorAll(".--sourcekit-for-safari_jump-to-definition")
+      .forEach(link => {
+        $(link).on("click", () => {
+          hideAllQuickHelpPopovers();
+        });
+      });
+  });
+}
+
+function setupQuickHelpContent(suffix) {
+  return (() => {
+    const id = `quickhelp${suffix}`;
+    const quickHelp = quickHelpElements[id];
+    const popover = quickHelp ? $(quickHelp) : $(quickHelpTemplate);
+    popover.attr("id", id);
+    quickHelpElements[id] = popover;
+    return popover;
+  })();
+}
+
+function hideAllQuickHelpPopovers() {
+  $(".--sourcekit-for-safari_quickhelp").popover("hide");
+}
+
+exports.setupQuickHelp = setupQuickHelp;
+exports.setupQuickHelpContent = setupQuickHelpContent;
+
+},{"jquery":197}],223:[function(require,module,exports){
+const tippy = require("tippy.js");
+
+let navigator = null;
+
+function symbolNavigator(documentSymbols, documentUrl) {
+  if (navigator) {
+    navigator.destroy();
+    navigator = null;
+  }
+
+  const navigationContainer = document.createElement("div");
+  navigationContainer.classList.add(
+    "--sourcekit-for-safari_symbol-navigation",
+    "overflow-auto"
+  );
+
+  const navigationList = document.createElement("div");
+  navigationList.classList.add("list-group", "col-12");
+
+  const blobCodeInner = document.querySelector(".blob-code-inner");
+  const style = getComputedStyle(blobCodeInner);
+  navigationList.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize};`;
+
+  navigationContainer.appendChild(navigationList);
+
+  const navigationHeader = document.createElement("a");
+  navigationHeader.href = "#--sourcekit-for-safari_symbol-navigation-items";
+  navigationHeader.classList.add("list-group-item", "list-group-item-action");
+  navigationHeader.dataset.toggle = "collapse";
+  navigationHeader.innerHTML = "Symbol Navigator ▾";
+  navigationHeader.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize}; font-weight: bold;`;
+  navigationList.appendChild(navigationHeader);
+
+  const navigationItemContainer = document.createElement("div");
+  navigationItemContainer.classList.add("collapse", "show");
+  navigationItemContainer.id = "--sourcekit-for-safari_symbol-navigation-items";
+  navigationList.appendChild(navigationItemContainer);
+
+  documentSymbols.forEach(documentSymbol => {
+    if (!isNaN(documentSymbol.kind)) {
+      return;
+    }
+
+    const symbolLetter = documentSymbol.kind.slice(0, 1).toUpperCase();
+    const imageSource = (() => {
+      if (typeof safari !== "undefined") {
+        return `${safari.extension.baseURI}${symbolLetter}`;
+      } else {
+        return chrome.extension.getURL(`images/${symbolLetter}`);
+      }
+    })();
+    const predefinedSymbols = ["S", "C", "I", "P", "M", "F", "E"];
+    const indentationStyle = `style="margin-left: ${10 *
+      documentSymbol.indent}px;"`;
+    const icon = predefinedSymbols.includes(symbolLetter)
+      ? `<img srcset="${imageSource}.png, ${imageSource}@2x.png 2x, ${imageSource}@3x.png 3x" width="16" height="16" align="center" ${indentationStyle} />`
+      : symbolLetter;
+
+    const navigationItem = document.createElement("a");
+    navigationItem.classList.add(
+      "list-group-item",
+      "list-group-item-action",
+      "text-nowrap"
+    );
+    navigationItem.href = `${documentUrl}#L${documentSymbol.start.line + 1}`;
+    navigationItem.innerHTML = `${icon} ${documentSymbol.name}`;
+    navigationItem.style.cssText = "white-space: nowrap;";
+    navigationItemContainer.appendChild(navigationItem);
+  });
+
+  navigator = tippy(document.querySelector(".blob-wrapper"), {
+    content: navigationContainer,
+    interactive: true,
+    arrow: false,
+    animation: false,
+    duration: 0,
+    placement: "right-start",
+    offset: [0, -100],
+    theme: "light-border",
+    trigger: "manual",
+    hideOnClick: false
+  });
+  return navigator;
+}
+
+exports.symbolNavigator = symbolNavigator;
+
+},{"tippy.js":218}]},{},[3]);

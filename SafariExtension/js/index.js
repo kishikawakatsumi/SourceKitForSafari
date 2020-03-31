@@ -1,8 +1,9 @@
 window.jQuery = $ = require("jquery");
 require("bootstrap");
 
-const tippy = require("tippy.js");
 const marked = require("marked");
+const GitUrlParse = require("git-url-parse");
+
 const hljs = require("highlight.js");
 marked.setOptions({
   highlight: function(code) {
@@ -10,153 +11,10 @@ marked.setOptions({
   }
 });
 
-const GitUrlParse = require("git-url-parse");
-
-const quickHelpElements = {};
-const quickHelpTemplate = `
-<div class="--sourcekit-for-safari　row">
-  <div class="col-12">
-    <div>
-      <ul class="--sourcekit-for-safari nav nav-tabs p-2" role="tablist">
-        <li class="nav-item tab-header-documentation"></li>
-        <li class="nav-item tab-header-definition"></li>
-        <li class="nav-item tab-header-references"></li>
-      </ul>
-    </div>
-    <div class="tab-content"></div>
-  </div>
-</div>
-`;
-
-let codeNavigation = null;
-let textDocument = null;
-
-function readLines(lines) {
-  textDocument = [];
-  const contents = [];
-  lines.forEach((line, index) => {
-    textDocument.push(line);
-    contents.push(line.innerText.replace(/^[\r\n]+|[\r\n]+$/g, ""));
-    readLine(line, index, 0);
-  });
-  return contents.join("\n");
-}
-
-function readLine(line, lineIndex, columnIndex) {
-  let nodes = line.childNodes;
-  for (var i = 0; i < nodes.length; i++) {
-    const node = nodes[i];
-    if (node.nodeName === "#text") {
-      if (!node.nodeValue.trim()) {
-        columnIndex += node.nodeValue.length;
-        continue;
-      }
-      var element = document.createElement("span");
-      element.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
-      element.dataset.lineNumber = lineIndex;
-      element.dataset.column = columnIndex;
-      element.dataset.parentClassList = `${node.parentNode.classList}`;
-      element.innerText = node.nodeValue;
-      node.parentNode.insertBefore(element, node);
-      node.parentNode.removeChild(node);
-
-      columnIndex += node.nodeValue.length;
-    } else {
-      node.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
-      node.dataset.lineNumber = lineIndex;
-      node.dataset.column = columnIndex;
-      if (node.childNodes.length > 0) {
-        readLine(node, lineIndex, columnIndex);
-        columnIndex += node.innerText.length;
-      }
-    }
-  }
-}
-
-function highlightReferences(documentHighlights) {
-  documentHighlights.forEach(documentHighlight => {
-    const start = documentHighlight.start;
-    const end = documentHighlight.end;
-    if (start.line != end.line) {
-      return;
-    }
-    const line = textDocument[start.line];
-    let column = 0;
-    line.childNodes.forEach(node => {
-      let length = 0;
-      if (node.nodeName === "#text") {
-        length += node.nodeValue.length;
-      } else {
-        length += node.innerText.length;
-      }
-      if (column <= start.character && end.character < column + length) {
-        node.classList.add("--sourcekit-for-safari_document-highlight");
-        if (!node.matches(":hover")) {
-          node.style.setProperty("background-color", "#8cc4ff");
-        }
-      }
-      column += length;
-    });
-  });
-}
-
-function setupQuickHelp(element, popoverContent) {
-  $(element).popover({
-    html: true,
-    content: popoverContent,
-    trigger: "manual",
-    placement: "bottom",
-    modifiers: [
-      {
-        name: "flip",
-        options: {
-          fallbackPlacements: ["top"]
-        }
-      }
-    ]
-  });
-  $(element).on("click", event => {
-    event.stopPropagation();
-    $(".--sourcekit-for-safari_quickhelp")
-      .not(element)
-      .popover("hide");
-    $(element).popover("toggle");
-  });
-  $(document).on("click", ".popover", event => {
-    event.stopPropagation();
-  });
-  $(document).off("click", "html");
-  $(document).on("click", "html", () => {
-    hideAllQuickHelpPopovers();
-  });
-  $(element).on("shown.bs.popover", () => {
-    document.querySelectorAll(".nav-link").forEach(nav => {
-      nav.dataset.toggle = "tab";
-    });
-    document
-      .querySelectorAll(".--sourcekit-for-safari_jump-to-definition")
-      .forEach(link => {
-        $(link).on("click", () => {
-          hideAllQuickHelpPopovers();
-        });
-      });
-  });
-}
-
-function setupQuickHelpContent(suffix) {
-  return (() => {
-    const id = `quickhelp${suffix}`;
-    const quickHelp = quickHelpElements[id];
-    const popover = quickHelp ? $(quickHelp) : $(quickHelpTemplate);
-    popover.attr("id", id);
-    quickHelpElements[id] = popover;
-    return popover;
-  })();
-}
-
-function hideAllQuickHelpPopovers() {
-  $(".--sourcekit-for-safari_quickhelp").popover("hide");
-}
+const { readLines, highlightReferences } = require("./parser");
+const { setupQuickHelp, setupQuickHelpContent } = require("./quickhelp");
+const { symbolNavigator } = require("./symbol_navigator");
+const { normalizedLocation } = require("./helper");
 
 function dispatchMessage(messageName, userInfo) {
   if (typeof safari !== "undefined") {
@@ -195,11 +53,6 @@ function handleResponse(event, parsedUrl) {
       switch (event.message.request) {
         case "documentSymbol":
           (() => {
-            if (codeNavigation) {
-              codeNavigation.destroy();
-              codeNavigation = null;
-            }
-
             const value = event.message.value;
             if (value && Array.isArray(value)) {
               const symbols = value.filter(documentSymbol => {
@@ -209,87 +62,7 @@ function handleResponse(event, parsedUrl) {
                 return;
               }
 
-              const navigationContainer = document.createElement("div");
-              navigationContainer.classList.add(
-                "--sourcekit-for-safari_symbol-navigation",
-                "overflow-auto"
-              );
-
-              const navigationList = document.createElement("div");
-              navigationList.classList.add("list-group", "col-12");
-
-              const blobCodeInner = document.querySelector(".blob-code-inner");
-              const style = getComputedStyle(blobCodeInner);
-              navigationList.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize};`;
-
-              navigationContainer.appendChild(navigationList);
-
-              const navigationHeader = document.createElement("a");
-              navigationHeader.href =
-                "#--sourcekit-for-safari_symbol-navigation-items";
-              navigationHeader.classList.add(
-                "list-group-item",
-                "list-group-item-action"
-              );
-              navigationHeader.dataset.toggle = "collapse";
-              navigationHeader.innerHTML = "Symbol Navigator ▾";
-              navigationHeader.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize}; font-weight: bold;`;
-              navigationList.appendChild(navigationHeader);
-
-              const navigationItemContainer = document.createElement("div");
-              navigationItemContainer.classList.add("collapse", "show");
-              navigationItemContainer.id =
-                "--sourcekit-for-safari_symbol-navigation-items";
-              navigationList.appendChild(navigationItemContainer);
-
-              symbols.forEach(documentSymbol => {
-                if (!isNaN(documentSymbol.kind)) {
-                  return;
-                }
-
-                const symbolLetter = documentSymbol.kind
-                  .slice(0, 1)
-                  .toUpperCase();
-                const imageSource = (() => {
-                  if (typeof safari !== "undefined") {
-                    return `${safari.extension.baseURI}${symbolLetter}`;
-                  } else {
-                    return chrome.extension.getURL(`images/${symbolLetter}`);
-                  }
-                })();
-                const supportedSymbols = ["S", "C", "I", "P", "M", "F", "E"];
-                const indentationStyle = `style="margin-left: ${10 *
-                  documentSymbol.indent}px;"`;
-                const icon = supportedSymbols.includes(symbolLetter)
-                  ? `<img srcset="${imageSource}.png, ${imageSource}@2x.png 2x, ${imageSource}@3x.png 3x" width="16" height="16" align="center" ${indentationStyle} />`
-                  : symbolLetter;
-
-                const navigationItem = document.createElement("a");
-                navigationItem.classList.add(
-                  "list-group-item",
-                  "list-group-item-action",
-                  "text-nowrap"
-                );
-                navigationItem.href = `${parsedUrl.href}#L${documentSymbol.start
-                  .line + 1}`;
-                navigationItem.innerHTML = `${icon} ${documentSymbol.name}`;
-                navigationItem.style.cssText = "white-space: nowrap;";
-                navigationItemContainer.appendChild(navigationItem);
-              });
-
-              codeNavigation = tippy(document.querySelector(".blob-wrapper"), {
-                content: navigationContainer,
-                interactive: true,
-                arrow: false,
-                animation: false,
-                duration: 0,
-                placement: "right-start",
-                offset: [0, -100],
-                theme: "light-border",
-                trigger: "manual",
-                hideOnClick: false
-              });
-              codeNavigation.show();
+              symbolNavigator(symbols, parsedUrl.href).show();
             }
           })();
           break;
@@ -581,15 +354,11 @@ const activate = () => {
   }
 };
 
-function normalizedLocation() {
-  return document.location.href.replace(/#.*$/, "");
-}
-
 let href = normalizedLocation();
 window.onload = () => {
   let body = document.querySelector("body"),
     observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
+      mutations.forEach(() => {
         const newLocation = normalizedLocation();
         if (href != newLocation) {
           href = newLocation;
