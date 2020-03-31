@@ -462,15 +462,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
             URLSession.shared.dataTask(with: URL(string: "http://127.0.0.1:\(self.port)/status")!) { (data, response, error) in
+                let attachment = NSTextAttachment()
+                attachment.image = NSImage(named: NSImage.statusAvailableName)
+                attachment.bounds = NSRect(x: 0, y: -1.5, width: 12, height: 12)
+
                 guard
                     error == nil,
                     let response = response as? HTTPURLResponse, response.statusCode == 200,
                     let data = data, let _ = String(data: data, encoding: .utf8)
                     else {
-                        chromeHelper.title = "Chrome Extension Helper: Unavaiable"
+                        let attributedTitle = NSMutableAttributedString(string: "Chrome Extension Helper: Unavaiable ")
+                        attributedTitle.append(NSAttributedString(attachment: attachment))
+                        chromeHelper.attributedTitle = attributedTitle
                         return
                 }
-                chromeHelper.title = "Chrome Extension Helper: Operational"
+                let attributedTitle = NSMutableAttributedString(string: "Chrome Extension Helper: Operational ")
+                attributedTitle.append(NSAttributedString(attachment: attachment))
+                chromeHelper.attributedTitle = attributedTitle
             }
             .resume()
         }
