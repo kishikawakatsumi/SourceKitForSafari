@@ -282,53 +282,31 @@ const activate = () => {
     if (element.dataset.parentClassList.split(" ").includes("pl-c")) {
       return;
     }
+
+    const suffix = `-${+element.dataset.lineNumber}:${+element.dataset.column}`;
+    const userInfo = {
+      resource: parsedUrl.resource,
+      slug: parsedUrl.full_name,
+      filepath: parsedUrl.filepath,
+      line: +element.dataset.lineNumber,
+      character: +element.dataset.column,
+      text: element.innerText
+    };
     if (!element.dataset.hoverRequestState) {
-      element.dataset.hoverRequestState = `requesting-${+element.dataset
-        .lineNumber}:${+element.dataset.column}`;
-      dispatchMessage("hover", {
-        resource: parsedUrl.resource,
-        slug: parsedUrl.full_name,
-        filepath: parsedUrl.filepath,
-        line: +element.dataset.lineNumber,
-        character: +element.dataset.column,
-        text: element.innerText
-      });
+      element.dataset.hoverRequestState = `requesting${suffix}`;
+      dispatchMessage("hover", userInfo);
     }
     if (!element.dataset.definitionRequestState) {
-      element.dataset.definitionRequestState = `requesting-${+element.dataset
-        .lineNumber}:${+element.dataset.column}`;
-      dispatchMessage("definition", {
-        resource: parsedUrl.resource,
-        slug: parsedUrl.full_name,
-        filepath: parsedUrl.filepath,
-        line: +element.dataset.lineNumber,
-        character: +element.dataset.column,
-        text: element.innerText
-      });
+      element.dataset.definitionRequestState = `requesting${suffix}`;
+      dispatchMessage("definition", userInfo);
     }
     if (!element.dataset.referencesRequestState) {
-      element.dataset.referencesRequestState = `requesting-${+element.dataset
-        .lineNumber}:${+element.dataset.column}`;
-      dispatchMessage("references", {
-        resource: parsedUrl.resource,
-        slug: parsedUrl.full_name,
-        filepath: parsedUrl.filepath,
-        line: +element.dataset.lineNumber,
-        character: +element.dataset.column,
-        text: element.innerText
-      });
+      element.dataset.referencesRequestState = `requesting${suffix}`;
+      dispatchMessage("references", userInfo);
     }
     if (!element.dataset.documentHighlightRequestState) {
-      element.dataset.documentHighlightRequestState = `requesting-${+element
-        .dataset.lineNumber}:${+element.dataset.column}`;
-      dispatchMessage("documentHighlight", {
-        resource: parsedUrl.resource,
-        slug: parsedUrl.full_name,
-        filepath: parsedUrl.filepath,
-        line: +element.dataset.lineNumber,
-        character: +element.dataset.column,
-        text: element.innerText
-      });
+      element.dataset.documentHighlightRequestState = `requesting${suffix}`;
+      dispatchMessage("documentHighlight", userInfo);
     } else {
       if (element.dataset.documentHighlight) {
         highlightReferences(JSON.parse(element.dataset.documentHighlight));
