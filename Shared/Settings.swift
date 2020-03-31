@@ -2,20 +2,6 @@ import Foundation
 import SQLite3
 
 final class Settings {
-    static let groupIdentifier: String = {
-        guard let task = SecTaskCreateFromSelf(nil),
-            let groups = SecTaskCopyValueForEntitlement(task, NSString("com.apple.security.application-groups"), nil) as? [String],
-            let groupIdentifier = groups.first
-            else { preconditionFailure() }
-        return groupIdentifier
-    }()
-
-    static let groupContainer: URL = {
-        guard let groupContainer = FileManager().containerURL(forSecurityApplicationGroupIdentifier: groupIdentifier)
-            else { preconditionFailure() }
-        return groupContainer
-    }()
-
     var server: Server {
         get {
             load(&storage)
@@ -115,7 +101,7 @@ final class Settings {
     }
 
     private var storage: Storage
-    private lazy var database = SQLite(path: Self.groupContainer.appendingPathComponent("Library/Preferences/Settings.sqlite").path)
+    private lazy var database = SQLite(path: AppGroup.container.appendingPathComponent("Library/Preferences/Settings.sqlite").path)
 
     init() {
         storage = Storage(
