@@ -49998,7 +49998,7 @@ function symbolNavigator(documentSymbols, documentUrl) {
     animation: false,
     duration: 0,
     placement: "right-start",
-    offset: [0, -100],
+    offset: [0, 4],
     theme: "light-border",
     trigger: "manual",
     hideOnClick: false
