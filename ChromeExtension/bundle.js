@@ -94,30 +94,19 @@ function handleResponse(event, parsedUrl) {
                 element.dataset.hoverRequestState = "finished";
                 element.classList.add("--sourcekit-for-safari_quickhelp");
 
-                const documentationContainer = document.createElement("div");
-                documentationContainer.classList.add(
+                const container = document.createElement("div");
+                container.classList.add(
                   "--sourcekit-for-safari_documentation-container",
                   "--sourcekit-for-safari_documentation"
                 );
-                documentationContainer.innerHTML = documentation;
+                container.innerHTML = documentation;
 
-                const tabContent = document.createElement("div");
-                tabContent.innerHTML = `
-                  <div class="tab-pane active overflow-auto" id="documentation${suffix}" role="tabpanel" aria-labelledby="documentation-tab">
-                    ${documentationContainer.outerHTML}
-                  </div>
-                `;
-
-                const popoverContent = setupQuickHelpContent(suffix);
-                $(".tab-header-documentation", popoverContent).replaceWith(
-                  `
-                  <li class="nav-item tab-header-documentation">
-                    <a class="nav-link active" id="documentation-tab${suffix}" data-toggle="tab" href="#documentation${suffix}" role="tab" aria-controls="documentation" aria-selected="true">Documentation</a>
-                  </li>
-                  `
+                const popoverContent = setupQuickHelpContent(
+                  "documentation",
+                  suffix,
+                  container.outerHTML,
+                  true
                 );
-                $(".nav-link", popoverContent).attr("data-toggle", "tab");
-                $(".tab-content", popoverContent).append(tabContent.innerHTML);
 
                 const popover = $(element).data("bs.popover");
                 if (popover) {
@@ -186,26 +175,15 @@ function handleResponse(event, parsedUrl) {
                 element.dataset.definitionRequestState = "finished";
                 element.classList.add("--sourcekit-for-safari_quickhelp");
 
-                const definitionContainer = document.createElement("div");
-                definitionContainer.innerHTML = definition;
+                const container = document.createElement("div");
+                container.innerHTML = definition;
 
-                const tabContent = document.createElement("div");
-                tabContent.innerHTML = `
-                  <div class="tab-pane overflow-auto" id="definition${suffix}" role="tabpanel" aria-labelledby="definition-tab">
-                    ${definitionContainer.outerHTML}
-                  </div>
-                `;
-
-                const popoverContent = setupQuickHelpContent(suffix);
-                $(".tab-header-definition", popoverContent).replaceWith(
-                  `
-                  <li class="nav-item tab-header-definition">
-                    <a class="nav-link" id="definition-tab${suffix}" data-toggle="tab" href="#definition${suffix}" role="tab" aria-controls="definition" aria-selected="true">Definition</a>
-                  </li>
-                  `
+                const popoverContent = setupQuickHelpContent(
+                  "definition",
+                  suffix,
+                  container.outerHTML,
+                  false
                 );
-                $(".nav-link", popoverContent).attr("data-toggle", "tab");
-                $(".tab-content", popoverContent).append(tabContent.innerHTML);
 
                 const popover = $(element).data("bs.popover");
                 if (popover) {
@@ -49905,15 +49883,34 @@ function setupQuickHelp(element, popoverContent) {
   });
 }
 
-function setupQuickHelpContent(suffix) {
-  return (() => {
-    const id = `quickhelp${suffix}`;
-    const quickHelp = quickHelpElements[id];
-    const popover = quickHelp ? $(quickHelp) : $(quickHelpTemplate);
-    popover.attr("id", id);
-    quickHelpElements[id] = popover;
-    return popover;
-  })();
+function setupQuickHelpContent(prefix, suffix, content, isActive) {
+  const id = `quickhelp${suffix}`;
+  const quickHelp = quickHelpElements[id];
+  const popover = quickHelp ? $(quickHelp) : $(quickHelpTemplate);
+  popover.attr("id", id);
+  quickHelpElements[id] = popover;
+
+  const activeClass = isActive ? "active" : "";
+
+  const tabContent = document.createElement("div");
+  tabContent.innerHTML = `
+    <div class="tab-pane ${activeClass} overflow-auto" id="${prefix}${suffix}" role="tabpanel" aria-labelledby="${prefix}-tab">
+      ${content}
+    </div>
+  `;
+
+  $(`.tab-header-${prefix}`, popover).replaceWith(
+    `
+    <li class="nav-item tab-header-${prefix}">
+      <a class="nav-link ${activeClass}" id="${prefix}-tab${suffix}" data-toggle="tab" href="#${prefix}${suffix}" 
+         role="tab" aria-controls="${prefix}" aria-selected="${isActive}">${prefix.toUpperCase()}</a>
+    </li>
+    `
+  );
+  $(".nav-link", popover).attr("data-toggle", "tab");
+  $(".tab-content", popover).append(tabContent.innerHTML);
+
+  return popover;
 }
 
 function hideAllQuickHelpPopovers() {

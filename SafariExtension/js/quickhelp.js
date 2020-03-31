@@ -59,15 +59,34 @@ function setupQuickHelp(element, popoverContent) {
   });
 }
 
-function setupQuickHelpContent(suffix) {
-  return (() => {
-    const id = `quickhelp${suffix}`;
-    const quickHelp = quickHelpElements[id];
-    const popover = quickHelp ? $(quickHelp) : $(quickHelpTemplate);
-    popover.attr("id", id);
-    quickHelpElements[id] = popover;
-    return popover;
-  })();
+function setupQuickHelpContent(prefix, suffix, content, isActive) {
+  const id = `quickhelp${suffix}`;
+  const quickHelp = quickHelpElements[id];
+  const popover = quickHelp ? $(quickHelp) : $(quickHelpTemplate);
+  popover.attr("id", id);
+  quickHelpElements[id] = popover;
+
+  const activeClass = isActive ? "active" : "";
+
+  const tabContent = document.createElement("div");
+  tabContent.innerHTML = `
+    <div class="tab-pane ${activeClass} overflow-auto" id="${prefix}${suffix}" role="tabpanel" aria-labelledby="${prefix}-tab">
+      ${content}
+    </div>
+  `;
+
+  $(`.tab-header-${prefix}`, popover).replaceWith(
+    `
+    <li class="nav-item tab-header-${prefix}">
+      <a class="nav-link ${activeClass}" id="${prefix}-tab${suffix}" data-toggle="tab" href="#${prefix}${suffix}" 
+         role="tab" aria-controls="${prefix}" aria-selected="${isActive}">${prefix.toUpperCase()}</a>
+    </li>
+    `
+  );
+  $(".nav-link", popover).attr("data-toggle", "tab");
+  $(".tab-content", popover).append(tabContent.innerHTML);
+
+  return popover;
 }
 
 function hideAllQuickHelpPopovers() {
