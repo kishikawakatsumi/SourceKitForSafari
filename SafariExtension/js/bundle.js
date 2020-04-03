@@ -57,6 +57,8 @@ function dispatchMessage(messageName, userInfo) {
   }
 }
 
+var setupMouseovers;
+
 function handleResponse(event, parsedUrl) {
   switch (event.name) {
     case "response":
@@ -73,6 +75,7 @@ function handleResponse(event, parsedUrl) {
               }
 
               symbolNavigator(symbols, parsedUrl.href).show();
+              setupMouseovers();
             }
           })();
           break;
@@ -196,6 +199,77 @@ function handleResponse(event, parsedUrl) {
           })();
           break;
         case "references":
+          (() => {
+            const suffix = `-${event.message.line}-${event.message.character}`;
+            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+              if (
+                !element.dataset.referencesRequestState ||
+                element.dataset.references
+              ) {
+                return;
+              }
+
+              const value = event.message.value;
+              if (value && value.locations) {
+                const definitions = [];
+                value.locations.forEach(location => {
+                  if (location.uri) {
+                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
+                    definitions.push({
+                      href: href,
+                      path: location.uri,
+                      content: location.content
+                    });
+                  } else {
+                    definitions.push({
+                      path: location.filename,
+                      content: location.content
+                    });
+                  }
+                });
+
+                // prettier-ignore
+                const definition = definitions
+                  .map(definition => {
+                    const href = definition.href || ""
+                    const referenceLineNumber = href
+                      .replace(parsedUrl.href, "")
+                      .replace("#L", "");
+                    const onThisFile = href.includes(parsedUrl.href);
+                    const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
+                    const linkOrText = href ?
+                      `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "on this line" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
+                      `<span class="--sourcekit-for-safari_text-bold">${definition.path}</span>`
+                    return `
+                      <div class="--sourcekit-for-safari_bg-gray">
+                      referenced ${linkOrText} <pre class="--sourcekit-for-safari_code"><code>${hljs.highlight("swift", definition.content).value}</code></pre>
+                      </div>
+                      `;
+                  })
+                  .join("\n");
+                element.dataset.references = definition;
+                element.dataset.referencesRequestState = "finished";
+                element.classList.add("--sourcekit-for-safari_quickhelp");
+
+                const container = document.createElement("div");
+                container.innerHTML = definition;
+
+                const popoverContent = setupQuickHelpContent(
+                  "references",
+                  suffix,
+                  container.outerHTML,
+                  false
+                );
+
+                const popover = $(element).data("bs.popover");
+                if (popover) {
+                  popover.config.content = popoverContent.prop("outerHTML");
+                } else {
+                  setupQuickHelp(element, popoverContent);
+                }
+              }
+            });
+          })();
           break;
         case "documentHighlight":
           (() => {
@@ -261,6 +335,7 @@ const activate = () => {
     text: text
   });
 
+  setupMouseovers = function() {
   const onMouseover = e => {
     let element = e.target;
 
@@ -312,6 +387,7 @@ const activate = () => {
       });
   };
   document.addEventListener("mouseout", onMouseoout);
+  };
 
   if (typeof safari !== "undefined") {
     safari.self.addEventListener("message", event => {

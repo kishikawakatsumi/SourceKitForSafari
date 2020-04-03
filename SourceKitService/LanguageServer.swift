@@ -42,6 +42,12 @@ final class LanguageServer {
 
         let rootURI = Workspace.documentRoot(resource: resource, slug: slug)
 
+        let buildProcess = Process()
+        buildProcess.launchPath = "/usr/bin/swift"
+        buildProcess.arguments = ["build"]
+        buildProcess.currentDirectoryURL = rootURI
+        buildProcess.launch()
+
         connection.start(receiveHandler: Client())
 
         serverProcess.launchPath = serverPath
@@ -72,8 +78,9 @@ final class LanguageServer {
         )
         _ = connection.send(request, queue: queue) { [weak self] in
             guard let self = self else { return }
-            completion($0)
+            buildProcess.waitUntilExit()
             self.state = .running
+            completion($0)
         }
     }
 
