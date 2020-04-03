@@ -214,7 +214,8 @@ function handleResponse(event, parsedUrl) {
                 const definitions = [];
                 value.locations.forEach(location => {
                   if (location.uri) {
-                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
+                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`
+                      .replace(/(blob\/master)\/.build\/checkouts\/([^\/]+)\//, "../$2/$1/");
                     definitions.push({
                       href: href,
                       path: location.uri,
