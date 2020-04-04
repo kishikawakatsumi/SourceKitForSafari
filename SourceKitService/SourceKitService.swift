@@ -95,7 +95,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 if let response = response {
                     switch response {
                     case .locations(let locations):
-                        reply(true, ["result": "success", "value": self.encodeResponse(locations)])
+                        reply(true, ["result": "success", "value": self.encodeResponse(locations, contentLines: 10)])
                     case .locationLinks(let locationLinks):
                         reply(true, ["result": "success", "value": self.encodeResponse(locationLinks)])
                     }
@@ -117,7 +117,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
             switch $0 {
             case .success(let response):
                 let locations: [Location] = response
-                reply(true, ["result": "success", "value": self.encodeResponse(locations)])
+                reply(true, ["result": "success", "value": self.encodeResponse(locations, contentLines: 1)])
             case .failure(let error):
                 reply(false, ["result": "error \(error)"])
             }
@@ -436,7 +436,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         return response
     }
 
-    private func encodeResponse(_ locations: [Location]) -> [[String: Any]] {
+    private func encodeResponse(_ locations: [Location], contentLines: Int) -> [[String: Any]] {
         var response = [[String: Any]]()
         for location in locations {
             let start = location.range.lowerBound
@@ -449,7 +449,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 let lines = source
                     .split(separator: "\n", omittingEmptySubsequences: false)
                     .dropFirst(start.line)
-                    .prefix(10)
+                    .prefix(contentLines)
                 content = lines.joined(separator: "\n")
             }
 
