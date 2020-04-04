@@ -102,6 +102,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                                 let line = start["line"] as? Int else { return nil }
 
                             let filename = location["filename"] ?? ""
+                            let lineNumber = line + 1
                             let content = location["content"] ?? ""
                             
                             if !uri.isEmpty {
@@ -112,9 +113,9 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                                     .joined(separator: "/")
                                     .appending("#L\(line + 1)")
 
-                                return ["uri": ref, "filename": filename, "content": content]
+                                return ["uri": ref, "filename": filename, "lineNumber": lineNumber, "content": content]
                             } else {
-                                return ["uri": "", "filename": filename, "content": content]
+                                return ["uri": "", "filename": filename, "lineNumber": lineNumber, "content": content]
                             }
                         }
 

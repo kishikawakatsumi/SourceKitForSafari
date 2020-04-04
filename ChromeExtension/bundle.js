@@ -139,11 +139,13 @@ function handleResponse(event, parsedUrl) {
                     definitions.push({
                       href: href,
                       path: location.uri,
+                      lineNumber: location.lineNumber,
                       content: location.content
                     });
                   } else {
                     definitions.push({
                       path: location.filename,
+                      lineNumber: location.lineNumber,
                       content: location.content
                     });
                   }
@@ -153,11 +155,8 @@ function handleResponse(event, parsedUrl) {
                 const definition = definitions
                   .map(definition => {
                     const href = definition.href || ""
-                    const referenceLineNumber = href
-                      .replace(parsedUrl.href, "")
-                      .replace("#L", "");
                     const onThisFile = href.includes(parsedUrl.href);
-                    const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
+                    const thisIsTheDefinition = onThisFile && definition.lineNumber == +element.dataset.lineNumber + 1;
                     const text = thisIsTheDefinition ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>` : `Defined ${onThisFile ? "on" : "in"}`;
                     const linkOrText = href ?
                       `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
@@ -166,9 +165,22 @@ function handleResponse(event, parsedUrl) {
                       <div class="--sourcekit-for-safari_bg-gray --sourcekit-for-safari_header">
                         ${text} ${linkOrText}
                       </div>
-                      <div>
-                        <pre class="--sourcekit-for-safari_definition --sourcekit-for-safari_code"><code>${hljs.highlight("swift", definition.content).value}</code></pre>
-                      </div>
+                      <div class="--sourcekit-for-safari_definition-header"></div>
+                      ${definition.content
+                        .split("\n")
+                        .map((line, index) => {
+                          return `
+                            <div class="--sourcekit-for-safari_definition --sourcekit-for-safari_code">
+                              <div class="--sourcekit-for-safari_line-number">
+                                <pre><code>${definition.lineNumber + index}</code></pre>
+                              </div>
+                              <div>
+                                <pre><code>${hljs.highlight("swift", line).value}</code></pre>
+                              </div>
+                            </div>
+                            `;
+                        })
+                        .join("\n")}
                       `;
                   })
                   .join("\n");
@@ -216,14 +228,14 @@ function handleResponse(event, parsedUrl) {
                     references.push({
                       href: href,
                       path: location.uri,
-                      content: location.content,
-                      lineNumber: location.lineNumber
+                      lineNumber: location.lineNumber,
+                      content: location.content
                     });
                   } else {
                     references.push({
                       path: location.filename,
-                      content: location.content,
-                      lineNumber: location.lineNumber
+                      lineNumber: location.lineNumber,
+                      content: location.content
                     });
                   }
                 });

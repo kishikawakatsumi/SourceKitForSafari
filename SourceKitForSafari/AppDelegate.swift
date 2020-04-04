@@ -87,7 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             do {
                 let semaphore = DispatchSemaphore(value: 0)
-                self.service.synchronizeRepository(repository) { (successfully, response) in
+                self.service.synchronizeRepository(repository, ignoreLastUpdate: true) { (successfully, response) in
                     semaphore.signal()
                 }
                 semaphore.wait()
@@ -306,6 +306,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                 let line = start["line"] as? Int else { return nil }
 
                             let filename = location["filename"] ?? ""
+                            let lineNumber = line + 1
                             let content = location["content"] ?? ""
 
                             if !uri.isEmpty {
@@ -316,9 +317,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                     .joined(separator: "/")
                                     .appending("#L\(line + 1)")
 
-                                return ["uri": ref, "filename": filename, "content": content]
+                                return ["uri": ref, "filename": filename, "lineNumber": lineNumber, "content": content]
                             } else {
-                                return ["uri": "", "filename": filename, "content": content]
+                                return ["uri": "", "filename": filename, "lineNumber": lineNumber, "content": content]
                             }
                         }
 

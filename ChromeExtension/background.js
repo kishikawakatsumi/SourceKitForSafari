@@ -88,7 +88,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             sendResponse(JSON.stringify(response));
           })
           .catch(error => {
-            console.error(`[${url}] ${error}`);
+            console.error(`[${url}] ${userInfo} ${error}`);
           });
       })();
       break;
