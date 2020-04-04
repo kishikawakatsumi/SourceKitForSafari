@@ -378,6 +378,15 @@ pre > code {
   font-size: 14px;
 }
 
+.--sourcekit-for-safari_documentation > ol,
+.--sourcekit-for-safari_documentation > ul {
+  padding-left: 16px;
+}
+
+li ul {
+  padding-left: 16px;
+}
+
 .--sourcekit-for-safari_symbol-navigation .list-group-item {
   padding: 4px 2px;
   margin-bottom: 0;
