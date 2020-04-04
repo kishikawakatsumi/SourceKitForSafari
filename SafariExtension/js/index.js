@@ -155,11 +155,11 @@ function handleResponse(event, parsedUrl) {
                       `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
                       `<span class="--sourcekit-for-safari_text-bold">${definition.path}</span>`
                     return `
-                      <div class="--sourcekit-for-safari_bg-gray">
+                      <div class="--sourcekit-for-safari_bg-gray --sourcekit-for-safari_header">
                         ${text} ${linkOrText}
                       </div>
                       <div>
-                        <pre class="--sourcekit-for-safari_code"><code>${hljs.highlight("swift", definition.content).value}</code></pre>
+                        <pre class="--sourcekit-for-safari_definition --sourcekit-for-safari_code"><code>${hljs.highlight("swift", definition.content).value}</code></pre>
                       </div>
                       `;
                   })
@@ -201,49 +201,82 @@ function handleResponse(event, parsedUrl) {
 
               const value = event.message.value;
               if (value && value.locations) {
-                const definitions = [];
+                const references = [];
                 value.locations.forEach(location => {
                   if (location.uri) {
-                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`
-                      .replace(/(blob\/master)\/.build\/checkouts\/([^\/]+)\//, "../$2/$1/");
-                    definitions.push({
+                    const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
+                    references.push({
                       href: href,
                       path: location.uri,
-                      content: location.content
+                      content: location.content,
+                      lineNumber: location.lineNumber
                     });
                   } else {
-                    definitions.push({
+                    references.push({
                       path: location.filename,
-                      content: location.content
+                      content: location.content,
+                      lineNumber: location.lineNumber
                     });
                   }
                 });
 
-                // prettier-ignore
-                const definition = definitions
-                  .map(definition => {
-                    const href = definition.href || ""
-                    const referenceLineNumber = href
-                      .replace(parsedUrl.href, "")
-                      .replace("#L", "");
-                    const onThisFile = href.includes(parsedUrl.href);
-                    const thisIsTheDefinition = onThisFile && referenceLineNumber == +element.dataset.lineNumber + 1;
-                    const linkOrText = href ?
-                      `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "on this line" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
-                      `<span class="--sourcekit-for-safari_text-bold">${definition.path}</span>`
-                    return `
-                      <div class="--sourcekit-for-safari_bg-gray">
-                      referenced ${linkOrText} <pre class="--sourcekit-for-safari_code"><code>${hljs.highlight("swift", definition.content).value}</code></pre>
-                      </div>
-                      `;
+                const referenceGroups = {};
+                const referenceGroupHeaders = [];
+                references.forEach(reference => {
+                  const hash = reference.href
+                    ? new URL(reference.href).hash
+                    : "";
+                  const path = reference.path.replace(hash, "");
+                  let references = referenceGroups[path];
+                  if (!references) {
+                    references = [];
+                    referenceGroups[path] = references;
+                    referenceGroupHeaders.push(path);
+                  }
+                  references.push(reference);
+                });
+
+                const numOfRefs = references.length;
+                const numOfFiles = Object.keys(referenceGroups).length;
+                const header = `<div class="--sourcekit-for-safari_bg-gray --sourcekit-for-safari_header">Found <span class="--sourcekit-for-safari_text-bold">${numOfRefs} references</span> in <span class="--sourcekit-for-safari_text-bold">${numOfFiles} files</span></div>`;
+
+                const reference = referenceGroupHeaders
+                  .map(groupHeader => {
+                    const group = referenceGroups[groupHeader];
+                    return (
+                      `<div class="--sourcekit-for-safari_reference-header --sourcekit-for-safari_text-bold">${groupHeader}</div>` +
+                      group
+                        .map(reference => {
+                          const code = hljs.highlight(
+                            "swift",
+                            reference.content
+                          ).value;
+                          const content = `
+                            <div class="--sourcekit-for-safari_reference">
+                              <div class="--sourcekit-for-safari_line-number">
+                                <pre><code>${reference.lineNumber}</code></pre>
+                              </div>
+                              <div>
+                                <pre><code>${code}</code></pre>
+                              </div>
+                            </div>
+                            `;
+                          return reference.href
+                            ? `<a class="--sourcekit-for-safari_reference-link" href="${reference.href}">${content}</a>`
+                            : content;
+                        })
+                        .join("\n")
+                    );
                   })
                   .join("\n");
-                element.dataset.references = definition;
+
+                const content = header + reference;
+                element.dataset.references = content;
                 element.dataset.referencesRequestState = "finished";
                 element.classList.add("--sourcekit-for-safari_quickhelp");
 
                 const container = document.createElement("div");
-                container.innerHTML = definition;
+                container.innerHTML = content;
 
                 const popoverContent = setupQuickHelpContent(
                   "references",
@@ -327,57 +360,58 @@ const activate = () => {
   });
 
   setupMouseovers = function() {
-  const onMouseover = e => {
-    let element = e.target;
+    const onMouseover = e => {
+      let element = e.target;
 
-    if (!element.classList.contains("symbol")) {
-      return;
-    }
-    if (element.dataset.parentClassList.split(" ").includes("pl-c")) {
-      return;
-    }
-
-    const suffix = `-${+element.dataset.lineNumber}:${+element.dataset.column}`;
-    const userInfo = {
-      resource: parsedUrl.resource,
-      slug: parsedUrl.full_name,
-      filepath: parsedUrl.filepath,
-      line: +element.dataset.lineNumber,
-      character: +element.dataset.column,
-      text: element.innerText
-    };
-    if (!element.dataset.hoverRequestState) {
-      element.dataset.hoverRequestState = `requesting${suffix}`;
-      dispatchMessage("hover", userInfo);
-    }
-    if (!element.dataset.definitionRequestState) {
-      element.dataset.definitionRequestState = `requesting${suffix}`;
-      dispatchMessage("definition", userInfo);
-    }
-    if (!element.dataset.referencesRequestState) {
-      element.dataset.referencesRequestState = `requesting${suffix}`;
-      dispatchMessage("references", userInfo);
-    }
-    if (!element.dataset.documentHighlightRequestState) {
-      element.dataset.documentHighlightRequestState = `requesting${suffix}`;
-      dispatchMessage("documentHighlight", userInfo);
-    } else {
-      if (element.dataset.documentHighlight) {
-        highlightReferences(JSON.parse(element.dataset.documentHighlight));
+      if (!element.classList.contains("symbol")) {
+        return;
       }
-    }
-  };
-  document.addEventListener("mouseover", onMouseover);
+      if (element.dataset.parentClassList.split(" ").includes("pl-c")) {
+        return;
+      }
 
-  const onMouseoout = e => {
-    document
-      .querySelectorAll(".--sourcekit-for-safari_document-highlight")
-      .forEach(element => {
-        element.classList.remove("--sourcekit-for-safari_document-highlight");
-        element.style.removeProperty("background-color");
-      });
-  };
-  document.addEventListener("mouseout", onMouseoout);
+      const suffix = `-${+element.dataset.lineNumber}:${+element.dataset
+        .column}`;
+      const userInfo = {
+        resource: parsedUrl.resource,
+        slug: parsedUrl.full_name,
+        filepath: parsedUrl.filepath,
+        line: +element.dataset.lineNumber,
+        character: +element.dataset.column,
+        text: element.innerText
+      };
+      if (!element.dataset.hoverRequestState) {
+        element.dataset.hoverRequestState = `requesting${suffix}`;
+        dispatchMessage("hover", userInfo);
+      }
+      if (!element.dataset.definitionRequestState) {
+        element.dataset.definitionRequestState = `requesting${suffix}`;
+        dispatchMessage("definition", userInfo);
+      }
+      if (!element.dataset.referencesRequestState) {
+        element.dataset.referencesRequestState = `requesting${suffix}`;
+        dispatchMessage("references", userInfo);
+      }
+      if (!element.dataset.documentHighlightRequestState) {
+        element.dataset.documentHighlightRequestState = `requesting${suffix}`;
+        dispatchMessage("documentHighlight", userInfo);
+      } else {
+        if (element.dataset.documentHighlight) {
+          highlightReferences(JSON.parse(element.dataset.documentHighlight));
+        }
+      }
+    };
+    document.addEventListener("mouseover", onMouseover);
+
+    const onMouseoout = e => {
+      document
+        .querySelectorAll(".--sourcekit-for-safari_document-highlight")
+        .forEach(element => {
+          element.classList.remove("--sourcekit-for-safari_document-highlight");
+          element.style.removeProperty("background-color");
+        });
+    };
+    document.addEventListener("mouseout", onMouseoout);
   };
 
   if (typeof safari !== "undefined") {
@@ -387,28 +421,30 @@ const activate = () => {
   }
 };
 
-let href = normalizedLocation();
-window.onload = () => {
-  let body = document.querySelector("body"),
-    observer = new MutationObserver(mutations => {
-      mutations.forEach(() => {
-        const newLocation = normalizedLocation();
-        if (href != newLocation) {
-          href = newLocation;
-          setTimeout(() => {
-            activate();
-          }, 1000);
-        }
+(() => {
+  let href = normalizedLocation();
+  window.onload = () => {
+    let body = document.querySelector("body"),
+      observer = new MutationObserver(mutations => {
+        mutations.forEach(() => {
+          const newLocation = normalizedLocation();
+          if (href != newLocation) {
+            href = newLocation;
+            setTimeout(() => {
+              activate();
+            }, 1000);
+          }
+        });
       });
-    });
 
-  const config = {
-    childList: true,
-    subtree: true
+    const config = {
+      childList: true,
+      subtree: true
+    };
+
+    observer.observe(body, config);
   };
-
-  observer.observe(body, config);
-};
+})();
 
 if (typeof safari !== "undefined") {
   document.addEventListener("DOMContentLoaded", event => {

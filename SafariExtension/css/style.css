@@ -14,6 +14,9 @@
   background-color: #fafbfc;
   color: #24292e;
   border-top: 1px solid #e1e4e8;
+}
+
+.--sourcekit-for-safari_header {
   font-size: 12px;
   padding: 4px 16px;
 }
@@ -22,9 +25,44 @@
   font-weight: bold;
 }
 
+.--sourcekit-for-safari_definition {
+  border-top: 1px solid #e1e4e8;
+}
+
+.--sourcekit-for-safari_reference-header {
+  font-size: 12px;
+  padding: 4px 16px;
+  border-top: 1px solid #e1e4e8;
+}
+
+.--sourcekit-for-safari_reference {
+  display: flex;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.--sourcekit-for-safari_reference:hover,
+.--sourcekit-for-safari_reference:focus {
+  background-color: #f8f9fa;
+}
+
+a.--sourcekit-for-safari_reference-link:hover,
+a.--sourcekit-for-safari_reference-link:focus {
+  text-decoration: none;
+}
+
+.--sourcekit-for-safari_line-number {
+  width: 1%;
+  min-width: 50px;
+  font-size: 12px;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: right;
+  color: #586069;
+}
+
 pre.--sourcekit-for-safari_code {
   font-size: 12px;
-  border-top: 1px solid #e1e4e8;
   padding: 8px 8px 8px 16px;
 }
 

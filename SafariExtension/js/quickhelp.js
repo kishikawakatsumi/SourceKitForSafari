@@ -50,7 +50,9 @@ function setupQuickHelp(element, popoverContent) {
       nav.dataset.toggle = "tab";
     });
     document
-      .querySelectorAll(".--sourcekit-for-safari_jump-to-definition")
+      .querySelectorAll(
+        ".--sourcekit-for-safari_jump-to-definition, .--sourcekit-for-safari_reference-link"
+      )
       .forEach(link => {
         $(link).on("click", () => {
           hideAllQuickHelpPopovers();
@@ -75,11 +77,12 @@ function setupQuickHelpContent(prefix, suffix, content, isActive) {
     </div>
   `;
 
+  const title = titleCase(prefix);
   $(`.tab-header-${prefix}`, popover).replaceWith(
     `
     <li class="nav-item tab-header-${prefix}">
       <a class="nav-link ${activeClass}" id="${prefix}-tab${suffix}" data-toggle="tab" href="#${prefix}${suffix}" 
-         role="tab" aria-controls="${prefix}" aria-selected="${isActive}">${prefix.toUpperCase()}</a>
+         role="tab" aria-controls="${prefix}" aria-selected="${isActive}">${title}</a>
     </li>
     `
   );
@@ -91,6 +94,16 @@ function setupQuickHelpContent(prefix, suffix, content, isActive) {
 
 function hideAllQuickHelpPopovers() {
   $(".--sourcekit-for-safari_quickhelp").popover("hide");
+}
+
+function titleCase(str) {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map(function(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
 }
 
 exports.setupQuickHelp = setupQuickHelp;

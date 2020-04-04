@@ -322,9 +322,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             }
                         }
 
-                        guard !locations.isEmpty else {
-                            return
-                        }
+                        guard !locations.isEmpty else { return }
 
                         result = ["request": "definition", "result": "success", "value": ["locations": locations], "line": line, "character": character, "text": text]
                     }
@@ -372,7 +370,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                 let line = start["line"] as? Int else { return nil }
 
                             let filename = location["filename"] ?? ""
-                            let content = location["content"] ?? ""
+                            let lineNumber = line + 1
+                            let content = location["content"]
+                                .flatMap { $0 as? String }
+                                .flatMap { $0.trimmingCharacters(in: .whitespacesAndNewlines) } ?? ""
 
                             if !uri.isEmpty {
                                 let ref = uri
@@ -380,17 +381,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                     .replacingOccurrences(of: slug, with: "")
                                     .split(separator: "/")
                                     .joined(separator: "/")
-                                    .appending("#L\(line + 1)")
+                                    .appending("#L\(lineNumber)")
 
-                                return ["uri": ref, "filename": filename, "content": content]
+                                return ["uri": ref, "filename": filename, "lineNumber": lineNumber, "content": content]
                             } else {
-                                return ["uri": "", "filename": filename, "content": content]
+                                return ["uri": "", "filename": filename, "lineNumber": lineNumber, "content": content]
                             }
                         }
 
-                        guard !locations.isEmpty else {
-                            return
-                        }
+                        guard !locations.isEmpty else { return }
 
                         result = ["request": "references", "result": "success", "value": ["locations": locations], "line": line, "character": character, "text": text]
                     }

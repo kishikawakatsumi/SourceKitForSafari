@@ -155,7 +155,10 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                                 let line = start["line"] as? Int else { return nil }
 
                             let filename = location["filename"] ?? ""
-                            let content = location["content"] ?? ""
+                            let lineNumber = line + 1
+                            let content = location["content"]
+                                .flatMap { $0 as? String }
+                                .flatMap { $0.trimmingCharacters(in: .whitespacesAndNewlines) } ?? ""
 
                             if !uri.isEmpty {
                                 let ref = uri
@@ -163,11 +166,11 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                                     .replacingOccurrences(of: slug, with: "")
                                     .split(separator: "/")
                                     .joined(separator: "/")
-                                    .appending("#L\(line + 1)")
+                                    .appending("#L\(lineNumber)")
 
-                                return ["uri": ref, "filename": filename, "content": content]
+                                return ["uri": ref, "filename": filename, "lineNumber": lineNumber, "content": content]
                             } else {
-                                return ["uri": "", "filename": filename, "content": content]
+                                return ["uri": "", "filename": filename, "lineNumber": lineNumber, "content": content]
                             }
                         }
 
