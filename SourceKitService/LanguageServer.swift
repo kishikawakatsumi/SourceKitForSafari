@@ -3,6 +3,8 @@ import LanguageServerProtocol
 import LanguageServerProtocolJSONRPC
 import OSLog
 
+private let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: "Notification")
+
 final class LanguageServer {
     static private var servers = [URL: LanguageServer]()
 
@@ -38,8 +40,6 @@ final class LanguageServer {
         guard let SDKPath = context["SDKPath"] else { return }
         guard let target = context["target"] else { return }
 
-        os_log("server: %{public}s, SDK: %{public}s, target: %{public}s", log: log, type: .debug, "\(serverPath) \(SDKPath) \(target)")
-
         let rootURI = Workspace.documentRoot(resource: resource, slug: slug)
 
         let buildProcess = Process()
@@ -53,8 +53,6 @@ final class LanguageServer {
         buildProcess.standardError = stderr
 
         buildProcess.launch()
-
-        os_log("Build: %{public}s", log: log, type: .debug, "\(buildProcess.launchPath!) \(buildProcess.arguments!.joined(separator: " "))")
 
         connection.start(receiveHandler: Client())
 
@@ -71,8 +69,6 @@ final class LanguageServer {
             "-Xswiftc", "-target",
             "-Xswiftc", target
         ]
-
-        os_log("Launch language server: %{public}s", log: log, type: .debug, "\(serverProcess.launchPath!) \(serverProcess.arguments!.joined(separator: " "))")
 
         serverProcess.standardOutput = serverToClient
         serverProcess.standardInput = clientToServer

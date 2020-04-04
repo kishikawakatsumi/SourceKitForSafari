@@ -2,7 +2,7 @@ import Foundation
 import LanguageServerProtocol
 import OSLog
 
-let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: "XPC Service")
+private let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: "XPC")
 
 @objc
 class SourceKitService: NSObject, SourceKitServiceProtocol {
@@ -175,7 +175,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
             .deletingPathExtension()
 
         if FileManager().fileExists(atPath: directory.path) && !force {
-            os_log("[sync][skip]", log: log, type: .debug)
+            os_log("skip", log: log, type: .debug)
             reply(true, nil)
             return
         }
@@ -195,7 +195,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     "HEAD",
                 ]
 
-                os_log("[sync] %{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
+                os_log("%{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
 
                 let standardOutput = Pipe()
                 process.standardOutput = standardOutput
@@ -206,12 +206,12 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 process.waitUntilExit()
 
                 if let result = String(data: standardOutput.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("[sync] %{public}s", log: log, type: .debug, "\(result)")
+                    os_log("%{public}s", log: log, type: .debug, "\(result)")
                 }
                 if let result = String(data: standardError.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("[sync] %{public}s", log: log, type: .debug, "\(result)")
+                    os_log("%{public}s", log: log, type: .debug, "\(result)")
                 }
-                os_log("[sync] exit status: %d", log: log, type: .debug, process.terminationStatus)
+                os_log("%d", log: log, type: .debug, process.terminationStatus)
 
                 if process.terminationStatus == 0 {
                     reply(true, localDirectory)
@@ -241,7 +241,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     localDirectory.path,
                 ]
 
-                os_log("[sync] %{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
+                os_log("%{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
 
                 let standardOutput = Pipe()
                 process.standardOutput = standardOutput
@@ -252,12 +252,12 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 process.waitUntilExit()
 
                 if let result = String(data: standardOutput.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("[sync] %{public}s", log: log, type: .debug, "\(result)")
+                    os_log("%{public}s", log: log, type: .debug, "\(result)")
                 }
                 if let result = String(data: standardError.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("[sync] %{public}s", log: log, type: .debug, "\(result)")
+                    os_log("%{public}s", log: log, type: .debug, "\(result)")
                 }
-                os_log("[sync] %d", log: log, type: .debug, process.terminationStatus)
+                os_log("%d", log: log, type: .debug, process.terminationStatus)
 
                 if process.terminationStatus == 0 {
                     reply(true, localDirectory)

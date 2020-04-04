@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             sendResponse(JSON.stringify(response));
           })
           .catch(error => {
-            console.error(error);
+            console.error(`[${url}] ${error}`);
           });
       })();
       break;
@@ -42,7 +42,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             sendResponse(JSON.stringify(response));
           })
           .catch(error => {
-            console.error(error);
+            console.error(`[${url}] ${error}`);
           });
       })();
       break;
@@ -65,7 +65,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             sendResponse(JSON.stringify(response));
           })
           .catch(error => {
-            console.error(error);
+            console.error(`[${url}] ${error}`);
           });
       })();
       break;
@@ -88,7 +88,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             sendResponse(JSON.stringify(response));
           })
           .catch(error => {
-            console.error(error);
+            console.error(`[${url}] ${error}`);
           });
       })();
       break;
