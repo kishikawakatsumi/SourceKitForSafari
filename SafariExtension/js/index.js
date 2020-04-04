@@ -47,8 +47,6 @@ function dispatchMessage(messageName, userInfo) {
   }
 }
 
-var setupMouseovers;
-
 function handleResponse(event, parsedUrl) {
   switch (event.name) {
     case "response":
@@ -65,7 +63,6 @@ function handleResponse(event, parsedUrl) {
               }
 
               symbolNavigator(symbols, parsedUrl.href).show();
-              setupMouseovers();
             }
           })();
           break;
@@ -359,60 +356,57 @@ const activate = () => {
     text: text
   });
 
-  setupMouseovers = function() {
-    const onMouseover = e => {
-      let element = e.target;
+  const onMouseover = e => {
+    let element = e.target;
 
-      if (!element.classList.contains("symbol")) {
-        return;
-      }
-      if (element.dataset.parentClassList.split(" ").includes("pl-c")) {
-        return;
-      }
+    if (!element.classList.contains("symbol")) {
+      return;
+    }
+    if (element.dataset.parentClassList.split(" ").includes("pl-c")) {
+      return;
+    }
 
-      const suffix = `-${+element.dataset.lineNumber}:${+element.dataset
-        .column}`;
-      const userInfo = {
-        resource: parsedUrl.resource,
-        slug: parsedUrl.full_name,
-        filepath: parsedUrl.filepath,
-        line: +element.dataset.lineNumber,
-        character: +element.dataset.column,
-        text: element.innerText
-      };
-      if (!element.dataset.hoverRequestState) {
-        element.dataset.hoverRequestState = `requesting${suffix}`;
-        dispatchMessage("hover", userInfo);
-      }
-      if (!element.dataset.definitionRequestState) {
-        element.dataset.definitionRequestState = `requesting${suffix}`;
-        dispatchMessage("definition", userInfo);
-      }
-      if (!element.dataset.referencesRequestState) {
-        element.dataset.referencesRequestState = `requesting${suffix}`;
-        dispatchMessage("references", userInfo);
-      }
-      if (!element.dataset.documentHighlightRequestState) {
-        element.dataset.documentHighlightRequestState = `requesting${suffix}`;
-        dispatchMessage("documentHighlight", userInfo);
-      } else {
-        if (element.dataset.documentHighlight) {
-          highlightReferences(JSON.parse(element.dataset.documentHighlight));
-        }
-      }
+    const suffix = `-${+element.dataset.lineNumber}:${+element.dataset.column}`;
+    const userInfo = {
+      resource: parsedUrl.resource,
+      slug: parsedUrl.full_name,
+      filepath: parsedUrl.filepath,
+      line: +element.dataset.lineNumber,
+      character: +element.dataset.column,
+      text: element.innerText
     };
-    document.addEventListener("mouseover", onMouseover);
-
-    const onMouseoout = e => {
-      document
-        .querySelectorAll(".--sourcekit-for-safari_document-highlight")
-        .forEach(element => {
-          element.classList.remove("--sourcekit-for-safari_document-highlight");
-          element.style.removeProperty("background-color");
-        });
-    };
-    document.addEventListener("mouseout", onMouseoout);
+    if (!element.dataset.hoverRequestState) {
+      element.dataset.hoverRequestState = `requesting${suffix}`;
+      dispatchMessage("hover", userInfo);
+    }
+    if (!element.dataset.definitionRequestState) {
+      element.dataset.definitionRequestState = `requesting${suffix}`;
+      dispatchMessage("definition", userInfo);
+    }
+    if (!element.dataset.referencesRequestState) {
+      element.dataset.referencesRequestState = `requesting${suffix}`;
+      dispatchMessage("references", userInfo);
+    }
+    if (!element.dataset.documentHighlightRequestState) {
+      element.dataset.documentHighlightRequestState = `requesting${suffix}`;
+      dispatchMessage("documentHighlight", userInfo);
+    } else {
+      if (element.dataset.documentHighlight) {
+        highlightReferences(JSON.parse(element.dataset.documentHighlight));
+      }
+    }
   };
+  document.addEventListener("mouseover", onMouseover);
+
+  const onMouseoout = e => {
+    document
+      .querySelectorAll(".--sourcekit-for-safari_document-highlight")
+      .forEach(element => {
+        element.classList.remove("--sourcekit-for-safari_document-highlight");
+        element.style.removeProperty("background-color");
+      });
+  };
+  document.addEventListener("mouseout", onMouseoout);
 
   if (typeof safari !== "undefined") {
     safari.self.addEventListener("message", event => {

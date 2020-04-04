@@ -43,10 +43,18 @@ final class LanguageServer {
         let rootURI = Workspace.documentRoot(resource: resource, slug: slug)
 
         let buildProcess = Process()
-        buildProcess.launchPath = "/usr/bin/swift"
-        buildProcess.arguments = ["build"]
+        buildProcess.launchPath = "/usr/bin/xcrun"
+        buildProcess.arguments = ["swift", "build"]
         buildProcess.currentDirectoryURL = rootURI
+
+        let stdout = Pipe()
+        buildProcess.standardOutput = stdout
+        let stderr = Pipe()
+        buildProcess.standardError = stderr
+
         buildProcess.launch()
+
+        os_log("Build: %{public}s", log: log, type: .debug, "\(buildProcess.launchPath!) \(buildProcess.arguments!.joined(separator: " "))")
 
         connection.start(receiveHandler: Client())
 
@@ -78,7 +86,6 @@ final class LanguageServer {
         )
         _ = connection.send(request, queue: queue) { [weak self] in
             guard let self = self else { return }
-            buildProcess.waitUntilExit()
             self.state = .running
             completion($0)
         }

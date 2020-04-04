@@ -23,6 +23,9 @@
 		14046101240BEE94004FE328 /* SafariExtensionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140460FF240BEE94004FE328 /* SafariExtensionViewController.xib */; };
 		14046106240BEE94004FE328 /* ToolbarItemIcon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 14046105240BEE94004FE328 /* ToolbarItemIcon.pdf */; };
 		1404610A240BEE94004FE328 /* SourceKit for Safari.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 140460F6240BEE94004FE328 /* SourceKit for Safari.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		140AB0A92438A73C005ED684 /* chevron.down.png in Resources */ = {isa = PBXBuildFile; fileRef = 140AB0A62438A73C005ED684 /* chevron.down.png */; };
+		140AB0AA2438A73C005ED684 /* chevron.down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140AB0A72438A73C005ED684 /* chevron.down@2x.png */; };
+		140AB0AB2438A73C005ED684 /* chevron.down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140AB0A82438A73C005ED684 /* chevron.down@3x.png */; };
 		144D1D7B242678BF00B7AC65 /* E@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D66242678BF00B7AC65 /* E@2x.png */; };
 		144D1D7C242678C000B7AC65 /* S@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D67242678BF00B7AC65 /* S@3x.png */; };
 		144D1D7D242678C000B7AC65 /* I.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D68242678BF00B7AC65 /* I.png */; };
@@ -134,6 +137,9 @@
 		14046102240BEE94004FE328 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14046105240BEE94004FE328 /* ToolbarItemIcon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ToolbarItemIcon.pdf; sourceTree = "<group>"; };
 		14046107240BEE94004FE328 /* SafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafariExtension.entitlements; sourceTree = "<group>"; };
+		140AB0A62438A73C005ED684 /* chevron.down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevron.down.png; sourceTree = "<group>"; };
+		140AB0A72438A73C005ED684 /* chevron.down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron.down@2x.png"; sourceTree = "<group>"; };
+		140AB0A82438A73C005ED684 /* chevron.down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron.down@3x.png"; sourceTree = "<group>"; };
 		144D1D66242678BF00B7AC65 /* E@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "E@2x.png"; sourceTree = "<group>"; };
 		144D1D67242678BF00B7AC65 /* S@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S@3x.png"; sourceTree = "<group>"; };
 		144D1D68242678BF00B7AC65 /* I.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = I.png; sourceTree = "<group>"; };
@@ -288,6 +294,9 @@
 				144D1D77242678BF00B7AC65 /* S.png */,
 				144D1D6C242678BF00B7AC65 /* S@2x.png */,
 				144D1D67242678BF00B7AC65 /* S@3x.png */,
+				140AB0A62438A73C005ED684 /* chevron.down.png */,
+				140AB0A72438A73C005ED684 /* chevron.down@2x.png */,
+				140AB0A82438A73C005ED684 /* chevron.down@3x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -482,11 +491,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				140AB0AB2438A73C005ED684 /* chevron.down@3x.png in Resources */,
 				144D1D83242678C000B7AC65 /* C@2x.png in Resources */,
 				14046106240BEE94004FE328 /* ToolbarItemIcon.pdf in Resources */,
 				144D1D85242678C000B7AC65 /* M@2x.png in Resources */,
 				144D1D89242678C000B7AC65 /* F@2x.png in Resources */,
 				144D1D86242678C000B7AC65 /* C@3x.png in Resources */,
+				140AB0A92438A73C005ED684 /* chevron.down.png in Resources */,
 				145E9A3E24146F97006DD651 /* xcode.css in Resources */,
 				144D1D7B242678BF00B7AC65 /* E@2x.png in Resources */,
 				144D1D80242678C000B7AC65 /* M.png in Resources */,
@@ -508,6 +519,7 @@
 				144D1D87242678C000B7AC65 /* P@2x.png in Resources */,
 				145E9A462414B907006DD651 /* bundle.js in Resources */,
 				144D1D7D242678C000B7AC65 /* I.png in Resources */,
+				140AB0AA2438A73C005ED684 /* chevron.down@2x.png in Resources */,
 				144D1D8C242678C000B7AC65 /* S.png in Resources */,
 				14046101240BEE94004FE328 /* SafariExtensionViewController.xib in Resources */,
 			);

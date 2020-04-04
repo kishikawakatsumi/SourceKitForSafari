@@ -19,7 +19,7 @@ function symbolNavigator(documentSymbols, documentUrl) {
 
   const blobCodeInner = document.querySelector(".blob-code-inner");
   const style = getComputedStyle(blobCodeInner);
-  navigationList.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize};`;
+  navigationList.style.cssText = `font-size: ${style.fontSize};`;
 
   navigationContainer.appendChild(navigationList);
 
@@ -27,8 +27,15 @@ function symbolNavigator(documentSymbols, documentUrl) {
   navigationHeader.href = "#--sourcekit-for-safari_symbol-navigation-items";
   navigationHeader.classList.add("list-group-item", "list-group-item-action");
   navigationHeader.dataset.toggle = "collapse";
-  navigationHeader.innerHTML = "Symbol Navigator ▾";
-  navigationHeader.style.cssText = `font-family: ${style.fontFamily}; font-size: ${style.fontSize}; font-weight: bold;`;
+  const chevronImage = (() => {
+    if (typeof safari !== "undefined") {
+      return `${safari.extension.baseURI}chevron.down`;
+    } else {
+      return chrome.extension.getURL(`images/chevron.down`);
+    }
+  })();
+  navigationHeader.innerHTML = `Symbol Navigator <img srcset="${chevronImage}.png, ${chevronImage}@2x.png 2x, ${chevronImage}@3x.png 3x" width="15" height="8" align="center" />`;
+  navigationHeader.style.cssText = `font-size: ${style.fontSize}; font-weight: bold;`;
   navigationList.appendChild(navigationHeader);
 
   const navigationItemContainer = document.createElement("div");
@@ -42,7 +49,7 @@ function symbolNavigator(documentSymbols, documentUrl) {
     }
 
     const symbolLetter = documentSymbol.kind.slice(0, 1).toUpperCase();
-    const imageSource = (() => {
+    const symbolImage = (() => {
       if (typeof safari !== "undefined") {
         return `${safari.extension.baseURI}${symbolLetter}`;
       } else {
@@ -53,7 +60,7 @@ function symbolNavigator(documentSymbols, documentUrl) {
     const indentationStyle = `style="margin-left: ${10 *
       documentSymbol.indent}px;"`;
     const icon = predefinedSymbols.includes(symbolLetter)
-      ? `<img srcset="${imageSource}.png, ${imageSource}@2x.png 2x, ${imageSource}@3x.png 3x" width="16" height="16" align="center" ${indentationStyle} />`
+      ? `<img srcset="${symbolImage}.png, ${symbolImage}@2x.png 2x, ${symbolImage}@3x.png 3x" width="16" height="16" align="center" ${indentationStyle} />`
       : symbolLetter;
 
     const navigationItem = document.createElement("a");
