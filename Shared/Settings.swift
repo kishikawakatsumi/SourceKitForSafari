@@ -102,8 +102,12 @@ final class Settings {
 
     private var storage: Storage
     private lazy var database = SQLite(path: AppGroup.container.appendingPathComponent("Library/Preferences/Settings.sqlite").path)
+    private let semaphore = DispatchSemaphore(value: 1)
 
     init() {
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        defer { semaphore.signal() }
+
         storage = Storage(
             server: .default,
             serverPath: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",

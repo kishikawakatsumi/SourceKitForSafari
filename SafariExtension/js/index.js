@@ -3,6 +3,7 @@ require("bootstrap");
 
 const marked = require("marked");
 const GitUrlParse = require("git-url-parse");
+const isReserved = require("github-reserved-names");
 
 const hljs = require("highlight.js");
 marked.setOptions({
@@ -334,6 +335,10 @@ const activate = () => {
   if (!parsedUrl.owner || !parsedUrl.name) {
     return;
   }
+  if (isReserved.check(parsedUrl.owner)) {
+    return;
+  }
+
   dispatchMessage("initialize", {
     url: parsedUrl.toString("https"),
     resource: parsedUrl.resource,
@@ -343,6 +348,21 @@ const activate = () => {
   });
 
   if (parsedUrl.filepathtype !== "blob") {
+    return;
+  }
+  const supportedExtensions = [
+    "swift",
+    "m",
+    "mm",
+    "c",
+    "cpp",
+    "cc",
+    "cxx",
+    "c++",
+    "h",
+    "hpp"
+  ];
+  if (!supportedExtensions.some(ext => parsedUrl.filepath.endsWith(ext))) {
     return;
   }
 

@@ -12,6 +12,7 @@
     "@popperjs/core": "^2.1.0",
     "bootstrap": "^4.4.1",
     "git-url-parse": "^11.1.2",
+    "github-reserved-names": "^1.1.8",
     "highlight.js": "^9.18.1",
     "jquery": "^3.4.1",
     "marked": "^0.8.0",
