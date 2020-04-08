@@ -42,18 +42,6 @@ final class LanguageServer {
 
         let rootURI = Workspace.documentRoot(resource: resource, slug: slug)
 
-        let buildProcess = Process()
-        buildProcess.launchPath = "/usr/bin/xcrun"
-        buildProcess.arguments = ["swift", "build"]
-        buildProcess.currentDirectoryURL = rootURI
-
-        let stdout = Pipe()
-        buildProcess.standardOutput = stdout
-        let stderr = Pipe()
-        buildProcess.standardError = stderr
-
-        buildProcess.launch()
-
         connection.start(receiveHandler: Client())
 
         serverProcess.launchPath = serverPath

@@ -213,6 +213,8 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 }
                 os_log("%d", log: log, type: .debug, process.terminationStatus)
 
+                swiftBuild(inDirectory: localDirectory)
+
                 if process.terminationStatus == 0 {
                     reply(true, localDirectory)
                 } else {
@@ -259,6 +261,8 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 }
                 os_log("%d", log: log, type: .debug, process.terminationStatus)
 
+                swiftBuild(inDirectory: localDirectory)
+
                 if process.terminationStatus == 0 {
                     reply(true, localDirectory)
                 } else {
@@ -266,6 +270,35 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                 }
             }
         }
+    }
+
+    func swiftBuild(inDirectory: URL) {
+        let process = Process()
+        process.currentDirectoryURL = inDirectory
+        process.launchPath = "/usr/bin/xcrun"
+        process.arguments = ["swift", "build"]
+
+        process.standardOutput = logPipe(type: .debug)
+        process.standardError = logPipe(type: .error)
+
+        process.launch()
+        os_log("[build] Building repo index", log: log, type: .error)
+        process.waitUntilExit()
+        os_log("[build] Building returns %d", log: log, type: .error,
+               process.terminationStatus)
+    }
+
+    func logPipe(type: OSLogType) -> Pipe {
+        let pipe = Pipe()
+        DispatchQueue.global().async {
+            while let result = String(data: pipe
+                .fileHandleForReading.availableData, encoding: .utf8)?
+                .trimmingCharacters(in: .whitespacesAndNewlines),
+                result.count != 0 {
+                    os_log("[build] %{public}s", log: log, type: type, "\(result)")
+            }
+        }
+        return pipe
     }
 
     func deleteLocalRepository(_ localRepository: URL, reply: @escaping (Bool, URL?) -> Void) {
