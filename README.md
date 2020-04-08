@@ -32,6 +32,12 @@ If the text at the mouse cursor is a symbol defined in another file, turn it int
 
 <img src="https://user-images.githubusercontent.com/40610/77447572-2caacd00-6e33-11ea-9f65-aa67dc89e639.png" width="400" />
 
+### Find References
+
+<img src="https://user-images.githubusercontent.com/40610/78826099-eef59900-7a1b-11ea-973c-0f07bc52ff4f.png" width="400" />
+
+Resolve project-wide references for the symbol denoted by the given text document position.
+
 ### Highlights References
 
 Highlights all references to the symbol scoped to this file.
