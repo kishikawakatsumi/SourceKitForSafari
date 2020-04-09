@@ -114,14 +114,6 @@ If the local repository is outdated, click the toolbar icon and press the Sync b
 
 Make sure the host application (`SourceKit for Safari.app`) is running. Chrome extension requires the host application to communicate to the language server.
 
-### Quick help on hover doesn't work
-
-The current DOM parsing algorithm is not smart yet. Therefore, whitespace is sometimes set as a hover area instead of a symbol. In that case, the hoverable area is too small.
-
-|Correct|Wrong|
-|:-:|:-:|
-|<img src="https://user-images.githubusercontent.com/40610/77392928-5f2ada80-6ddf-11ea-9c6e-eda6ce4af76a.png" width="300">|<img src="https://user-images.githubusercontent.com/40610/77392911-5508dc00-6ddf-11ea-8f36-bd1563b4a686.png" width="300">|
-
 ## Development
 
 To use [Node Packaged Modules](https://www.npmjs.com/) in injected scripts, it requires to combine multiple modules and JavaScript files into one JavaScript file using [Browserify](http://browserify.org/).
