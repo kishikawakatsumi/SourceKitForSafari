@@ -7,9 +7,9 @@ const isReserved = require("github-reserved-names");
 
 const hljs = require("highlight.js");
 marked.setOptions({
-  highlight: function(code) {
+  highlight: function (code) {
     return hljs.highlight("swift", code).value;
-  }
+  },
 });
 
 const { readLines, highlightReferences } = require("./parser");
@@ -17,34 +17,38 @@ const { setupQuickHelp, setupQuickHelpContent } = require("./quickhelp");
 const { symbolNavigator } = require("./symbol_navigator");
 const { normalizedLocation } = require("./helper");
 
+if (typeof chrome !== "undefined") {
+  chrome.runtime.onMessage.addListener(function (message) {
+    const response = JSON.parse(message);
+    if (response.result !== "success") {
+      return;
+    }
+    const location = normalizedLocation();
+    const parsedUrl = GitUrlParse(location);
+    handleResponse(
+      {
+        name: "response",
+        message: {
+          request: response.request,
+          value: response.value,
+          line: response.userInfo.line,
+          character: response.userInfo.character,
+          text: response.userInfo.text,
+        },
+      },
+      parsedUrl
+    );
+  });
+}
+
 function dispatchMessage(messageName, userInfo) {
   if (typeof safari !== "undefined") {
     safari.extension.dispatchMessage(messageName, userInfo);
   } else {
-    chrome.runtime.sendMessage(
-      { messageName: messageName, userInfo: userInfo },
-      res => {
-        const response = JSON.parse(res);
-        if (response.result !== "success") {
-          return;
-        }
-        const location = normalizedLocation();
-        const parsedUrl = GitUrlParse(location);
-        handleResponse(
-          {
-            name: "response",
-            message: {
-              request: response.request,
-              value: response.value,
-              line: userInfo.line,
-              character: userInfo.character,
-              text: userInfo.text
-            }
-          },
-          parsedUrl
-        );
-      }
-    );
+    chrome.runtime.sendMessage({
+      messageName: messageName,
+      userInfo: userInfo,
+    });
   }
 }
 
@@ -56,7 +60,7 @@ function handleResponse(event, parsedUrl) {
           (() => {
             const value = event.message.value;
             if (value && Array.isArray(value)) {
-              const symbols = value.filter(documentSymbol => {
+              const symbols = value.filter((documentSymbol) => {
                 return isNaN(documentSymbol.kind);
               });
               if (!symbols.length) {
@@ -70,7 +74,7 @@ function handleResponse(event, parsedUrl) {
         case "hover":
           (() => {
             const suffix = `-${event.message.line}-${event.message.character}`;
-            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+            document.querySelectorAll(`.symbol${suffix}`).forEach((element) => {
               if (
                 !element.dataset.hoverRequestState ||
                 element.dataset.documentation
@@ -112,7 +116,7 @@ function handleResponse(event, parsedUrl) {
         case "definition":
           (() => {
             const suffix = `-${event.message.line}-${event.message.character}`;
-            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+            document.querySelectorAll(`.symbol${suffix}`).forEach((element) => {
               if (
                 !element.dataset.definitionRequestState ||
                 element.dataset.definition
@@ -123,20 +127,20 @@ function handleResponse(event, parsedUrl) {
               const value = event.message.value;
               if (value && value.locations) {
                 const definitions = [];
-                value.locations.forEach(location => {
+                value.locations.forEach((location) => {
                   if (location.uri) {
                     const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
                     definitions.push({
                       href: href,
                       path: location.uri,
                       lineNumber: location.lineNumber,
-                      content: location.content
+                      content: location.content,
                     });
                   } else {
                     definitions.push({
                       path: location.filename,
                       lineNumber: location.lineNumber,
-                      content: location.content
+                      content: location.content,
                     });
                   }
                 });
@@ -149,7 +153,7 @@ function handleResponse(event, parsedUrl) {
                     const thisIsTheDefinition = onThisFile && definition.lineNumber == +element.dataset.lineNumber + 1;
                     const text = thisIsTheDefinition ? `<div class="--sourcekit-for-safari_text-bold">This is the definition</div>` : `Defined ${onThisFile ? "on" : "in"}`;
                     const linkOrText = href ?
-                      `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${referenceLineNumber}` : definition.path}</a>` :
+                      `<a class="--sourcekit-for-safari_jump-to-definition --sourcekit-for-safari_text-bold" href="${href}">${thisIsTheDefinition ? "" : onThisFile ? `line ${definition.lineNumber}` : definition.path}</a>` :
                       `<span class="--sourcekit-for-safari_text-bold">${definition.path}</span>`
                     return `
                       <div class="--sourcekit-for-safari_bg-gray --sourcekit-for-safari_header">
@@ -201,7 +205,7 @@ function handleResponse(event, parsedUrl) {
         case "references":
           (() => {
             const suffix = `-${event.message.line}-${event.message.character}`;
-            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+            document.querySelectorAll(`.symbol${suffix}`).forEach((element) => {
               if (
                 !element.dataset.referencesRequestState ||
                 element.dataset.references
@@ -212,27 +216,27 @@ function handleResponse(event, parsedUrl) {
               const value = event.message.value;
               if (value && value.locations) {
                 const references = [];
-                value.locations.forEach(location => {
+                value.locations.forEach((location) => {
                   if (location.uri) {
                     const href = `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl.filepathtype}/${parsedUrl.ref}/${location.uri}`;
                     references.push({
                       href: href,
                       path: location.uri,
                       lineNumber: location.lineNumber,
-                      content: location.content
+                      content: location.content,
                     });
                   } else {
                     references.push({
                       path: location.filename,
                       lineNumber: location.lineNumber,
-                      content: location.content
+                      content: location.content,
                     });
                   }
                 });
 
                 const referenceGroups = {};
                 const referenceGroupHeaders = [];
-                references.forEach(reference => {
+                references.forEach((reference) => {
                   const hash = reference.href
                     ? new URL(reference.href).hash
                     : "";
@@ -251,12 +255,12 @@ function handleResponse(event, parsedUrl) {
                 const header = `<div class="--sourcekit-for-safari_bg-gray --sourcekit-for-safari_header">Found <span class="--sourcekit-for-safari_text-bold">${numOfRefs} references</span> in <span class="--sourcekit-for-safari_text-bold">${numOfFiles} files</span></div>`;
 
                 const reference = referenceGroupHeaders
-                  .map(groupHeader => {
+                  .map((groupHeader) => {
                     const group = referenceGroups[groupHeader];
                     return (
                       `<div class="--sourcekit-for-safari_reference-header --sourcekit-for-safari_text-bold">${groupHeader}</div>` +
                       group
-                        .map(reference => {
+                        .map((reference) => {
                           const code = hljs.highlight(
                             "swift",
                             reference.content
@@ -308,7 +312,7 @@ function handleResponse(event, parsedUrl) {
         case "documentHighlight":
           (() => {
             const suffix = `-${event.message.line}-${event.message.character}`;
-            document.querySelectorAll(`.symbol${suffix}`).forEach(element => {
+            document.querySelectorAll(`.symbol${suffix}`).forEach((element) => {
               if (
                 !element.dataset.documentHighlightRequestState ||
                 element.dataset.documentHighlight
@@ -356,7 +360,7 @@ const activate = () => {
     resource: parsedUrl.resource,
     owner: parsedUrl.owner,
     name: parsedUrl.name,
-    href: parsedUrl.href
+    href: parsedUrl.href,
   });
 
   if (parsedUrl.filepathtype !== "blob") {
@@ -372,9 +376,9 @@ const activate = () => {
     "cxx",
     "c++",
     "h",
-    "hpp"
+    "hpp",
   ];
-  if (!supportedExtensions.some(ext => parsedUrl.filepath.endsWith(ext))) {
+  if (!supportedExtensions.some((ext) => parsedUrl.filepath.endsWith(ext))) {
     return;
   }
 
@@ -385,16 +389,19 @@ const activate = () => {
     resource: parsedUrl.resource,
     slug: parsedUrl.full_name,
     filepath: parsedUrl.filepath,
-    text: text
+    text: text,
   });
 
-  const onMouseover = e => {
+  const onMouseover = (e) => {
     let element = e.target;
 
     if (!element.classList.contains("symbol")) {
       return;
     }
-    if (element.dataset.parentClassList.split(" ").includes("pl-c")) {
+    if (
+      element.dataset.parentClassList &&
+      element.dataset.parentClassList.split(" ").includes("pl-c")
+    ) {
       return;
     }
 
@@ -405,7 +412,7 @@ const activate = () => {
       filepath: parsedUrl.filepath,
       line: +element.dataset.lineNumber,
       character: +element.dataset.column,
-      text: element.innerText
+      text: element.innerText,
     };
     if (!element.dataset.hoverRequestState) {
       element.dataset.hoverRequestState = `requesting${suffix}`;
@@ -430,10 +437,10 @@ const activate = () => {
   };
   document.addEventListener("mouseover", onMouseover);
 
-  const onMouseoout = e => {
+  const onMouseoout = (e) => {
     document
       .querySelectorAll(".--sourcekit-for-safari_document-highlight")
-      .forEach(element => {
+      .forEach((element) => {
         element.classList.remove("--sourcekit-for-safari_document-highlight");
         element.style.removeProperty("background-color");
       });
@@ -441,7 +448,7 @@ const activate = () => {
   document.addEventListener("mouseout", onMouseoout);
 
   if (typeof safari !== "undefined") {
-    safari.self.addEventListener("message", event => {
+    safari.self.addEventListener("message", (event) => {
       handleResponse(event, parsedUrl);
     });
   }
@@ -451,7 +458,7 @@ const activate = () => {
   let href = normalizedLocation();
   window.onload = () => {
     let body = document.querySelector("body"),
-      observer = new MutationObserver(mutations => {
+      observer = new MutationObserver((mutations) => {
         mutations.forEach(() => {
           const newLocation = normalizedLocation();
           if (href != newLocation) {
@@ -465,7 +472,7 @@ const activate = () => {
 
     const config = {
       childList: true,
-      subtree: true
+      subtree: true,
     };
 
     observer.observe(body, config);
@@ -473,7 +480,7 @@ const activate = () => {
 })();
 
 if (typeof safari !== "undefined") {
-  document.addEventListener("DOMContentLoaded", event => {
+  document.addEventListener("DOMContentLoaded", (event) => {
     require("./index.css");
     activate();
   });

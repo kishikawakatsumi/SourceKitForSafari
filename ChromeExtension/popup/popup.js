@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
       target: "x86_64-apple-ios13-simulator",
       toolchain: "",
       auto_checkout: true,
-      access_token_github: ""
+      access_token_github: "",
     },
-    function(items) {
+    function (items) {
       fillIn(items);
       updateUI();
     }
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       saveSettings();
     });
 
-  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     var tab = tabs[0];
 
     const parsedUrl = GitUrlParse(tab.url);
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       chrome.runtime.sendMessage(
         { messageName: "repository", userInfo: { url: url } },
-        res => {
+        (res) => {
           const response = JSON.parse(res);
           if (response.result !== "success") {
             return;
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .addEventListener("click", () => {
               chrome.runtime.sendMessage(
                 { messageName: "checkoutRepository", userInfo: { url: url } },
-                res => {
+                (res) => {
                   const response = JSON.parse(res);
                   if (response.result !== "success") {
                     return;
@@ -128,7 +128,7 @@ function updateUI() {
 
 function fillIn(items) {
   const allKeys = Object.keys(items);
-  allKeys.forEach(key => {
+  allKeys.forEach((key) => {
     const element = document.getElementById(key);
     if (element) {
       if (key === "auto_checkout") {
@@ -141,21 +141,24 @@ function fillIn(items) {
 }
 
 function getSettings() {
-  chrome.runtime.sendMessage({ messageName: "settings" }, res => {
-    const response = JSON.parse(res);
-    if (response.result !== "success") {
-      return;
+  chrome.runtime.sendMessage(
+    { messageName: "settings", userInfo: {} },
+    (res) => {
+      const response = JSON.parse(res);
+      if (response.result !== "success") {
+        return;
+      }
+      fillIn(response.value);
+      updateUI();
     }
-    fillIn(response.value);
-    updateUI();
-  });
+  );
 }
 
 function postSettings(items) {
   chrome.runtime.sendMessage(
     {
       messageName: "updateSettings",
-      userInfo: items
+      userInfo: items,
     },
     () => {
       getSettings();

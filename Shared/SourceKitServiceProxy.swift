@@ -16,7 +16,7 @@ final class SourceKitServiceProxy {
         return context
     }
 
-    private let connection = NSXPCConnection(serviceName: "com.kishikawakatsumi.SourceKitService")
+    private let connection = NSXPCConnection(serviceName: "com.kishikawakatsumi.SourceKitForSafari.SourceKitService")
 
     private init() {
         connection.remoteObjectInterface = NSXPCInterface(with: SourceKitServiceProtocol.self)

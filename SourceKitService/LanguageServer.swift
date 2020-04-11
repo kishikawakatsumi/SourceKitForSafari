@@ -1,9 +1,6 @@
 import Foundation
 import LanguageServerProtocol
 import LanguageServerProtocolJSONRPC
-import OSLog
-
-private let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: "Notification")
 
 final class LanguageServer {
     static private var servers = [URL: LanguageServer]()
@@ -216,9 +213,6 @@ final class LanguageServer {
 }
 
 private final class Client: MessageHandler {
-    func handle<Notification>(_ notification: Notification, from: ObjectIdentifier) where Notification: NotificationType {
-        os_log("%{public}s", log: log, type: .debug, "\(notification)")
-    }
-
+    func handle<Notification>(_ notification: Notification, from: ObjectIdentifier) where Notification: NotificationType {}
     func handle<Request>(_ request: Request, id: RequestID, from: ObjectIdentifier, reply: @escaping (Result<Request.Response, ResponseError>) -> Void) where Request: RequestType {}
 }

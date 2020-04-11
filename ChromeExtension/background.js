@@ -1,98 +1,32 @@
 "use strict";
 
-const host = "http://127.0.0.1:50000";
+const application = "com.kishikawakatsumi.sourcekit_for_safari";
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  const messageName = request.messageName;
-  switch (messageName) {
-    case "settings":
-      (() => {
-        const url = `${host}/${messageName}`;
-        fetch(url, {
-          method: "GET",
-          mode: "no-cors"
-        })
-          .then(response => {
-            return response.json();
-          })
-          .then(response => {
-            sendResponse(JSON.stringify(response));
-          })
-          .catch(error => {
-            console.error(`[${url}] ${error}`);
-          });
-      })();
-      break;
-    case "updateSettings":
-      (() => {
-        const userInfo = request.userInfo;
-        const url = `${host}/${messageName}`;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json; charset=utf-8"
-          },
-          body: JSON.stringify(userInfo),
-          mode: "no-cors"
-        })
-          .then(response => {
-            return response.json();
-          })
-          .then(response => {
-            sendResponse(JSON.stringify(response));
-          })
-          .catch(error => {
-            console.error(`[${url}] ${error}`);
-          });
-      })();
-      break;
-    case "repository":
-      (() => {
-        const userInfo = request.userInfo;
-        const url = `${host}/${messageName}`;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json; charset=utf-8"
-          },
-          body: JSON.stringify(userInfo),
-          mode: "no-cors"
-        })
-          .then(response => {
-            return response.json();
-          })
-          .then(response => {
-            sendResponse(JSON.stringify(response));
-          })
-          .catch(error => {
-            console.error(`[${url}] ${error}`);
-          });
-      })();
-      break;
-    default:
-      (() => {
-        const userInfo = request.userInfo;
-        const url = `${host}/${messageName}`;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json; charset=utf-8"
-          },
-          body: JSON.stringify(userInfo),
-          mode: "no-cors"
-        })
-          .then(response => {
-            return response.json();
-          })
-          .then(response => {
-            sendResponse(JSON.stringify(response));
-          })
-          .catch(error => {
-            console.error(`[${url}] ${userInfo} ${error}`);
-          });
-      })();
-      break;
+const port = chrome.runtime.connectNative(application);
+
+port.onMessage.addListener((response) => {
+  chrome.tabs.sendMessage(response.tabId, JSON.stringify(response));
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (sender.tab) {
+    port.postMessage({
+      messageName: request.messageName,
+      userInfo: request.userInfo,
+      tabId: sender.tab.id,
+    });
+  } else {
+    chrome.runtime.sendNativeMessage(
+      application,
+      {
+        messageName: request.messageName,
+        userInfo: request.userInfo,
+        tabId: 0,
+      },
+      (response) => {
+        sendResponse(JSON.stringify(response));
+      }
+    );
   }
-
   return true;
 });

@@ -6,7 +6,7 @@
     <style type="text/css">
         html,
         body {
-            height: 100%;
+            height: 80%;
         }
 
         .chrome-bootstrap .chrome-options.title {
@@ -738,37 +738,49 @@
                         <h3>Language Server</h3>
                         <div class="suboptions column row">
                             <div class="suboption multiline"><label>SourceKit-LSP</label>
-                                <div class="field-container"><select id="server" data-title="SourceKit-LSP">
+                                <div class="field-container">
+                                    <select id="server" data-title="SourceKit-LSP" style="width: 80px;">
                                         <option value="default">Default</option>
                                         <option value="custom">Custom</option>
-                                    </select></div>
+                                    </select>
+                                </div>
                             </div>
                             <div class="suboption singleline"><label>Path</label>
-                                <div class="field-container"><input id="server_path" type="text" data-title="Path">
+                                <div class="field-container">
+                                    <input id="server_path" type="text" data-title="Path" style="width: 260px;">
                                 </div>
                             </div>
                         </div>
                         <div class="suboptions column row">
                             <div class="suboption multiline"><label>SDK</label>
-                                <div class="field-container"><select id="sdk" data-title="SDK">
+                                <div class="field-container">
+                                    <select id="sdk" data-title="SDK" style="width: 80px;">
                                         <option value="iphonesimulator">iOS</option>
                                         <option value="macosx">macOS</option>
                                         <option value="watchsimulator">watchOS</option>
                                         <option value="appletvsimulator">tvOS</option>
-                                    </select></div>
+                                    </select>
+                                </div>
                             </div>
                             <div class="suboption singleline"><label>Path</label>
-                                <div class="field-container"><input id="sdk_path" type="text" data-title="Path"></div>
+                                <div class="field-container">
+                                    <input id="sdk_path" type="text" data-title="Path" style="width: 260px;">
+                                </div>
                             </div>
                         </div>
                         <div class="suboptions column row">
-                            <div class="suboption singleline"><label>Target</label>
-                                <div class="field-container"><input id="target" type="text" data-title="Target"></div>
+                            <div class="suboption singleline"><label
+                                    style="display:block; float: left; width: 88px;">Target</label>
+                                <div class="field-container">
+                                    <input id="target" type="text" data-title="Target" style="width: 300px;">
+                                </div>
                             </div>
                         </div>
                         <div class="suboptions column row">
-                            <div class="suboption singleline"><label>Toolchain</label>
-                                <div class="field-container"><input id="toolchain" type="text" data-title="Toolchain">
+                            <div class="suboption singleline"><label
+                                    style="display:block; float: left; width: 88px;">Toolchain</label>
+                                <div class="field-container">
+                                    <input id="toolchain" type="text" data-title="Toolchain" style="width: 300px;">
                                 </div>
                             </div>
                         </div>
@@ -780,33 +792,43 @@
                                         visit</span></label></div>
                         </div>
                         <div class="suboptions column row">
-                            <div class="suboption singleline"><label>Personal Access Token</label>
-                                <div class="field-container"><input id="access_token_github" type="text"
-                                        data-title="Personal Access Token">
+                            <div class="suboption singleline"><label
+                                    style="display:block; float: left; width: 140px;">Personal Access Token</label>
+                                <div class="field-container">
+                                    <input id="access_token_github" type="text" data-title="Personal Access Token"
+                                        style="width: 248px;">
                                 </div>
                             </div>
                         </div>
                         <div class="suboptions column row">
-                            <div class="suboption singleline"><label>Curret Repository</label>
-                                <div class="field-container"><label id="current_repository"></label>
+                            <div class="suboption singleline"><label
+                                    style="display:block; float: left; width: 110px;">Curret Repository</label>
+                                <div class="field-container">
+                                    <label id="current_repository"
+                                        style="white-space: nowrap; overflow: scroll; display:block; float: left; width: 278px;"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="suboptions column row">
-                            <div class="suboption singleline"><label>Local Checkout</label>
-                                <div class="field-container"><label id="local_checkout_directory"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="suboptions column row">
-                            <div class="suboption singleline"><label>Last Update</label>
-                                <div class="field-container"><label id="last_update"></label>
+                            <div class="suboption singleline"><label
+                                    style="display:block; float: left; width: 110px;">Local Checkout</label>
+                                <div class="field-container">
+                                    <label id="local_checkout_directory"
+                                        style="white-space: nowrap; overflow: scroll; display:block; float: left; width: 278px;"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="suboptions column row">
                             <div class="suboption singleline">
-                                <button id="sync_repository_button" disabled="">Update</button>
+                                <label style="display:block; float: left; width: 110px;">Last Update</label>
+                                <div class="field-container"><label id="last_update"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="suboptions column row">
+                            <div class="suboption singleline" style="float: right;">
+                                <button id="sync_repository_button" disabled=""
+                                    style="margin-right: 24px; width: 80px;">Update</button>
                             </div>
                         </div>
                     </div>

@@ -204,9 +204,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                 }
             }
 
-            NSLog("%@", "====== START!!!")
             service.sendDocumentHighlightRequest(resource: resource, slug: slug, path: filepath, line: line, character: character + skip) { (successfully, response) in
-                NSLog("%@", "====== END!!!")
                 if successfully {
                     if let value = response["value"] as? [[String: Any]] {
                         page.dispatchMessageToScript(

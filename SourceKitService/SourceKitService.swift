@@ -1,8 +1,5 @@
 import Foundation
 import LanguageServerProtocol
-import OSLog
-
-private let log = OSLog(subsystem: "com.kishikawakatsumi.SourceKitForSafari", category: "XPC")
 
 @objc
 class SourceKitService: NSObject, SourceKitServiceProtocol {
@@ -175,7 +172,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
             .deletingPathExtension()
 
         if FileManager().fileExists(atPath: directory.path) && !force {
-            os_log("skip", log: log, type: .debug)
             reply(true, nil)
             return
         }
@@ -195,8 +191,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     "HEAD",
                 ]
 
-                os_log("%{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
-
                 let standardOutput = Pipe()
                 process.standardOutput = standardOutput
                 let standardError = Pipe()
@@ -204,14 +198,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
 
                 process.launch()
                 process.waitUntilExit()
-
-                if let result = String(data: standardOutput.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("%{public}s", log: log, type: .debug, "\(result)")
-                }
-                if let result = String(data: standardError.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("%{public}s", log: log, type: .debug, "\(result)")
-                }
-                os_log("%d", log: log, type: .debug, process.terminationStatus)
 
                 swiftBuild(inDirectory: localDirectory)
 
@@ -243,8 +229,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     localDirectory.path,
                 ]
 
-                os_log("%{public}s", log: log, type: .debug, "\(process.launchPath!) \(process.arguments!.joined(separator: " "))")
-
                 let standardOutput = Pipe()
                 process.standardOutput = standardOutput
                 let standardError = Pipe()
@@ -252,14 +236,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
 
                 process.launch()
                 process.waitUntilExit()
-
-                if let result = String(data: standardOutput.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("%{public}s", log: log, type: .debug, "\(result)")
-                }
-                if let result = String(data: standardError.fileHandleForReading.availableData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    os_log("%{public}s", log: log, type: .debug, "\(result)")
-                }
-                os_log("%d", log: log, type: .debug, process.terminationStatus)
 
                 swiftBuild(inDirectory: localDirectory)
 
@@ -278,27 +254,8 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         process.launchPath = "/usr/bin/xcrun"
         process.arguments = ["swift", "build"]
 
-        process.standardOutput = logPipe(type: .debug)
-        process.standardError = logPipe(type: .error)
-
         process.launch()
-        os_log("[build] Building repo index", log: log, type: .error)
         process.waitUntilExit()
-        os_log("[build] Building returns %d", log: log, type: .error,
-               process.terminationStatus)
-    }
-
-    func logPipe(type: OSLogType) -> Pipe {
-        let pipe = Pipe()
-        DispatchQueue.global().async {
-            while let result = String(data: pipe
-                .fileHandleForReading.availableData, encoding: .utf8)?
-                .trimmingCharacters(in: .whitespacesAndNewlines),
-                result.count != 0 {
-                    os_log("[build] %{public}s", log: log, type: type, "\(result)")
-            }
-        }
-        return pipe
     }
 
     func deleteLocalRepository(_ localRepository: URL, reply: @escaping (Bool, URL?) -> Void) {
