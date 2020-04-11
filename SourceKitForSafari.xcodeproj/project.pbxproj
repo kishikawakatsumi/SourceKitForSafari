@@ -69,6 +69,7 @@
 		14F872782441AEB200374E7A /* BufferReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F872772441AEB200374E7A /* BufferReader.swift */; };
 		14F872802441B02500374E7A /* SourceKit for Safari Chrome Extension Helper.app in Embed Helper App */ = {isa = PBXBuildFile; fileRef = 14F8725F2441AAFB00374E7A /* SourceKit for Safari Chrome Extension Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		14F872872441C88100374E7A /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F872862441C88100374E7A /* Application.swift */; };
+		14F872A524422EDA00374E7A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F872A424422EDA00374E7A /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +203,7 @@
 		14F872772441AEB200374E7A /* BufferReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferReader.swift; sourceTree = "<group>"; };
 		14F872792441AF4D00374E7A /* ChromeExtensionHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChromeExtensionHelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		14F872862441C88100374E7A /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		14F872A424422EDA00374E7A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				140460E2240BEE79004FE328 /* AppDelegate.swift */,
+				14F872A424422EDA00374E7A /* ViewController.swift */,
 				140460E8240BEE7A004FE328 /* Main.storyboard */,
 				140460E6240BEE7A004FE328 /* Assets.xcassets */,
 				140460EC240BEE7A004FE328 /* SourceKitForSafari.entitlements */,
@@ -609,6 +612,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14F872A524422EDA00374E7A /* ViewController.swift in Sources */,
 				140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */,
 				14F872762441AE8800374E7A /* AppGroup.swift in Sources */,
 			);

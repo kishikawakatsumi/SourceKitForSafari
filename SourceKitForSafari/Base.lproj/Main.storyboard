@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="brQ-Yx-MWp">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -177,5 +178,117 @@
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="aH4-37-2gU">
+            <objects>
+                <windowController id="brQ-Yx-MWp" sceneMemberID="viewController">
+                    <window key="window" title="SourceKit for Safari" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="mLf-ua-HVS">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+                        <rect key="contentRect" x="245" y="301" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <connections>
+                            <outlet property="delegate" destination="brQ-Yx-MWp" id="QFV-Ep-xca"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="LUz-Fz-zWv" kind="relationship" relationship="window.shadowedContentViewController" id="qhh-ly-qWA"/>
+                    </connections>
+                </windowController>
+                <customObject id="8Uw-Ch-pbU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="120" y="253"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="jHR-hy-7JF">
+            <objects>
+                <viewController id="LUz-Fz-zWv" customClass="ViewController" customModule="SourceKitForSafari" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="9D4-qO-5Hk">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="291"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="252" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HiA-rf-rqp">
+                                <rect key="frame" x="30" y="133" width="128" height="128"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="icon" id="AVU-oP-FWS"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YgB-nJ-dbj">
+                                <rect key="frame" x="176" y="233" width="286" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="SourceKit for Safari" id="msu-K7-gDf">
+                                    <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tk3-8z-XEp">
+                                <rect key="frame" x="176" y="211" width="286" height="14"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="by Kishikawa Katsumi" id="vkD-pn-5oV">
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8n0-2b-pXU">
+                                <rect key="frame" x="99" y="25" width="282" height="32"/>
+                                <buttonCell key="cell" type="push" title="Open in Safari Extensions Preferences…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OZw-GJ-I5O">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showPreferencesForExtension:" target="LUz-Fz-zWv" id="ILD-FC-NCh"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="crk-eQ-QCy">
+                                <rect key="frame" x="33" y="93" width="414" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="410" id="i6a-7b-1ju"/>
+                                </constraints>
+                                <textFieldCell key="cell" title="SourceKit for Safari is a browser extension for GitHub, that enables IDE features on your browser." id="Qhc-WJ-hz8">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2wV-qt-pCP">
+                                <rect key="frame" x="176" y="189" width="286" height="14"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Version: 1.0.0 (1)" id="M4M-WG-DFt">
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="crk-eQ-QCy" firstAttribute="centerX" secondItem="9D4-qO-5Hk" secondAttribute="centerX" id="0fg-Ug-XVf"/>
+                            <constraint firstAttribute="bottom" secondItem="8n0-2b-pXU" secondAttribute="bottom" constant="32" id="3gO-iR-TTt"/>
+                            <constraint firstItem="crk-eQ-QCy" firstAttribute="top" secondItem="HiA-rf-rqp" secondAttribute="bottom" constant="8" symbolic="YES" id="7Vz-3K-obv"/>
+                            <constraint firstItem="YgB-nJ-dbj" firstAttribute="leading" secondItem="HiA-rf-rqp" secondAttribute="trailing" constant="20" id="BdT-X6-u6w"/>
+                            <constraint firstItem="HiA-rf-rqp" firstAttribute="leading" secondItem="9D4-qO-5Hk" secondAttribute="leading" constant="30" id="Ce1-NV-nPG"/>
+                            <constraint firstItem="8n0-2b-pXU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9D4-qO-5Hk" secondAttribute="leading" constant="20" symbolic="YES" id="DeO-WU-Pd6"/>
+                            <constraint firstAttribute="trailing" secondItem="2wV-qt-pCP" secondAttribute="trailing" constant="20" id="Kb8-bD-WcX"/>
+                            <constraint firstItem="HiA-rf-rqp" firstAttribute="top" secondItem="9D4-qO-5Hk" secondAttribute="top" constant="30" id="SrV-0A-Dxq"/>
+                            <constraint firstAttribute="trailing" secondItem="tk3-8z-XEp" secondAttribute="trailing" constant="20" id="Vdb-ZB-mKZ"/>
+                            <constraint firstItem="2wV-qt-pCP" firstAttribute="top" secondItem="tk3-8z-XEp" secondAttribute="bottom" constant="8" symbolic="YES" id="ZkK-OV-42V"/>
+                            <constraint firstItem="8n0-2b-pXU" firstAttribute="top" secondItem="crk-eQ-QCy" secondAttribute="bottom" constant="40" id="cSb-UA-y6c"/>
+                            <constraint firstItem="tk3-8z-XEp" firstAttribute="top" secondItem="YgB-nJ-dbj" secondAttribute="bottom" constant="8" symbolic="YES" id="djn-4c-QIH"/>
+                            <constraint firstItem="2wV-qt-pCP" firstAttribute="leading" secondItem="tk3-8z-XEp" secondAttribute="leading" id="fWf-Iw-xNW"/>
+                            <constraint firstItem="YgB-nJ-dbj" firstAttribute="top" secondItem="HiA-rf-rqp" secondAttribute="top" constant="12" id="jg0-Kl-yVS"/>
+                            <constraint firstItem="8n0-2b-pXU" firstAttribute="centerX" secondItem="9D4-qO-5Hk" secondAttribute="centerX" id="o5W-kx-SEc"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="crk-eQ-QCy" secondAttribute="trailing" constant="32" id="oA3-MM-uct"/>
+                            <constraint firstItem="crk-eQ-QCy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9D4-qO-5Hk" secondAttribute="leading" constant="32" id="rV5-5Z-Jg8"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8n0-2b-pXU" secondAttribute="trailing" constant="20" symbolic="YES" id="vRV-Qz-sPw"/>
+                            <constraint firstAttribute="trailing" secondItem="YgB-nJ-dbj" secondAttribute="trailing" constant="20" id="wcO-Cx-qlG"/>
+                            <constraint firstItem="tk3-8z-XEp" firstAttribute="leading" secondItem="YgB-nJ-dbj" secondAttribute="leading" id="zZZ-EI-6Ik"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="versionLabel" destination="2wV-qt-pCP" id="GW9-th-t0D"/>
+                    </connections>
+                </viewController>
+                <customObject id="p8N-jT-fIb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="120" y="683.5"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="icon" width="128" height="128"/>
+    </resources>
 </document>
