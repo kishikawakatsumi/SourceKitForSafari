@@ -71,7 +71,9 @@ See also [Chrome extension development tutorial.](https://developer.chrome.com/e
 
 * Open `SourceKit for Safari.app`
 
-__(Unlike Safari Extension, Chrome Extension communicates with the language server through the host application. Therefore, the host application must be running while using the extension.)__
+__(From version 0.6.0, Native Messaging is used to communicate with Language Protocol Server. Therefore, no longer needed to keep the host application running. The extension will automatically launch the helper application. To install the helper application, launch SourceKit for Safari.app once. Then the helper application will be installed.)__
+
+~~(Unlike Safari Extension, Chrome Extension communicates with the language server through the host application. Therefore, the host application must be running while using the extension.)~~
 
 ## Getting Started
 
