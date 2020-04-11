@@ -241,7 +241,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="410" id="i6a-7b-1ju"/>
                                 </constraints>
-                                <textFieldCell key="cell" title="SourceKit for Safari is a browser extension for GitHub, that enables IDE features on your browser." id="Qhc-WJ-hz8">
+                                <textFieldCell key="cell" title="SourceKit for Safari is a browser extension for GitHub, that enables Xcode features on your browser." id="Qhc-WJ-hz8">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
