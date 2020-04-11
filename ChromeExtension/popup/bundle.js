@@ -2147,6 +2147,17 @@ module.exports = function protocols(input, first) {
 const GitUrlParse = require("git-url-parse");
 
 document.addEventListener("DOMContentLoaded", () => {
+  const manifest = chrome.runtime.getManifest();
+  document.getElementById("version").innerHTML = manifest.version;
+
+  document.getElementById("open_homepage").onclick = (e) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.create({
+        url: e.target.href,
+      });
+    });
+  };
+
   chrome.storage.sync.get(
     {
       server: "default",
@@ -2296,6 +2307,8 @@ function getSettings() {
       }
       fillIn(response.value);
       updateUI();
+      document.getElementById("helper_app_status").innerHTML =
+        response.value.version;
     }
   );
 }
