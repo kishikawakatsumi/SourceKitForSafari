@@ -976,6 +976,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari.ChromeExtensionHelper;
 				PRODUCT_MODULE_NAME = ChromeExtensionHelper;
 				PRODUCT_NAME = "SourceKit for Safari Chrome Extension Helper";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChromeExtensionHelper/ChromeExtensionHelper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1001,6 +1002,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari.ChromeExtensionHelper;
 				PRODUCT_MODULE_NAME = ChromeExtensionHelper;
 				PRODUCT_NAME = "SourceKit for Safari Chrome Extension Helper";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChromeExtensionHelper/ChromeExtensionHelper-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};

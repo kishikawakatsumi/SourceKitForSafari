@@ -27,14 +27,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             try? FileManager().copyItem(at: helperAppURL, to: destinationURL)
 
             if let applicationSupportDirectory = FileManager().urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
-                let manifestFileURL = applicationSupportDirectory.appendingPathComponent("Google/Chrome/NativeMessagingHosts/com.kishikawakatsumi.sourcekit_for_safari.json")
+                let directory = applicationSupportDirectory.appendingPathComponent("Google/Chrome/NativeMessagingHosts")
+                try? FileManager().createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
+                let manifestFileURL = directory.appendingPathComponent("com.kishikawakatsumi.sourcekit_for_safari.json")
                 let manifest = """
                 {
                   "name": "com.kishikawakatsumi.sourcekit_for_safari",
                   "description": "com.kishikawakatsumi.sourcekit_for_safari",
                   "path": "\(destinationURL.appendingPathComponent("Contents/MacOS/SourceKit for Safari Chrome Extension Helper").path)",
                   "type": "stdio",
-                  "allowed_origins": ["chrome-extension://efoajpkeoadgabeiikhikgmibhdfaijg/"]
+                  "allowed_origins": ["chrome-extension://iapkkilolkmdkpkdjajflaghjjmogaem/"]
                 }
                 """
                 try? manifest.data(using: .utf8)?.write(to: manifestFileURL)

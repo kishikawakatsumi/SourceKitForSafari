@@ -1,7 +1,8 @@
 {
   "manifest_version": 2,
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsZmkwBKgsuzqxKLgUgvZLWYEutOgbMZTj/FvfV1imRQzioCOhns4teg03hTR3LlJQV4LLpeDmCFfYfIsEI8NMTS4K52g6k+Yr41Il7ije8wfKwr8z+GnwKPK47r2aRzCopKalH5QiFUuD+0JtxfWi6g2gHeX7N42KqNYQ4D7PRAEAdzeqFytdVEOikDdAMfGG7108SJzyFy6zN8fdFmcrKLMX7geI+tGSJ1KapjjnHmcQUjyaJYuy2v0/PtCVxcdwKI8SIZh7L5yFhcvx9fuLFQUSBxqeMCIv88dkmHJiYBI8g+oLGsI7S/8r/+TXerBpR2t/UXeIFOIFHHfhxoAtQIDAQAB",
   "name": "SourceKit for Chrome",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A browser extension for GitHub, that enables Xcode features on your browser.",
   "icons": {
     "16": "icon16.png",
