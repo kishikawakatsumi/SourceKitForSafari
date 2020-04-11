@@ -98,6 +98,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 Kishikawa Katsumi. All rights reserved.</string>
 	<key>NSHumanReadableDescription</key>
-	<string>SourceKit for Safari is a Safari extension for GitHub, that enables Xcode features like go to definition, or documentation on hover.</string>
+	<string>SourceKit for Safari is a Safari extension for GitHub, that enables Xcode features like go to definition, find references, or documentation on hover.</string>
 </dict>
 </plist>
