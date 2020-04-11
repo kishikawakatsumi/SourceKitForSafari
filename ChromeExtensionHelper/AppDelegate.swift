@@ -228,6 +228,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                         "toolchain": settings.toolchain,
                         "auto_checkout": settings.automaticallyCheckoutsRepository,
                         "access_token_github": settings.accessToken,
+                        "version": Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String,
                     ]
                     self.sendResponse(["request": "settings", "result": "success", "value": value, "tabId": tabId, "userInfo": userInfo])
                 case "updateSettings":

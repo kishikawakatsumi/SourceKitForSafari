@@ -6,7 +6,7 @@
     <style type="text/css">
         html,
         body {
-            height: 80%;
+            height: 100%;
         }
 
         .chrome-bootstrap .chrome-options.title {
@@ -703,6 +703,15 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        a {
+            text-decoration: none;
+            color: #0366d6;
+        }
+
+        a:visited {
+            color: #0366d6;
+        }
+
     </style>
 </head>
 
@@ -829,6 +838,23 @@
                             <div class="suboption singleline" style="float: right;">
                                 <button id="sync_repository_button" disabled=""
                                     style="margin-right: 24px; width: 80px;">Update</button>
+                            </div>
+                        </div>
+                        <h3>About</h3>
+                        <div class="suboptions column row">
+                            <div class="suboption singleline">
+                                <label>Version</label>
+                                <div class="field-container"><label id="version">1.0.0 (1)</label></div>
+                                <label style="margin-left: 20px;">Helper App</label>
+                                <div class="field-container"><label id="helper_app_status">Not Installed</label></div>
+                            </div>
+                        </div>
+                        <div class="suboptions column row">
+                            <div class="suboption singleline">
+                                <div class="field-container">
+                                    <labe><a href="https://github.com/kishikawakatsumi/SourceKitForSafari"
+                                            id="open_homepage">github.com/kishikawakatsumi/SourceKitForSafari</a></label>
+                                </div>
                             </div>
                         </div>
                     </div>
