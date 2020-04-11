@@ -45,15 +45,6 @@
           "revision": "d08234c4cf8046786a3552143532222a56273720",
           "version": null
         }
-      },
-      {
-        "package": "Swifter",
-        "repositoryURL": "https://github.com/httpswift/swifter.git",
-        "state": {
-          "branch": null,
-          "revision": "8b5afb48ae64d4f729f0489ddcfe09c62b9c3687",
-          "version": "1.4.7"
-        }
       }
     ]
   },

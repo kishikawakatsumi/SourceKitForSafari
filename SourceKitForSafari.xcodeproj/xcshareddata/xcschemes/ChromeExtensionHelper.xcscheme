@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "145E9A18241405F6006DD651"
-               BuildableName = "SourceKit for Safari XPC Service.xpc"
-               BlueprintName = "SourceKitService"
+               BlueprintIdentifier = "14F8725E2441AAFB00374E7A"
+               BuildableName = "SourceKit for Safari Chrome Extension Helper.app"
+               BlueprintName = "ChromeExtensionHelper"
                ReferencedContainer = "container:SourceKitForSafari.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,6 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "14F8725E2441AAFB00374E7A"
+            BuildableName = "SourceKit for Safari Chrome Extension Helper.app"
+            BlueprintName = "ChromeExtensionHelper"
+            ReferencedContainer = "container:SourceKitForSafari.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -47,15 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "145E9A18241405F6006DD651"
-            BuildableName = "SourceKit for Safari XPC Service.xpc"
-            BlueprintName = "SourceKitService"
+            BlueprintIdentifier = "14F8725E2441AAFB00374E7A"
+            BuildableName = "SourceKit for Safari Chrome Extension Helper.app"
+            BlueprintName = "ChromeExtensionHelper"
             ReferencedContainer = "container:SourceKitForSafari.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

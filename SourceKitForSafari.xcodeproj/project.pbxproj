@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14019EDB24305738005397C5 /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
 		14019EDC24305769005397C5 /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
-		14019EFE243321A6005397C5 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EFD243321A6005397C5 /* DateFormat.swift */; };
 		14019EFF243321A6005397C5 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EFD243321A6005397C5 /* DateFormat.swift */; };
-		14019F01243321E2005397C5 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019F00243321E2005397C5 /* AppGroup.swift */; };
 		14019F02243321E2005397C5 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019F00243321E2005397C5 /* AppGroup.swift */; };
 		14019F03243321E2005397C5 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019F00243321E2005397C5 /* AppGroup.swift */; };
 		140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140460E2240BEE79004FE328 /* AppDelegate.swift */; };
@@ -47,12 +44,8 @@
 		144D1D8D242678C000B7AC65 /* E.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D78242678BF00B7AC65 /* E.png */; };
 		144D1D8E242678C000B7AC65 /* P.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D79242678BF00B7AC65 /* P.png */; };
 		144D1D8F242678C000B7AC65 /* F.png in Resources */ = {isa = PBXBuildFile; fileRef = 144D1D7A242678BF00B7AC65 /* F.png */; };
-		1459AADA242F3C19002D6185 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14931110241D4EC400CF87D3 /* Settings.swift */; };
-		1459AADC242F3C4C002D6185 /* SourceKitServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */; };
-		145B31A924295B3200660469 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 145B31A824295B3200660469 /* Swifter */; };
-		145B31B124296D0800660469 /* SourceKitService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKitService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		145E9A20241405F6006DD651 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A1F241405F6006DD651 /* main.m */; };
-		145E9A2624140626006DD651 /* SourceKitService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKitService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		145E9A2624140626006DD651 /* SourceKit for Safari XPC Service.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKit for Safari XPC Service.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		145E9A292414068B006DD651 /* SourceKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A282414068B006DD651 /* SourceKitService.swift */; };
 		145E9A3724146BA5006DD651 /* tippy.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3224146BA4006DD651 /* tippy.css */; };
 		145E9A3924146BA5006DD651 /* light-border.css in Resources */ = {isa = PBXBuildFile; fileRef = 145E9A3424146BA4006DD651 /* light-border.css */; };
@@ -65,6 +58,17 @@
 		1493110F241CF44200CF87D3 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1493110E241CF44200CF87D3 /* style.css */; };
 		14931111241D4EC400CF87D3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14931110241D4EC400CF87D3 /* Settings.swift */; };
 		14DB80B7241F096A00728A29 /* LSPBindings in Frameworks */ = {isa = PBXBuildFile; productRef = 14DB80B6241F096A00728A29 /* LSPBindings */; };
+		14F872622441AAFB00374E7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F872612441AAFB00374E7A /* AppDelegate.swift */; };
+		14F872702441AB6700374E7A /* SourceKit for Safari XPC Service.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 145E9A19241405F6006DD651 /* SourceKit for Safari XPC Service.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		14F872712441AE5E00374E7A /* SourceKitServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E9A472414DEBA006DD651 /* SourceKitServiceProxy.swift */; };
+		14F872722441AE6300374E7A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14931110241D4EC400CF87D3 /* Settings.swift */; };
+		14F872732441AE6600374E7A /* parseGitHubURL().swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EDA24305738005397C5 /* parseGitHubURL().swift */; };
+		14F872742441AE6A00374E7A /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019EFD243321A6005397C5 /* DateFormat.swift */; };
+		14F872752441AE7100374E7A /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019F00243321E2005397C5 /* AppGroup.swift */; };
+		14F872762441AE8800374E7A /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14019F00243321E2005397C5 /* AppGroup.swift */; };
+		14F872782441AEB200374E7A /* BufferReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F872772441AEB200374E7A /* BufferReader.swift */; };
+		14F872802441B02500374E7A /* SourceKit for Safari Chrome Extension Helper.app in Embed Helper App */ = {isa = PBXBuildFile; fileRef = 14F8725F2441AAFB00374E7A /* SourceKit for Safari Chrome Extension Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		14F872872441C88100374E7A /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F872862441C88100374E7A /* Application.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,25 +100,37 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		145B31B424296D0800660469 /* Embed XPC Services */ = {
+		145E9A2524140601006DD651 /* Embed XPC Services */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
 			dstSubfolderSpec = 16;
 			files = (
-				145B31B124296D0800660469 /* SourceKitService.xpc in Embed XPC Services */,
+				145E9A2624140626006DD651 /* SourceKit for Safari XPC Service.xpc in Embed XPC Services */,
 			);
 			name = "Embed XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		145E9A2524140601006DD651 /* CopyFiles */ = {
+		14F8726F2441AB5B00374E7A /* Embed XPC Services */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
 			dstSubfolderSpec = 16;
 			files = (
-				145E9A2624140626006DD651 /* SourceKitService.xpc in CopyFiles */,
+				14F872702441AB6700374E7A /* SourceKit for Safari XPC Service.xpc in Embed XPC Services */,
 			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14F8727F2441B01C00374E7A /* Embed Helper App */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				14F872802441B02500374E7A /* SourceKit for Safari Chrome Extension Helper.app in Embed Helper App */,
+			);
+			name = "Embed Helper App";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -161,8 +177,7 @@
 		144D1D78242678BF00B7AC65 /* E.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = E.png; sourceTree = "<group>"; };
 		144D1D79242678BF00B7AC65 /* P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = P.png; sourceTree = "<group>"; };
 		144D1D7A242678BF00B7AC65 /* F.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = F.png; sourceTree = "<group>"; };
-		145B31AE2429637300660469 /* SourceKitForSafari-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SourceKitForSafari-Bridging-Header.h"; sourceTree = "<group>"; };
-		145E9A19241405F6006DD651 /* SourceKitService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = SourceKitService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		145E9A19241405F6006DD651 /* SourceKit for Safari XPC Service.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = "SourceKit for Safari XPC Service.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
 		145E9A1B241405F6006DD651 /* SourceKitServiceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceKitServiceProtocol.h; sourceTree = "<group>"; };
 		145E9A1F241405F6006DD651 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		145E9A21241405F6006DD651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -180,6 +195,13 @@
 		1493110C241C310B00CF87D3 /* Workspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
 		1493110E241CF44200CF87D3 /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		14931110241D4EC400CF87D3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		14F8725F2441AAFB00374E7A /* SourceKit for Safari Chrome Extension Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SourceKit for Safari Chrome Extension Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		14F872612441AAFB00374E7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		14F8726A2441AAFD00374E7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14F8726B2441AAFD00374E7A /* ChromeExtensionHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChromeExtensionHelper.entitlements; sourceTree = "<group>"; };
+		14F872772441AEB200374E7A /* BufferReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferReader.swift; sourceTree = "<group>"; };
+		14F872792441AF4D00374E7A /* ChromeExtensionHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChromeExtensionHelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		14F872862441C88100374E7A /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,7 +209,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				145B31A924295B3200660469 /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +228,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		14F8725C2441AAFB00374E7A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -215,6 +243,7 @@
 			children = (
 				140460E1240BEE79004FE328 /* SourceKitForSafari */,
 				140460FA240BEE94004FE328 /* SafariExtension */,
+				14F872602441AAFB00374E7A /* ChromeExtensionHelper */,
 				145E9A1A241405F6006DD651 /* SourceKitService */,
 				1459AAD8242F3BFE002D6185 /* Shared */,
 				140460F7240BEE94004FE328 /* Frameworks */,
@@ -227,7 +256,8 @@
 			children = (
 				140460DF240BEE79004FE328 /* SourceKit for Safari.app */,
 				140460F6240BEE94004FE328 /* SourceKit for Safari.appex */,
-				145E9A19241405F6006DD651 /* SourceKitService.xpc */,
+				145E9A19241405F6006DD651 /* SourceKit for Safari XPC Service.xpc */,
+				14F8725F2441AAFB00374E7A /* SourceKit for Safari Chrome Extension Helper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -240,7 +270,6 @@
 				140460E6240BEE7A004FE328 /* Assets.xcassets */,
 				140460EC240BEE7A004FE328 /* SourceKitForSafari.entitlements */,
 				140460EB240BEE7A004FE328 /* Info.plist */,
-				145B31AE2429637300660469 /* SourceKitForSafari-Bridging-Header.h */,
 			);
 			path = SourceKitForSafari;
 			sourceTree = "<group>";
@@ -364,6 +393,19 @@
 			path = css;
 			sourceTree = "<group>";
 		};
+		14F872602441AAFB00374E7A /* ChromeExtensionHelper */ = {
+			isa = PBXGroup;
+			children = (
+				14F872862441C88100374E7A /* Application.swift */,
+				14F872612441AAFB00374E7A /* AppDelegate.swift */,
+				14F872772441AEB200374E7A /* BufferReader.swift */,
+				14F872792441AF4D00374E7A /* ChromeExtensionHelper-Bridging-Header.h */,
+				14F8726B2441AAFD00374E7A /* ChromeExtensionHelper.entitlements */,
+				14F8726A2441AAFD00374E7A /* Info.plist */,
+			);
+			path = ChromeExtensionHelper;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -375,7 +417,7 @@
 				140460DC240BEE79004FE328 /* Frameworks */,
 				140460DD240BEE79004FE328 /* Resources */,
 				1404610E240BEE94004FE328 /* Embed App Extensions */,
-				145B31B424296D0800660469 /* Embed XPC Services */,
+				14F8727F2441B01C00374E7A /* Embed Helper App */,
 			);
 			buildRules = (
 			);
@@ -385,7 +427,6 @@
 			);
 			name = SourceKitForSafari;
 			packageProductDependencies = (
-				145B31A824295B3200660469 /* Swifter */,
 			);
 			productName = SourceKitForSafari;
 			productReference = 140460DF240BEE79004FE328 /* SourceKit for Safari.app */;
@@ -398,7 +439,7 @@
 				140460F2240BEE94004FE328 /* Sources */,
 				140460F3240BEE94004FE328 /* Frameworks */,
 				140460F4240BEE94004FE328 /* Resources */,
-				145E9A2524140601006DD651 /* CopyFiles */,
+				145E9A2524140601006DD651 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
@@ -426,8 +467,26 @@
 				14DB80B6241F096A00728A29 /* LSPBindings */,
 			);
 			productName = SourceKitService;
-			productReference = 145E9A19241405F6006DD651 /* SourceKitService.xpc */;
+			productReference = 145E9A19241405F6006DD651 /* SourceKit for Safari XPC Service.xpc */;
 			productType = "com.apple.product-type.xpc-service";
+		};
+		14F8725E2441AAFB00374E7A /* ChromeExtensionHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14F8726E2441AAFD00374E7A /* Build configuration list for PBXNativeTarget "ChromeExtensionHelper" */;
+			buildPhases = (
+				14F8725B2441AAFB00374E7A /* Sources */,
+				14F8725C2441AAFB00374E7A /* Frameworks */,
+				14F8725D2441AAFB00374E7A /* Resources */,
+				14F8726F2441AB5B00374E7A /* Embed XPC Services */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChromeExtensionHelper;
+			productName = ChromeExtensionHelper;
+			productReference = 14F8725F2441AAFB00374E7A /* SourceKit for Safari Chrome Extension Helper.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -435,7 +494,7 @@
 		140460D7240BEE79004FE328 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Kishikawa Katsumi";
 				TargetAttributes = {
@@ -451,6 +510,10 @@
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1130;
 					};
+					14F8725E2441AAFB00374E7A = {
+						CreatedOnToolsVersion = 11.4;
+						LastSwiftMigration = 1140;
+					};
 				};
 			};
 			buildConfigurationList = 140460DA240BEE79004FE328 /* Build configuration list for PBXProject "SourceKitForSafari" */;
@@ -464,7 +527,6 @@
 			mainGroup = 140460D6240BEE79004FE328;
 			packageReferences = (
 				14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */,
-				145B31A724295B3200660469 /* XCRemoteSwiftPackageReference "swifter" */,
 			);
 			productRefGroup = 140460E0240BEE79004FE328 /* Products */;
 			projectDirPath = "";
@@ -472,6 +534,7 @@
 			targets = (
 				140460DE240BEE79004FE328 /* SourceKitForSafari */,
 				140460F5240BEE94004FE328 /* SafariExtension */,
+				14F8725E2441AAFB00374E7A /* ChromeExtensionHelper */,
 				145E9A18241405F6006DD651 /* SourceKitService */,
 			);
 		};
@@ -532,6 +595,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		14F8725D2441AAFB00374E7A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -539,12 +609,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1459AADC242F3C4C002D6185 /* SourceKitServiceProxy.swift in Sources */,
-				14019F01243321E2005397C5 /* AppGroup.swift in Sources */,
-				14019EDB24305738005397C5 /* parseGitHubURL().swift in Sources */,
-				14019EFE243321A6005397C5 /* DateFormat.swift in Sources */,
-				1459AADA242F3C19002D6185 /* Settings.swift in Sources */,
 				140460E3240BEE79004FE328 /* AppDelegate.swift in Sources */,
+				14F872762441AE8800374E7A /* AppGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +638,21 @@
 				1493110D241C310B00CF87D3 /* Workspace.swift in Sources */,
 				145E9A20241405F6006DD651 /* main.m in Sources */,
 				1493110B241C30F600CF87D3 /* ServerRegistry.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14F8725B2441AAFB00374E7A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14F872872441C88100374E7A /* Application.swift in Sources */,
+				14F872722441AE6300374E7A /* Settings.swift in Sources */,
+				14F872752441AE7100374E7A /* AppGroup.swift in Sources */,
+				14F872712441AE5E00374E7A /* SourceKitServiceProxy.swift in Sources */,
+				14F872622441AAFB00374E7A /* AppDelegate.swift in Sources */,
+				14F872742441AE6A00374E7A /* DateFormat.swift in Sources */,
+				14F872782441AEB200374E7A /* BufferReader.swift in Sources */,
+				14F872732441AE6600374E7A /* parseGitHubURL().swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,7 +824,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari;
 				PRODUCT_MODULE_NAME = SourceKitForSafari;
 				PRODUCT_NAME = "SourceKit for Safari";
-				SWIFT_OBJC_BRIDGING_HEADER = "SourceKitForSafari/SourceKitForSafari-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -769,7 +849,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari;
 				PRODUCT_MODULE_NAME = SourceKitForSafari;
 				PRODUCT_NAME = "SourceKit for Safari";
-				SWIFT_OBJC_BRIDGING_HEADER = "SourceKitForSafari/SourceKitForSafari-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -839,8 +918,9 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari.SourceKitService;
+				PRODUCT_MODULE_NAME = SourceKitService;
+				PRODUCT_NAME = "SourceKit for Safari XPC Service";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "SourceKitService/SourceKitService-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -864,10 +944,60 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari.SourceKitService;
+				PRODUCT_MODULE_NAME = SourceKitService;
+				PRODUCT_NAME = "SourceKit for Safari XPC Service";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "SourceKitService/SourceKitService-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		14F8726C2441AAFD00374E7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ChromeExtensionHelper/ChromeExtensionHelper.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 27AEDK3C9F;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = ChromeExtensionHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari.ChromeExtensionHelper;
+				PRODUCT_MODULE_NAME = ChromeExtensionHelper;
+				PRODUCT_NAME = "SourceKit for Safari Chrome Extension Helper";
+				SWIFT_OBJC_BRIDGING_HEADER = "ChromeExtensionHelper/ChromeExtensionHelper-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		14F8726D2441AAFD00374E7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ChromeExtensionHelper/ChromeExtensionHelper.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 27AEDK3C9F;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = ChromeExtensionHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari.ChromeExtensionHelper;
+				PRODUCT_MODULE_NAME = ChromeExtensionHelper;
+				PRODUCT_NAME = "SourceKit for Safari Chrome Extension Helper";
+				SWIFT_OBJC_BRIDGING_HEADER = "ChromeExtensionHelper/ChromeExtensionHelper-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -911,17 +1041,18 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		14F8726E2441AAFD00374E7A /* Build configuration list for PBXNativeTarget "ChromeExtensionHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14F8726C2441AAFD00374E7A /* Debug */,
+				14F8726D2441AAFD00374E7A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		145B31A724295B3200660469 /* XCRemoteSwiftPackageReference "swifter" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/httpswift/swifter.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.7;
-			};
-		};
 		14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/sourcekit-lsp.git";
@@ -933,11 +1064,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		145B31A824295B3200660469 /* Swifter */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 145B31A724295B3200660469 /* XCRemoteSwiftPackageReference "swifter" */;
-			productName = Swifter;
-		};
 		14DB80B6241F096A00728A29 /* LSPBindings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 14DB8097241F06E600728A29 /* XCRemoteSwiftPackageReference "sourcekit-lsp" */;
