@@ -1,10 +1,18 @@
 import Cocoa
-import SafariServices
 
 @NSApplicationMain
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         installChromeExtensionHelper()
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        guard !flag else { return false }
+        for window in sender.windows {
+            window.makeKeyAndOrderFront(self)
+            return true
+        }
+        return true
     }
 
     private func installChromeExtensionHelper() {
@@ -32,10 +40,5 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 try? manifest.data(using: .utf8)?.write(to: manifestFileURL)
             }
         }
-    }
-
-    @IBAction
-    private func showPreferencesForExtension(_ sender: NSButton) {
-        SFSafariApplication.showPreferencesForExtension(withIdentifier: "com.kishikawakatsumi.SourceKitForSafari.SafariExtension")
     }
 }
