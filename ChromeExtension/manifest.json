@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "SourceKit for Chrome",
   "version": "0.6.0",
-  "description": "A browser extension for GitHub, that enables Xcode features on your browser",
+  "description": "A browser extension for GitHub, that enables Xcode features on your browser.",
   "icons": {
     "16": "icon16.png",
     "32": "icon32.png",
