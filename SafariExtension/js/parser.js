@@ -12,13 +12,13 @@ function readLines(lines) {
 }
 
 function readSlice(lines, sliceStart) {
-  var nextSlice = sliceStart+100;
-  for (var i=sliceStart ; i<nextSlice && i<lines.length; i++)
+  var nextSlice = Math.min(sliceStart+50, lines.length);
+  for (var i=sliceStart ; i<nextSlice; i++)
     readLine(lines[i], i, 0);
   if (nextSlice < lines.length)
     setTimeout(() => {
-        readSlice(lines, nextSlice);
-    }, 100);
+      readSlice(lines, nextSlice);
+    }, 50);
 }
 
 function readLine(line, lineIndex, columnIndex) {
