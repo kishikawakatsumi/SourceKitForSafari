@@ -16,18 +16,14 @@ function readLine(line, lineIndex, columnIndex) {
   for (var i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     if (node.nodeName === "#text") {
-      if (!node.nodeValue.trim()) {
+      if (!node.nodeValue.trim() || !node.classList) {
         columnIndex += node.nodeValue.length;
         continue;
       }
-      var element = document.createElement("span");
-      element.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
-      element.dataset.lineNumber = lineIndex;
-      element.dataset.column = columnIndex;
-      element.dataset.parentClassList = `${node.parentNode.classList}`;
-      element.innerText = node.nodeValue;
-      node.parentNode.insertBefore(element, node);
-      node.parentNode.removeChild(node);
+      node.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
+      node.dataset.lineNumber = lineIndex;
+      node.dataset.column = columnIndex;
+      node.dataset.parentClassList = `${node.parentNode.classList}`;
 
       columnIndex += node.nodeValue.length;
     } else {

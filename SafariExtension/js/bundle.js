@@ -492,10 +492,10 @@ const activate = () => {
 if (typeof safari !== "undefined") {
   document.addEventListener("DOMContentLoaded", (event) => {
     require("./index.css");
-    activate();
+    setTimeout(activate, 500);
   });
 } else {
-  activate();
+  setTimeout(activate, 500);
 }
 
 },{"./helper":1,"./index.css":2,"./parser":224,"./quickhelp":225,"./symbol_navigator":226,"bootstrap":5,"git-url-parse":8,"github-reserved-names":9,"highlight.js":13,"jquery":200,"marked":209}],4:[function(require,module,exports){
@@ -50268,18 +50268,14 @@ function readLine(line, lineIndex, columnIndex) {
   for (var i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     if (node.nodeName === "#text") {
-      if (!node.nodeValue.trim()) {
+      if (!node.nodeValue.trim() || !node.classList) {
         columnIndex += node.nodeValue.length;
         continue;
       }
-      var element = document.createElement("span");
-      element.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
-      element.dataset.lineNumber = lineIndex;
-      element.dataset.column = columnIndex;
-      element.dataset.parentClassList = `${node.parentNode.classList}`;
-      element.innerText = node.nodeValue;
-      node.parentNode.insertBefore(element, node);
-      node.parentNode.removeChild(node);
+      node.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
+      node.dataset.lineNumber = lineIndex;
+      node.dataset.column = columnIndex;
+      node.dataset.parentClassList = `${node.parentNode.classList}`;
 
       columnIndex += node.nodeValue.length;
     } else {
