@@ -50258,9 +50258,19 @@ function readLines(lines) {
   lines.forEach((line, index) => {
     textDocument.push(line);
     contents.push(line.innerText.replace(/^[\r\n]+|[\r\n]+$/g, ""));
-    readLine(line, index, 0);
   });
+  readSlice(lines, 0);
   return contents.join("\n");
+}
+
+function readSlice(lines, sliceStart) {
+  var nextSlice = sliceStart+100;
+  for (var i=sliceStart ; i<nextSlice && i<lines.length; i++)
+    readLine(lines[i], i, 0);
+  if (nextSlice < lines.length)
+    setTimeout(() => {
+        readSlice(lines, nextSlice);
+    }, 100);
 }
 
 function readLine(line, lineIndex, columnIndex) {
@@ -50268,14 +50278,17 @@ function readLine(line, lineIndex, columnIndex) {
   for (var i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     if (node.nodeName === "#text") {
-      if (!node.nodeValue.trim() || !node.classList) {
+      if (!node.nodeValue.trim()) {
         columnIndex += node.nodeValue.length;
         continue;
       }
-      node.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
-      node.dataset.lineNumber = lineIndex;
-      node.dataset.column = columnIndex;
-      node.dataset.parentClassList = `${node.parentNode.classList}`;
+      var element = document.createElement("span");
+      element.classList.add("symbol", `symbol-${lineIndex}-${columnIndex}`);
+      element.dataset.lineNumber = lineIndex;
+      element.dataset.column = columnIndex;
+      element.dataset.parentClassList = `${node.parentNode.classList}`;
+      element.innerText = node.nodeValue;
+      node.parentNode.replaceChild(element, node);
 
       columnIndex += node.nodeValue.length;
     } else {
