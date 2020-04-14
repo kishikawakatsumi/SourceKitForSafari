@@ -57,6 +57,8 @@ Highlights all references to the symbol scoped to this file.
 
 * Download the latest `SourceKit for Safari.app` from [GitHub Releases](https://github.com/kishikawakatsumi/SourceKitForSafari/releases), run it once to install the helper app and the native messaging manifest.
 
+* Install the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/sourcekit-for-chrome/ndfileljkldjnflefdckeiaedelndafe)
+
 __(From version 0.6.0, Native Messaging is used to communicate with Language Protocol Server. Therefore, no longer needed to keep the host application running. The extension will automatically launch the helper application. To install the helper application, launch SourceKit for Safari.app once. Then the helper application will be installed.)__
 
 ~~(Unlike Safari Extension, Chrome Extension communicates with the language server through the host application. Therefore, the host application must be running while using the extension.)~~
