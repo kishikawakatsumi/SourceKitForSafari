@@ -1,7 +1,7 @@
 # SourceKit for Safari
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/40610/77446950-6deead00-6e32-11ea-99bf-c7e80a08b2f4.png" width="480" />
+  <img src="https://user-images.githubusercontent.com/40610/79199237-a7ce3480-7e6f-11ea-95b1-f836549717e1.png" width="240" />
 </p>
 
 SourceKit for Safari is a browser extension for GitHub, that enables IDE features on your browser such as symbol navigator, go to definition and documentation on hover.
@@ -55,21 +55,7 @@ Highlights all references to the symbol scoped to this file.
 
 ### Chrome
 
-* Download the latest `SourceKit for Safari.app` from [GitHub Releases](https://github.com/kishikawakatsumi/SourceKitForSafari/releases), run it once to install the extension.
-
-* Open the Extension Management page by navigating to `chrome://extensions`.
-   * The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
-* Enable Developer Mode by clicking the toggle switch next to Developer mode.
-
-<img src="https://user-images.githubusercontent.com/40610/77447757-5fed5c00-6e33-11ea-8f1a-fa03ecb4b02a.png" width="200" />
-
-* Click the __Load Unpacked__ button and select the extension directory (`ChromeExtension` directory in the archive).
-
-<img src="https://user-images.githubusercontent.com/40610/78083462-88a3c180-73f0-11ea-8cc9-7f7752d1d83a.png" width="300" />
-
-See also [Chrome extension development tutorial.](https://developer.chrome.com/extensions/getstarted)
-
-* Open `SourceKit for Safari.app`
+* Download the latest `SourceKit for Safari.app` from [GitHub Releases](https://github.com/kishikawakatsumi/SourceKitForSafari/releases), run it once to install the helper app and the native messaging manifest.
 
 __(From version 0.6.0, Native Messaging is used to communicate with Language Protocol Server. Therefore, no longer needed to keep the host application running. The extension will automatically launch the helper application. To install the helper application, launch SourceKit for Safari.app once. Then the helper application will be installed.)__
 
