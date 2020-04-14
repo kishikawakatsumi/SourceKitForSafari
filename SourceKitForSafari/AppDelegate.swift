@@ -36,7 +36,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                   "description": "com.kishikawakatsumi.sourcekit_for_safari",
                   "path": "\(destinationURL.appendingPathComponent("Contents/MacOS/SourceKit for Safari Chrome Extension Helper").path)",
                   "type": "stdio",
-                  "allowed_origins": ["chrome-extension://iapkkilolkmdkpkdjajflaghjjmogaem/"]
+                  "allowed_origins": ["chrome-extension://ndfileljkldjnflefdckeiaedelndafe/"]
                 }
                 """
                 try? manifest.data(using: .utf8)?.write(to: manifestFileURL)
