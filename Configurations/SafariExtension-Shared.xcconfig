@@ -1,0 +1,13 @@
+CLANG_ENABLE_MODULES = YES
+CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements
+CODE_SIGN_IDENTITY = -
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM = 27AEDK3C9F
+ENABLE_HARDENED_RUNTIME = YES
+INFOPLIST_FILE = SafariExtension/Info.plist
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks
+PRODUCT_BUNDLE_IDENTIFIER = com.kishikawakatsumi.SourceKitForSafari.SafariExtension
+PRODUCT_MODULE_NAME = SafariExtension
+PRODUCT_NAME = SourceKit for Safari
+SKIP_INSTALL = YES
+SWIFT_OBJC_BRIDGING_HEADER = SafariExtension/SafariExtension-Bridging-Header.h
