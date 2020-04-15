@@ -6,9 +6,19 @@ function readLines(lines) {
   lines.forEach((line, index) => {
     textDocument.push(line);
     contents.push(line.innerText.replace(/^[\r\n]+|[\r\n]+$/g, ""));
-    readLine(line, index, 0);
   });
+  readSlice(lines, 0);
   return contents.join("\n");
+}
+
+function readSlice(lines, sliceStart) {
+  var nextSlice = Math.min(sliceStart+50, lines.length);
+  for (var i=sliceStart ; i<nextSlice; i++)
+    readLine(lines[i], i, 0);
+  if (nextSlice < lines.length)
+    setTimeout(() => {
+      readSlice(lines, nextSlice);
+    }, 50);
 }
 
 function readLine(line, lineIndex, columnIndex) {
@@ -26,8 +36,7 @@ function readLine(line, lineIndex, columnIndex) {
       element.dataset.column = columnIndex;
       element.dataset.parentClassList = `${node.parentNode.classList}`;
       element.innerText = node.nodeValue;
-      node.parentNode.insertBefore(element, node);
-      node.parentNode.removeChild(node);
+      node.parentNode.replaceChild(element, node);
 
       columnIndex += node.nodeValue.length;
     } else {

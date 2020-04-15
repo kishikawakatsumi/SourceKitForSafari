@@ -482,8 +482,8 @@ const activate = () => {
 if (typeof safari !== "undefined") {
   document.addEventListener("DOMContentLoaded", (event) => {
     require("./index.css");
-    activate();
+    setTimeout(activate, 500);
   });
 } else {
-  activate();
+  setTimeout(activate, 500);
 }
