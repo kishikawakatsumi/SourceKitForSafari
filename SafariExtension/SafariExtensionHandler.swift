@@ -46,6 +46,15 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                     }
                 }
             }
+        case "buildProgress":
+          guard let userInfo = userInfo,
+              let resource = userInfo["resource"] as? String
+              else { return }
+          self.service.fetchBuildProgress(resource: resource) { [weak self] (successfully, response) in
+            guard let _ = self, let value = response["value"] else { return }
+            page.dispatchMessageToScript(withName: "response", userInfo: [
+              "request": "buildProgress", "result": "success", "value": value])
+          }
         case "hover":
             guard let userInfo = userInfo,
                 let resource = userInfo["resource"] as? String,

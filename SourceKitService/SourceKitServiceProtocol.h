@@ -91,6 +91,12 @@ NS_SWIFT_NAME(defaultSDKPath(for:reply:));
                         reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
 NS_SWIFT_NAME(synchronizeRepository(context:repository:ignoreLastUpdate:reply:));
 
+typedef void (^BuildProgressCallback)(BOOL successfully, NSDictionary<NSString *, id> * progress);
+- (void)fetchBuildProgress:(NSDictionary<NSString *, NSString *> *)context
+        resource:(NSString *)resource
+           reply:(BuildProgressCallback)reply
+NS_SWIFT_NAME(fetchBuildProgress(context:resource:reply:));
+
 - (void)deleteLocalRepository:(NSURL *)repository reply:(void (^)(BOOL successfully, NSURL * _Nullable localPath))reply
 NS_SWIFT_NAME(deleteLocalRepository(_:reply:));
 

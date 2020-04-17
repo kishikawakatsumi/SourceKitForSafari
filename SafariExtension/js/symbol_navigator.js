@@ -91,3 +91,69 @@ function symbolNavigator(documentSymbols, documentUrl) {
 }
 
 exports.symbolNavigator = symbolNavigator;
+
+let progress = null;
+
+function progressNavigator(documentUrl) {
+  if (progress) {
+    progress.destroy();
+    progress = null;
+  }
+
+  const navigationContainer = document.createElement("div");
+  navigationContainer.classList.add(
+    "--sourcekit-for-safari_symbol-navigation",
+    "overflow-auto"
+  );
+
+  const navigationList = document.createElement("div");
+  navigationList.classList.add("list-group", "col-12");
+
+  const blobCodeInner = document.querySelector(".blob-code-inner");
+  const style = getComputedStyle(blobCodeInner);
+  navigationList.style.cssText = `font-size: ${style.fontSize};`;
+
+  navigationContainer.appendChild(navigationList);
+
+  const navigationHeader = document.createElement("a");
+  navigationHeader.href = "#--sourcekit-for-safari_progress-navigation-items";
+  navigationHeader.classList.add("list-group-item", "list-group-item-action");
+  navigationHeader.dataset.toggle = "collapse";
+  const chevronImage = (() => {
+    if (typeof safari !== "undefined") {
+      return `${safari.extension.baseURI}chevron.down`;
+    } else {
+      return chrome.extension.getURL(`images/chevron.down`);
+    }
+  })();
+  navigationHeader.innerHTML = `Build Progress <img srcset="${chevronImage}.png, ${chevronImage}@2x.png 2x, ${chevronImage}@3x.png 3x" width="15" height="8" align="center" />`;
+  navigationHeader.style.cssText = `font-size: ${style.fontSize}; font-weight: bold;`;
+  navigationList.appendChild(navigationHeader);
+
+  const navigationItemContainer = document.createElement("div");
+  navigationItemContainer.classList.add("collapse", "show");
+  navigationItemContainer.id = "--sourcekit-for-safari_progress-navigation-items";
+  navigationItemContainer.style.cssText = `overflow-y: scroll; max-height: 30vh;`;
+  navigationList.appendChild(navigationItemContainer);
+
+  const navigationProgress = document.createElement("pre");
+  navigationProgress.id = "--sourcekit-for-safari_progress-navigation";
+  navigationProgress.style.cssText = `font-size: 6pt;`;
+  navigationItemContainer.appendChild(navigationProgress);
+
+  progress = tippy(document.querySelector(".blob-wrapper"), {
+    content: navigationContainer,
+    interactive: true,
+    arrow: false,
+    animation: false,
+    duration: 0,
+    placement: "right-start",
+    offset: [0, 4],
+    theme: "light-border",
+    trigger: "manual",
+    hideOnClick: false
+  });
+  return progress;
+}
+
+exports.progressNavigator = progressNavigator;

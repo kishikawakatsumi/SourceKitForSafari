@@ -24,7 +24,7 @@ marked.setOptions({
 
 const { readLines, highlightReferences } = require("./parser");
 const { setupQuickHelp, setupQuickHelpContent } = require("./quickhelp");
-const { symbolNavigator } = require("./symbol_navigator");
+const { symbolNavigator, progressNavigator } = require("./symbol_navigator");
 const { normalizedLocation } = require("./helper");
 
 if (typeof chrome !== "undefined") {
@@ -62,11 +62,15 @@ function dispatchMessage(messageName, userInfo) {
   }
 }
 
+var progressPopover, didOpenInfo;
+
 function handleResponse(event, parsedUrl) {
   switch (event.name) {
     case "response":
       switch (event.message.request) {
         case "documentSymbol":
+          if (progressPopover)
+            break;
           (() => {
             const value = event.message.value;
             if (value && Array.isArray(value)) {
@@ -78,7 +82,36 @@ function handleResponse(event, parsedUrl) {
               }
 
               symbolNavigator(symbols, parsedUrl.href).show();
+              progressPopover = progressNavigator(parsedUrl.href);
+              progressPopover.show();
+              dispatchMessage("buildProgress", {
+                              resource: `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl}`
+                              });
             }
+          })();
+          break;
+        case "buildProgress":
+          (() => {
+           const value = event.message.value;
+           const progressPre = document.getElementById("--sourcekit-for-safari_progress-navigation");
+           if (progressPre) {
+             progressPre.innerHTML = value.text;
+             if (value.complete)
+                progressPre.innerHTML += value.failed ?
+                    "<p><p><b style='color: red'>Build failed</b>" :
+                    "<p><p><b style='color: green'>Build complete</b>";
+             progressPre.parentElement.scrollTop = progressPre.parentElement.scrollHeight;
+           }
+           if (!value.complete)
+             dispatchMessage("buildProgress", {
+                             resource: `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl}`
+                             });
+           else if (!value.failed) {
+             dispatchMessage("didOpen", didOpenInfo);
+             setTimeout(() => {
+               progressPopover.hide();
+             }, 5000);
+           }
           })();
           break;
         case "hover":
@@ -395,7 +428,7 @@ const activate = () => {
   const lines = document.querySelectorAll(".blob-code");
   const text = readLines(lines);
 
-  dispatchMessage("didOpen", {
+  dispatchMessage("didOpen", didOpenInfo = {
     resource: parsedUrl.resource,
     slug: parsedUrl.full_name,
     filepath: parsedUrl.filepath,
@@ -50539,5 +50572,71 @@ function symbolNavigator(documentSymbols, documentUrl) {
 }
 
 exports.symbolNavigator = symbolNavigator;
+
+let progress = null;
+
+function progressNavigator(documentUrl) {
+  if (progress) {
+    progress.destroy();
+    progress = null;
+  }
+
+  const navigationContainer = document.createElement("div");
+  navigationContainer.classList.add(
+    "--sourcekit-for-safari_symbol-navigation",
+    "overflow-auto"
+  );
+
+  const navigationList = document.createElement("div");
+  navigationList.classList.add("list-group", "col-12");
+
+  const blobCodeInner = document.querySelector(".blob-code-inner");
+  const style = getComputedStyle(blobCodeInner);
+  navigationList.style.cssText = `font-size: ${style.fontSize};`;
+
+  navigationContainer.appendChild(navigationList);
+
+  const navigationHeader = document.createElement("a");
+  navigationHeader.href = "#--sourcekit-for-safari_progress-navigation-items";
+  navigationHeader.classList.add("list-group-item", "list-group-item-action");
+  navigationHeader.dataset.toggle = "collapse";
+  const chevronImage = (() => {
+    if (typeof safari !== "undefined") {
+      return `${safari.extension.baseURI}chevron.down`;
+    } else {
+      return chrome.extension.getURL(`images/chevron.down`);
+    }
+  })();
+  navigationHeader.innerHTML = `Build Progress <img srcset="${chevronImage}.png, ${chevronImage}@2x.png 2x, ${chevronImage}@3x.png 3x" width="15" height="8" align="center" />`;
+  navigationHeader.style.cssText = `font-size: ${style.fontSize}; font-weight: bold;`;
+  navigationList.appendChild(navigationHeader);
+
+  const navigationItemContainer = document.createElement("div");
+  navigationItemContainer.classList.add("collapse", "show");
+  navigationItemContainer.id = "--sourcekit-for-safari_progress-navigation-items";
+  navigationItemContainer.style.cssText = `overflow-y: scroll; max-height: 30vh;`;
+  navigationList.appendChild(navigationItemContainer);
+
+  const navigationProgress = document.createElement("pre");
+  navigationProgress.id = "--sourcekit-for-safari_progress-navigation";
+  navigationProgress.style.cssText = `font-size: 6pt;`;
+  navigationItemContainer.appendChild(navigationProgress);
+
+  progress = tippy(document.querySelector(".blob-wrapper"), {
+    content: navigationContainer,
+    interactive: true,
+    arrow: false,
+    animation: false,
+    duration: 0,
+    placement: "right-start",
+    offset: [0, 4],
+    theme: "light-border",
+    trigger: "manual",
+    hideOnClick: false
+  });
+  return progress;
+}
+
+exports.progressNavigator = progressNavigator;
 
 },{"tippy.js":221}]},{},[3]);
