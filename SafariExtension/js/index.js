@@ -54,6 +54,12 @@ function dispatchMessage(messageName, userInfo) {
 
 var progressPopover, didOpenInfo;
 
+function pollBuildProgress(info) {
+  dispatchMessage("buildProgress", info);
+  if (progressPopover)
+    setTimeout(() => { pollBuildProgress(info); }, 1000);
+}
+
 function handleResponse(event, parsedUrl) {
   switch (event.name) {
     case "response":
@@ -73,16 +79,17 @@ function handleResponse(event, parsedUrl) {
 
               symbolNavigator(symbols, parsedUrl.href).show();
               progressPopover = progressNavigator(parsedUrl.href);
-              progressPopover.show();
-              dispatchMessage("buildProgress", {
-                              resource: `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl}`
-                              });
+              pollBuildProgress({
+                resource: `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl}`
+              });
             }
           })();
           break;
         case "buildProgress":
           (() => {
            const value = event.message.value;
+           if (value.text)
+             progressPopover.show();
            const progressPre = document.getElementById("--sourcekit-for-safari_progress-navigation");
            if (progressPre) {
              progressPre.innerHTML = value.text;
@@ -100,6 +107,7 @@ function handleResponse(event, parsedUrl) {
              dispatchMessage("didOpen", didOpenInfo);
              setTimeout(() => {
                progressPopover.hide();
+               progressPopover = null;
              }, 5000);
            }
           })();

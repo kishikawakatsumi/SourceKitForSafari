@@ -185,10 +185,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
 
         if FileManager().fileExists(atPath: directory.path) && !force {
             reply(true, nil)
-            DispatchQueue.global().asyncAfter(deadline: .now() + 3.0) {
-              self.progressLog = ""
-              self.log("", complete: true)
-            }
             return
         }
 
