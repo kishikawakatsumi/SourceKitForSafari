@@ -11,7 +11,6 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
 
             guard let userInfo = userInfo,
                 let url = userInfo["url"] as? String,
-                let owner = userInfo["owner"] as? String, owner != "trending",
                 let repositoryURL = URL(string: url)?.deletingPathExtension().appendingPathExtension("git")
                 else { return }
 
