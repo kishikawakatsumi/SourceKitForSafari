@@ -3,6 +3,10 @@ import LanguageServerProtocol
 
 @objc
 class SourceKitService: NSObject, SourceKitServiceProtocol {
+    var progressLog = ""
+    var progressCallback: BuildProgressCallback?
+    let progressQueue = DispatchQueue(label: "progressQueue")
+
     func sendInitalizeRequest(context: [String : String], resource: String, slug: String, reply: @escaping (Bool, [String : Any]) -> Void) {
         let server = ServerRegistry.shared.get(resource: resource, slug: slug)
 
@@ -163,6 +167,14 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func synchronizeRepository(context: [String : String], repository remoteRepository: URL, ignoreLastUpdate force: Bool, reply: @escaping (Bool, URL?) -> Void) {
+      progressLog = ""
+      DispatchQueue.global().async {
+        self.asynchronizeRepository(context: context, repository: remoteRepository, ignoreLastUpdate: force, reply: reply)
+      }
+    }
+
+    func asynchronizeRepository(context: [String : String], repository remoteRepository: URL, ignoreLastUpdate force: Bool, reply: @escaping (Bool, URL?) -> Void) {
+
         guard let host = remoteRepository.host else { return }
 
         let groupContainer = Workspace.root
@@ -191,13 +203,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     "HEAD",
                 ]
 
-                let standardOutput = Pipe()
-                process.standardOutput = standardOutput
-                let standardError = Pipe()
-                process.standardError = standardError
-
-                process.launch()
-                process.waitUntilExit()
+                launchAndLog(process: process)
 
                 swiftBuild(inDirectory: localDirectory)
 
@@ -229,13 +235,7 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
                     localDirectory.path,
                 ]
 
-                let standardOutput = Pipe()
-                process.standardOutput = standardOutput
-                let standardError = Pipe()
-                process.standardError = standardError
-
-                process.launch()
-                process.waitUntilExit()
+                launchAndLog(process: process)
 
                 swiftBuild(inDirectory: localDirectory)
 
@@ -248,14 +248,56 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
         }
     }
 
+    func launchAndLog(process: Process) {
+        process.standardOutput = logPipe(stderr: false)
+        process.standardError = logPipe(stderr: true)
+
+        process.launch()
+        process.waitUntilExit()
+    }
+
     func swiftBuild(inDirectory: URL) {
+        log("\n<b>Building package...</b>\n")
+
         let process = Process()
         process.currentDirectoryURL = inDirectory
         process.launchPath = "/usr/bin/xcrun"
         process.arguments = ["swift", "build"]
 
-        process.launch()
-        process.waitUntilExit()
+        launchAndLog(process: process);
+
+        self.log("", complete: true,
+                 failed: process.terminationStatus != EXIT_SUCCESS)
+        ServerRegistry.shared.removeAll()
+    }
+
+    func logPipe(stderr: Bool) -> Pipe {
+      let pipe = Pipe()
+      DispatchQueue.global().async {
+        while let result = String(data: pipe
+          .fileHandleForReading.availableData, encoding: .utf8),
+          result.count != 0 {
+            self.log(stderr ? "<b>\(result)</b>" : result)
+        }
+      }
+      return pipe
+    }
+
+  func log(_ msg: String, complete: Bool = false, failed: Bool = false) {
+      progressQueue.async {
+        self.progressLog += msg
+        if let callback = self.progressCallback {
+          callback(true, ["result": "success", "value": [
+            "complete": complete, "failed": failed, "text": self.progressLog]])
+          self.progressCallback = nil
+        }
+      }
+    }
+
+    func fetchBuildProgress(context: [String : String], resource: String, reply: @escaping BuildProgressCallback) {
+      progressQueue.async {
+        self.progressCallback = reply
+      }
     }
 
     func deleteLocalRepository(_ localRepository: URL, reply: @escaping (Bool, URL?) -> Void) {

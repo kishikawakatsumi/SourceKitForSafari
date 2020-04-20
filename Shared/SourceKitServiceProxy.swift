@@ -187,6 +187,21 @@ final class SourceKitServiceProxy {
         }
     }
 
+    func fetchBuildProgress(resource: String, completion: @escaping (Bool, [String: Any]) -> Void) {
+        let connection = self.connection
+        let context = self.context
+
+        queue.async {
+            connection.resume()
+            defer { connection.suspend() }
+            guard let service = connection.remoteObjectProxy as? SourceKitServiceProtocol else { return }
+
+            service.fetchBuildProgress(context: context, resource: resource) { (successfully, response) in
+                completion(successfully, response)
+            }
+        }
+    }
+
     func deleteLocalRepository(_ repository: URL, completion: @escaping (Bool, URL?) -> Void) {
         let connection = self.connection
 

@@ -14,7 +14,7 @@ marked.setOptions({
 
 const { readLines, highlightReferences } = require("./parser");
 const { setupQuickHelp, setupQuickHelpContent } = require("./quickhelp");
-const { symbolNavigator } = require("./symbol_navigator");
+const { symbolNavigator, progressNavigator } = require("./symbol_navigator");
 const { normalizedLocation } = require("./helper");
 
 if (typeof chrome !== "undefined") {
@@ -52,11 +52,21 @@ function dispatchMessage(messageName, userInfo) {
   }
 }
 
+var progressPopover, didOpenInfo;
+
+function pollBuildProgress(info) {
+  dispatchMessage("buildProgress", info);
+  if (progressPopover)
+    setTimeout(() => { pollBuildProgress(info); }, 1000);
+}
+
 function handleResponse(event, parsedUrl) {
   switch (event.name) {
     case "response":
       switch (event.message.request) {
         case "documentSymbol":
+          if (progressPopover)
+            break;
           (() => {
             const value = event.message.value;
             if (value && Array.isArray(value)) {
@@ -68,7 +78,38 @@ function handleResponse(event, parsedUrl) {
               }
 
               symbolNavigator(symbols, parsedUrl.href).show();
+              progressPopover = progressNavigator(parsedUrl.href);
+              pollBuildProgress({
+                resource: `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl}`
+              });
             }
+          })();
+          break;
+        case "buildProgress":
+          (() => {
+           const value = event.message.value;
+           if (value.text)
+             progressPopover.show();
+           const progressPre = document.getElementById("--sourcekit-for-safari_progress-navigation");
+           if (progressPre) {
+             progressPre.innerHTML = value.text;
+             if (value.complete)
+                progressPre.innerHTML += value.failed ?
+                    "<p><p><b style='color: red'>Build failed</b>" :
+                    "<p><p><b style='color: green'>Build complete</b>";
+             progressPre.parentElement.scrollTop = progressPre.parentElement.scrollHeight;
+           }
+           if (!value.complete)
+             dispatchMessage("buildProgress", {
+                             resource: `${parsedUrl.protocol}://${parsedUrl.resource}/${parsedUrl.full_name}/${parsedUrl}`
+                             });
+           else if (!value.failed) {
+             dispatchMessage("didOpen", didOpenInfo);
+             setTimeout(() => {
+               progressPopover.hide();
+               progressPopover = null;
+             }, 5000);
+           }
           })();
           break;
         case "hover":
@@ -385,7 +426,7 @@ const activate = () => {
   const lines = document.querySelectorAll(".blob-code");
   const text = readLines(lines);
 
-  dispatchMessage("didOpen", {
+  dispatchMessage("didOpen", didOpenInfo = {
     resource: parsedUrl.resource,
     slug: parsedUrl.full_name,
     filepath: parsedUrl.filepath,
