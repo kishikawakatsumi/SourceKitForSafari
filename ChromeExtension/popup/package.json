@@ -9,6 +9,6 @@
     "build": "browserify popup.js -o bundle.js"
   },
   "dependencies": {
-    "git-url-parse": "^11.1.2"
+    "git-url-parse": "^11.2.0"
   }
 }
