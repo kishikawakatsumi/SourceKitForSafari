@@ -9,18 +9,19 @@
     "build": "browserify -t browserify-css index.js -o bundle.js && cp -f bundle.js ../../ChromeExtension"
   },
   "dependencies": {
-    "@popperjs/core": "^2.1.0",
-    "bootstrap": "^4.4.1",
-    "git-url-parse": "^11.1.2",
-    "github-reserved-names": "^1.1.8",
-    "highlight.js": "^9.18.1",
-    "jquery": "^3.5.0",
-    "marked": "^0.8.0",
+    "@popperjs/core": "^2.4.4",
+    "bootstrap": "^4.5.2",
+    "git-url-parse": "^11.2.0",
+    "github-reserved-names": "^1.1.10",
+    "highlight.js": "^10.2.0",
+    "jquery": "^3.5.1",
+    "marked": "^1.1.1",
     "popper.js": "^1.16.1",
-    "tippy.js": "^6.0.3"
+    "tippy.js": "^6.2.6"
   },
   "devDependencies": {
-    "browserify": "^16.5.0",
-    "browserify-css": "^0.15.0"
+    "browserify": "^16.5.2",
+    "browserify-css": "^0.15.0",
+    "yargs-parser": ">=13.1.2"
   }
 }
