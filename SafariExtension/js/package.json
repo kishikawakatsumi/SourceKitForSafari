@@ -13,7 +13,7 @@
     "bootstrap": "^4.5.2",
     "git-url-parse": "^11.2.0",
     "github-reserved-names": "^1.1.10",
-    "highlight.js": "^10.2.0",
+    "highlight.js": "^10.4.1",
     "jquery": "^3.5.1",
     "marked": "^2.0.0",
     "popper.js": "^1.16.1",
