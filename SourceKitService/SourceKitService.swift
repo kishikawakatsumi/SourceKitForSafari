@@ -174,7 +174,6 @@ class SourceKitService: NSObject, SourceKitServiceProtocol {
     }
 
     func asynchronizeRepository(context: [String : String], repository remoteRepository: URL, ignoreLastUpdate force: Bool, reply: @escaping (Bool, URL?) -> Void) {
-
         guard let host = remoteRepository.host else { return }
 
         let groupContainer = Workspace.root
