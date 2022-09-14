@@ -39,7 +39,6 @@
   },
   "permissions": [
     "activeTab",
-    "declarativeContent",
     "nativeMessaging",
     "storage",
     "tabs",
