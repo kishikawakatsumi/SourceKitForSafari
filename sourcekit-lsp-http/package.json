@@ -13,7 +13,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "vscode-jsonrpc": "^5.0.1",
     "vscode-languageserver-protocol": "^3.15.3"
   },
